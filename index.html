@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Director Name - Film Director Reel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+        /* Custom scrollbar for a more modern look (optional) */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1f2937; /* dark-gray-800 */
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #4f46e5; /* indigo-600 */
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #4338ca; /* indigo-700 */
+        }
+        .hero-bg-image {
+            background-image: url('https://placehold.co/1920x1080/111827/374151?text=Main+Showreel+Still');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        .video-thumbnail {
+            position: relative;
+            cursor: pointer;
+        }
+        .video-thumbnail::after {
+            content: '▶'; /* Play icon */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3rem;
+            color: rgba(255, 255, 255, 0.8);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .video-thumbnail:hover::after {
+            opacity: 1;
+        }
+        .video-thumbnail img {
+            transition: filter 0.3s ease;
+        }
+        .video-thumbnail:hover img {
+            filter: brightness(0.7);
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-100">
+
+    <nav class="sticky top-0 z-50 bg-gray-800 bg-opacity-90 backdrop-blur-md shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <a href="#" class="text-2xl font-bold text-indigo-400">Director Name</a>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#hero" class="text-gray-300 hover:text-indigo-400 px-3 py-2 rounded-md text-sm font-medium transition-colors">Home</a>
+                        <a href="#about" class="text-gray-300 hover:text-indigo-400 px-3 py-2 rounded-md text-sm font-medium transition-colors">About</a>
+                        <a href="#reel" class="text-gray-300 hover:text-indigo-400 px-3 py-2 rounded-md text-sm font-medium transition-colors">Reel</a>
+                        <a href="#contact" class="text-gray-300 hover:text-indigo-400 px-3 py-2 rounded-md text-sm font-medium transition-colors">Contact</a>
+                    </div>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                        <span class="sr-only">Open main menu</span>
+                        <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                        <svg class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="md:hidden hidden" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#hero" class="text-gray-300 hover:text-indigo-400 block px-3 py-2 rounded-md text-base font-medium transition-colors">Home</a>
+                <a href="#about" class="text-gray-300 hover:text-indigo-400 block px-3 py-2 rounded-md text-base font-medium transition-colors">About</a>
+                <a href="#reel" class="text-gray-300 hover:text-indigo-400 block px-3 py-2 rounded-md text-base font-medium transition-colors">Reel</a>
+                <a href="#contact" class="text-gray-300 hover:text-indigo-400 block px-3 py-2 rounded-md text-base font-medium transition-colors">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <section id="hero" class="h-screen flex items-center justify-center text-center relative hero-bg-image">
+        <div class="absolute inset-0 bg-black opacity-60 z-0"></div>
+        <div class="relative z-10 p-8 max-w-3xl mx-auto">
+            <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-6 leading-tight">
+                Crafting Visual Stories That Resonate
+            </h1>
+            <p class="text-lg sm:text-xl text-gray-300 mb-8">
+                A passionate film director specializing in [Your Specialization, e.g., compelling narratives, dynamic commercials, music videos].
+            </p>
+            <a href="#reel" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-8 rounded-lg text-lg transition-colors duration-300 inline-block">
+                View My Reel
+            </a>
+        </div>
+    </section>
+
+    <section id="about" class="py-16 sm:py-24 bg-gray-800">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl sm:text-4xl font-bold text-indigo-400">About Me</h2>
+                <p class="mt-4 text-lg text-gray-400">A Glimpse Into My Journey & Vision</p>
+            </div>
+            <div class="flex flex-col md:flex-row items-center gap-8 md:gap-12">
+                <div class="md:w-1/3">
+                    <img src="https://placehold.co/400x400/374151/e5e7eb?text=Director's+Photo" alt="Director Name" class="rounded-lg shadow-2xl mx-auto w-full max-w-xs md:max-w-full">
+                </div>
+                <div class="md:w-2/3 text-gray-300 text-left md:text-left">
+                    <p class="text-lg mb-4">
+                        Hello! I'm [Director Name], a filmmaker with a deep passion for visual storytelling. My journey in film began [Number] years ago, driven by a desire to [Your Core Motivation, e.g., evoke emotion, challenge perspectives, entertain audiences].
+                    </p>
+                    <p class="text-lg mb-4">
+                        I specialize in [List 2-3 Specializations, e.g., narrative shorts, branded content, and music videos]. My approach is collaborative and detail-oriented, always striving to bring a unique vision to life. I believe that powerful stories can connect us, inspire change, and leave a lasting impact.
+                    </p>
+                    <p class="text-lg">
+                        Throughout my career, I've had the privilege of working with [Mention types of clients or collaborators, e.g., diverse artists, innovative brands, and talented crews]. Let's create something unforgettable together.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="reel" class="py-16 sm:py-24 bg-gray-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl sm:text-4xl font-bold text-indigo-400">My Work</h2>
+                <p class="mt-4 text-lg text-gray-400">A Selection of Recent Projects</p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-gray-800 rounded-lg shadow-xl overflow-hidden transform hover:scale-105 transition-transform duration-300 group">
+                    <a href="#" class="video-thumbnail block" data-video-url="YOUR_VIDEO_URL_1_HERE">
+                        <img src="https://placehold.co/600x400/1f2937/4f46e5?text=Project+Alpha" alt="Project Alpha" class="w-full h-56 object-cover">
+                    </a>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-white mb-2">Project Alpha</h3>
+                        <p class="text-sm text-gray-400">Short Film - A compelling drama about...</p>
+                    </div>
+                </div>
+                <div class="bg-gray-800 rounded-lg shadow-xl overflow-hidden transform hover:scale-105 transition-transform duration-300 group">
+                     <a href="#" class="video-thumbnail block" data-video-url="YOUR_VIDEO_URL_2_HERE">
+                        <img src="https://placehold.co/600x400/1f2937/4f46e5?text=Brand+X+Commercial" alt="Brand X Commercial" class="w-full h-56 object-cover">
+                    </a>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-white mb-2">Brand X Commercial</h3>
+                        <p class="text-sm text-gray-400">Commercial - Dynamic ad for a leading tech brand.</p>
+                    </div>
+                </div>
+                <div class="bg-gray-800 rounded-lg shadow-xl overflow-hidden transform hover:scale-105 transition-transform duration-300 group">
+                    <a href="#" class="video-thumbnail block" data-video-url="YOUR_VIDEO_URL_3_HERE">
+                        <img src="https://placehold.co/600x400/1f2937/4f46e5?text=Music+Video+Echoes" alt="Music Video Echoes" class="w-full h-56 object-cover">
+                    </a>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-white mb-2">Music Video: Echoes</h3>
+                        <p class="text-sm text-gray-400">Music Video - Visual storytelling for an indie artist.</p>
+                    </div>
+                </div>
+                <div class="bg-gray-800 rounded-lg shadow-xl overflow-hidden transform hover:scale-105 transition-transform duration-300 group">
+                    <a href="#" class="video-thumbnail block" data-video-url="YOUR_VIDEO_URL_4_HERE">
+                        <img src="https://placehold.co/600x400/1f2937/4f46e5?text=Documentary+Snippet" alt="Documentary Snippet" class="w-full h-56 object-cover">
+                    </a>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-white mb-2">Documentary Snippet</h3>
+                        <p class="text-sm text-gray-400">Documentary - A look into an untold story.</p>
+                    </div>
+                </div>
+                 <div class="bg-gray-800 rounded-lg shadow-xl overflow-hidden transform hover:scale-105 transition-transform duration-300 group">
+                    <a href="#" class="video-thumbnail block" data-video-url="YOUR_VIDEO_URL_5_HERE">
+                        <img src="https://placehold.co/600x400/1f2937/4f46e5?text=Experimental+Film" alt="Experimental Film" class="w-full h-56 object-cover">
+                    </a>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-white mb-2">Experimental Film</h3>
+                        <p class="text-sm text-gray-400">Art Film - Pushing creative boundaries.</p>
+                    </div>
+                </div>
+                 <div class="bg-gray-800 rounded-lg shadow-xl overflow-hidden transform hover:scale-105 transition-transform duration-300 group">
+                    <a href="#" class="video-thumbnail block" data-video-url="YOUR_VIDEO_URL_6_HERE">
+                        <img src="https://placehold.co/600x400/1f2937/4f46e5?text=Corporate+Video" alt="Corporate Video" class="w-full h-56 object-cover">
+                    </a>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-white mb-2">Corporate Vision</h3>
+                        <p class="text-sm text-gray-400">Corporate - Engaging content for a global company.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-16 sm:py-24 bg-gray-800">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl sm:text-4xl font-bold text-indigo-400">Get In Touch</h2>
+                <p class="mt-4 text-lg text-gray-400">Let's discuss your next project or collaboration.</p>
+            </div>
+            <form action="#" method="POST" class="space-y-6">
+                <div>
+                    <label for="name" class="block text-sm font-medium text-gray-300">Full Name</label>
+                    <input type="text" name="name" id="name" autocomplete="name" required
+                           class="mt-1 block w-full bg-gray-700 border border-gray-600 rounded-lg shadow-sm py-3 px-4 text-gray-100 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                </div>
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-300">Email Address</label>
+                    <input type="email" name="email" id="email" autocomplete="email" required
+                           class="mt-1 block w-full bg-gray-700 border border-gray-600 rounded-lg shadow-sm py-3 px-4 text-gray-100 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                </div>
+                <div>
+                    <label for="subject" class="block text-sm font-medium text-gray-300">Subject</label>
+                    <input type="text" name="subject" id="subject" required
+                           class="mt-1 block w-full bg-gray-700 border border-gray-600 rounded-lg shadow-sm py-3 px-4 text-gray-100 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                </div>
+                <div>
+                    <label for="message" class="block text-sm font-medium text-gray-300">Message</label>
+                    <textarea id="message" name="message" rows="4" required
+                              class="mt-1 block w-full bg-gray-700 border border-gray-600 rounded-lg shadow-sm py-3 px-4 text-gray-100 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"></textarea>
+                </div>
+                <div class="text-center">
+                    <button type="submit"
+                            class="inline-flex justify-center py-3 px-8 border border-transparent shadow-sm text-lg font-medium rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-indigo-500 transition-colors duration-300">
+                        Send Message
+                    </button>
+                </div>
+            </form>
+            <div class="mt-12 text-center">
+                <p class="text-gray-400">Or connect with me on social media:</p>
+                <div class="flex justify-center space-x-6 mt-4">
+                    <a href="#" class="text-gray-400 hover:text-indigo-400 transition-colors">
+                        <span class="sr-only">Vimeo</span>
+                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M23.032 5.086C22.718 3.305 21.35 1.982 19.516 1.717 16.912 1.375 12 1.375 12 1.375s-4.912 0-7.516.342C2.649 1.982 1.282 3.305.968 5.086.625 7.69.625 12 .625 12s0 4.31.343 6.914c.314 1.781 1.68 3.104 3.516 3.369C7.088 22.625 12 22.625 12 22.625s4.912 0 7.516-.342c1.836-.265 3.203-1.588 3.517-3.369.343-2.604.343-6.914.343-6.914s0-4.31-.344-6.914zM9.75 16.167V7.833l6.5 4.167-6.5 4.167z"/> </svg>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-indigo-400 transition-colors">
+                        <span class="sr-only">LinkedIn</span>
+                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-indigo-400 transition-colors">
+                        <span class="sr-only">Instagram</span>
+                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.069-4.85.069s-3.585-.012-4.849-.069c-3.225-.148-4.771-1.664-4.919-4.919-.058-1.265-.069-1.645-.069-4.849 0-3.204.013-3.583.069-4.849.149-3.227 1.664-4.771 4.919-4.919.058-1.265.069-1.645.069-4.849zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.359 2.618 6.78 6.98 6.98 1.281.059 1.689.073 4.948.073s3.667-.014 4.947-.072c4.359-.2 6.78-2.618 6.98-6.98.059-1.281.073-1.689.073-4.948s-.014-3.667-.072-4.947c-.2-4.359-2.618-6.78-6.98-6.98-1.281-.059-1.689-.073-4.948-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 border-t border-gray-700">
+        <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-gray-500">&copy; <span id="currentYear"></span> Director Name. All rights reserved.</p>
+            <p class="text-xs text-gray-600 mt-1">Designed with Tailwind CSS</p>
+        </div>
+    </footer>
+
+    <div id="videoModal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-[100] hidden p-4">
+        <div class="bg-gray-800 p-4 rounded-lg shadow-xl max-w-3xl w-full relative">
+            <button id="closeModal" class="absolute -top-3 -right-3 bg-indigo-600 text-white rounded-full p-1 w-8 h-8 flex items-center justify-center text-xl hover:bg-indigo-700">&times;</button>
+            <div class="aspect-w-16 aspect-h-9">
+                <iframe id="videoPlayer" width="100%" height="100%" src="" title="Video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcons = mobileMenuButton.querySelectorAll('svg');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            menuIcons.forEach(icon => icon.classList.toggle('hidden'));
+        });
+
+        // Close mobile menu when a link is clicked
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                menuIcons[0].classList.remove('hidden'); // Show hamburger
+                menuIcons[1].classList.add('hidden'); // Hide close icon
+            });
+        });
+        
+        // Set current year in footer
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // Video Modal Logic
+        const videoThumbnails = document.querySelectorAll('.video-thumbnail');
+        const videoModal = document.getElementById('videoModal');
+        const videoPlayer = document.getElementById('videoPlayer');
+        const closeModalButton = document.getElementById('closeModal');
+
+        videoThumbnails.forEach(thumbnail => {
+            thumbnail.addEventListener('click', (event) => {
+                event.preventDefault(); // Prevent default anchor behavior
+                const videoUrl = thumbnail.dataset.videoUrl;
+                if (videoUrl && videoUrl !== "YOUR_VIDEO_URL_HERE") { // Basic check for placeholder
+                    // Modify URL for embedding (example for YouTube)
+                    let embedUrl = videoUrl;
+                    if (videoUrl.includes("youtube.com/watch?v=")) {
+                        embedUrl = videoUrl.replace("watch?v=", "embed/");
+                    } else if (videoUrl.includes("youtu.be/")) {
+                        embedUrl = videoUrl.replace("youtu.be/", "youtube.com/embed/");
+                    } // Add more rules for Vimeo etc. if needed
+                    
+                    videoPlayer.src = embedUrl + "?autoplay=1"; // Autoplay when modal opens
+                    videoModal.classList.remove('hidden');
+                    document.body.style.overflow = 'hidden'; // Prevent background scrolling
+                } else {
+                    // In a real scenario, you might show a message or not open the modal
+                    console.warn("Video URL not set for this thumbnail or is a placeholder.");
+                    // For demonstration, let's open with a placeholder if URL is default
+                    if (videoUrl === "YOUR_VIDEO_URL_HERE") {
+                         videoPlayer.src = "https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1"; // Placeholder video
+                         videoModal.classList.remove('hidden');
+                         document.body.style.overflow = 'hidden';
+                    }
+                }
+            });
+        });
+
+        function closeVideoModal() {
+            videoPlayer.src = ""; // Stop video by clearing src
+            videoModal.classList.add('hidden');
+            document.body.style.overflow = ''; // Restore background scrolling
+        }
+
+        closeModalButton.addEventListener('click', closeVideoModal);
+
+        // Close modal if user clicks outside the video content area
+        videoModal.addEventListener('click', (event) => {
+            if (event.target === videoModal) { // Check if the click is on the backdrop
+                closeVideoModal();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && !videoModal.classList.contains('hidden')) {
+                closeVideoModal();
+            }
+        });
+
+    </script>
+</body>
+</html>
