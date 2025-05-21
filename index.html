@@ -18,17 +18,17 @@
             width: 8px;
         }
         ::-webkit-scrollbar-track {
-            background: #1f2937; /* dark-gray-800 */
+            background: #000000; /* black */
         }
         ::-webkit-scrollbar-thumb {
-            background: #4f46e5; /* indigo-600 */
+            background: #22d3ee; /* cyan-400 */
             border-radius: 4px;
         }
         ::-webkit-scrollbar-thumb:hover {
-            background: #4338ca; /* indigo-700 */
+            background: #06b6d4; /* cyan-500 */
         }
         .hero-bg-image {
-            background-image: url('https://placehold.co/1920x1080/111827/374151?text=Immagine+Principale+Reel'); /* Sostituisci con la tua immagine hero, es. 'immagini/hero-background.jpg' */
+            background-image: url('https://placehold.co/1920x1080/000000/111827?text=Immagine+Principale+Reel'); /* Sostituisci con la tua immagine hero, es. 'immagini/hero-background.jpg' */
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -44,7 +44,7 @@
             left: 50%;
             transform: translate(-50%, -50%);
             font-size: 3rem;
-            color: rgba(255, 255, 255, 0.8);
+            color: rgba(229, 231, 235, 0.8); /* gray-200 opacity 80% */
             opacity: 0;
             transition: opacity 0.3s ease;
         }
@@ -59,24 +59,22 @@
         }
     </style>
 </head>
-<body class="bg-gray-900 text-gray-100">
+<body class="bg-black text-gray-100">
 
-    <nav class="sticky top-0 z-50 bg-gray-800 bg-opacity-90 backdrop-blur-md shadow-lg">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <nav class="sticky top-0 z-50 bg-gray-900 bg-opacity-90 backdrop-blur-md shadow-lg"> <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
                 <div class="flex items-center">
-                    <a href="#hero" class="text-2xl font-bold text-indigo-400">Leonardo Sennis</a>
-                </div>
+                    <a href="#hero" class="text-2xl font-bold text-cyan-400">Leonardo Sennis</a> </div>
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-4">
-                        <a href="#hero" class="text-gray-300 hover:text-indigo-400 px-3 py-2 rounded-md text-sm font-medium transition-colors">Home</a>
-                        <a href="#about" class="text-gray-300 hover:text-indigo-400 px-3 py-2 rounded-md text-sm font-medium transition-colors">About</a>
-                        <a href="#reel" class="text-gray-300 hover:text-indigo-400 px-3 py-2 rounded-md text-sm font-medium transition-colors">Reel</a>
-                        <a href="#contact" class="text-gray-300 hover:text-indigo-400 px-3 py-2 rounded-md text-sm font-medium transition-colors">Contact</a>
+                        <a href="#hero" class="text-gray-200 hover:text-cyan-400 px-3 py-2 rounded-md text-sm font-medium transition-colors">Home</a>
+                        <a href="#about" class="text-gray-200 hover:text-cyan-400 px-3 py-2 rounded-md text-sm font-medium transition-colors">About</a>
+                        <a href="#reel" class="text-gray-200 hover:text-cyan-400 px-3 py-2 rounded-md text-sm font-medium transition-colors">Reel</a>
+                        <a href="#contact" class="text-gray-200 hover:text-cyan-400 px-3 py-2 rounded-md text-sm font-medium transition-colors">Contact</a>
                     </div>
                 </div>
                 <div class="md:hidden">
-                    <button id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                    <button id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
                         <span class="sr-only">Apri menu principale</span>
                         <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
@@ -90,41 +88,34 @@
         </div>
         <div class="md:hidden hidden" id="mobile-menu">
             <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                <a href="#hero" class="text-gray-300 hover:text-indigo-400 block px-3 py-2 rounded-md text-base font-medium transition-colors">Home</a>
-                <a href="#about" class="text-gray-300 hover:text-indigo-400 block px-3 py-2 rounded-md text-base font-medium transition-colors">About</a>
-                <a href="#reel" class="text-gray-300 hover:text-indigo-400 block px-3 py-2 rounded-md text-base font-medium transition-colors">Reel</a>
-                <a href="#contact" class="text-gray-300 hover:text-indigo-400 block px-3 py-2 rounded-md text-base font-medium transition-colors">Contact</a>
+                <a href="#hero" class="text-gray-200 hover:text-cyan-400 block px-3 py-2 rounded-md text-base font-medium transition-colors">Home</a>
+                <a href="#about" class="text-gray-200 hover:text-cyan-400 block px-3 py-2 rounded-md text-base font-medium transition-colors">About</a>
+                <a href="#reel" class="text-gray-200 hover:text-cyan-400 block px-3 py-2 rounded-md text-base font-medium transition-colors">Reel</a>
+                <a href="#contact" class="text-gray-200 hover:text-cyan-400 block px-3 py-2 rounded-md text-base font-medium transition-colors">Contact</a>
             </div>
         </div>
     </nav>
 
     <section id="hero" class="h-screen flex items-center justify-center text-center relative hero-bg-image">
-        <div class="absolute inset-0 bg-black opacity-60 z-0"></div>
-        <div class="relative z-10 p-8 max-w-3xl mx-auto">
+        <div class="absolute inset-0 bg-black opacity-70 z-0"></div> <div class="relative z-10 p-8 max-w-3xl mx-auto">
             <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-6 leading-tight">
                 Crafting Visual Stories That Resonate
             </h1>
-            <p class="text-lg sm:text-xl text-gray-300 mb-8">
-                Specializing in music videos.
+            <p class="text-lg sm:text-xl text-gray-200 mb-8"> Specializing in music videos.
             </p>
-            <a href="#reel" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-8 rounded-lg text-lg transition-colors duration-300 inline-block">
-                View My Reel
+            <a href="#reel" class="bg-cyan-600 hover:bg-cyan-700 text-white font-semibold py-3 px-8 rounded-lg text-lg transition-colors duration-300 inline-block"> View My Reel
             </a>
         </div>
     </section>
 
-    <section id="about" class="py-16 sm:py-24 bg-gray-800">
-        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="about" class="py-16 sm:py-24 bg-black"> <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12">
-                <h2 class="text-3xl sm:text-4xl font-bold text-indigo-400">About Me</h2>
-                <p class="mt-4 text-lg text-gray-400">A Glimpse Into My Journey & Vision</p>
-            </div>
+                <h2 class="text-3xl sm:text-4xl font-bold text-cyan-400">About Me</h2> <p class="mt-4 text-lg text-gray-300">A Glimpse Into My Journey & Vision</p> </div>
             <div class="flex flex-col md:flex-row items-center gap-8 md:gap-12">
                 <div class="md:w-1/3">
                     <img src="IMG_8112.JPG" alt="Leonardo Sennis" class="rounded-lg shadow-2xl mx-auto w-full max-w-xs md:max-w-full"> 
-                    </div>
-                <div class="md:w-2/3 text-gray-300 text-left md:text-left">
-                    <p class="text-lg mb-4">
+                </div>
+                <div class="md:w-2/3 text-gray-200 text-left md:text-left"> <p class="text-lg mb-4">
                         Hello! I'm Leonardo Sennis, a filmmaker with a deep passion for music. My journey in film began 4 years ago, driven by a desire to experiment.
                     </p>
                     <p class="text-lg mb-4">
@@ -137,87 +128,93 @@
         </div>
     </section>
 
-    <section id="reel" class="py-16 sm:py-24 bg-gray-900">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="reel" class="py-16 sm:py-24 bg-black"> <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12">
-                <h2 class="text-3xl sm:text-4xl font-bold text-indigo-400">My Work</h2>
-                <p class="mt-4 text-lg text-gray-400">A Selection of Recent Projects</p>
-            </div>
+                <h2 class="text-3xl sm:text-4xl font-bold text-cyan-400">My Work</h2> <p class="mt-4 text-lg text-gray-300">A Selection of Recent Projects</p> </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="bg-gray-800 rounded-lg shadow-xl overflow-hidden transform hover:scale-105 transition-transform duration-300 group">
-                    <a href="#" class="video-thumbnail block aspect-video" data-video-url="https://www.dropbox.com/scl/fi/h2g4dscbolozluu5pf0q4/Memories_01_colored.mp4?rlkey=z1qm349j9pfk5mxiux69pct2k&st=pq5ahb7k&dl=0">
-                        <img src="https://placehold.co/600x338/1f2937/4f46e5?text=MEMORIES+Preview" alt="MEMORIES - 5mc2" class="w-full h-full object-cover">
-                    </a>
+                <div class="bg-gray-900 rounded-lg shadow-xl overflow-hidden transform hover:scale-105 transition-transform duration-300 group"> <a href="#" class="video-thumbnail block aspect-video" data-video-url="https://www.dropbox.com/scl/fi/h2g4dscbolozluu5pf0q4/Memories_01_colored.mp4?rlkey=z1qm349j9pfk5mxiux69pct2k&st=pq5ahb7k&dl=0">
+                        <img src="https://placehold.co/600x338/0a0a0a/1f2937?text=MEMORIES+Preview" alt="MEMORIES - 5mc2" class="w-full h-full object-cover"> </a>
                     <div class="p-6">
                         <h3 class="text-xl font-semibold text-white mb-2">MEMORIES</h3>
-                        <p class="text-sm text-gray-400">A short form content that depicts the journey of 5mc2's team throughout the U.S.</p>
-                    </div>
+                        <p class="text-sm text-gray-300">A short form content that depicts the journey of 5mc2's team throughout the U.S.</p> </div>
                 </div>
-                <div class="bg-gray-800 rounded-lg shadow-xl overflow-hidden transform hover:scale-105 transition-transform duration-300 group">
+                <div class="bg-gray-900 rounded-lg shadow-xl overflow-hidden transform hover:scale-105 transition-transform duration-300 group">
                      <a href="#" class="video-thumbnail block aspect-video" data-video-url="https://www.dropbox.com/scl/fi/otice8hyucgk50tuag3zk/BLUEKILLER-1080p_H264.mp4?rlkey=bw5j944r8abqsun1nz3wtlg01&st=qvffrwtx&dl=0">
-                        <img src="https://placehold.co/600x338/1f2937/4f46e5?text=BLUEKILLER+Preview" alt="BLUEKILLER - CopKiller" class="w-full h-full object-cover">
-                    </a>
+                        <img src="https://placehold.co/600x338/0a0a0a/1f2937?text=BLUEKILLER+Preview" alt="BLUEKILLER - CopKiller" class="w-full h-full object-cover"> </a>
                     <div class="p-6">
                         <h3 class="text-xl font-semibold text-white mb-2">BLUEKILLER</h3>
-                        <p class="text-sm text-gray-400">An ADV for italian brand CopKiller's "BlueKiller" collection.</p>
+                        <p class="text-sm text-gray-300">An ADV for italian brand CopKiller's "BlueKiller" collection.</p>
                     </div>
                 </div>
-                <div class="bg-gray-800 rounded-lg shadow-xl overflow-hidden transform hover:scale-105 transition-transform duration-300 group">
+                <div class="bg-gray-900 rounded-lg shadow-xl overflow-hidden transform hover:scale-105 transition-transform duration-300 group">
                     <a href="#" class="video-thumbnail block aspect-video" data-video-url="https://www.dropbox.com/scl/fi/3k2pcg4dfzz26neio0jco/DaniFaiv_AirTag_H264.mov?rlkey=4jei9og21g17jvk8soydhgtxj&st=uy7ub7vt&dl=0">
-                        <img src="https://placehold.co/600x338/1f2937/4f46e5?text=AIR+TAG+Preview" alt="AIR TAG - Dani Faiv" class="w-full h-full object-cover">
-                    </a>
+                        <img src="https://placehold.co/600x338/0a0a0a/1f2937?text=AIR+TAG+Preview" alt="AIR TAG - Dani Faiv" class="w-full h-full object-cover"> </a>
                     <div class="p-6">
                         <h3 class="text-xl font-semibold text-white mb-2">AIR TAG</h3>
-                        <p class="text-sm text-gray-400">Music video direction for Dani Faiv - "Air Tag".</p>
+                        <p class="text-sm text-gray-300">Music video direction for Dani Faiv - "Air Tag".</p>
                     </div>
                 </div>
+                <div class="bg-gray-900 rounded-lg shadow-xl overflow-hidden transform hover:scale-105 transition-transform duration-300 group">
+                    <a href="#" class="video-thumbnail block aspect-video" data-video-url="https://www.dropbox.com/scl/fi/dhp58rmycwrtk39hoy9al/Ghali-STO.mp4?rlkey=feaz852o09s3sguhukee0s0r0&st=fi7obvsu&dl=0">
+                        <img src="https://placehold.co/600x338/0a0a0a/1f2937?text=Project+Four+Preview" alt="Project Four" class="w-full h-full object-cover"> </a>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-white mb-2">STO</h3>
+                        <p class="text-sm text-gray-300">Music video for Ghali - "Sto", shot with Matteo Ranzato & Giulio Rosati.</p>
+                    </div>
                 </div>
+                <div class="bg-gray-900 rounded-lg shadow-xl overflow-hidden transform hover:scale-105 transition-transform duration-300 group">
+                    <a href="#" class="video-thumbnail block aspect-video" data-video-url="https://www.dropbox.com/scl/fi/z5mky2fcpj5rc2ax3lzdr/Sapobully-Pakistan_FINAL_H264.mp4?rlkey=5m9jkenjdh21qgvpgxbpeq6h5&st=p7wdz77l&dl=0">
+                        <img src="https://placehold.co/600x338/0a0a0a/1f2937?text=Project+Five+Preview" alt="Project Five" class="w-full h-full object-cover"> </a>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-white mb-2">PAKISTAN</h3>
+                        <p class="text-sm text-gray-300">Music video directed with Matteo Ranzato for SapoBully - "Pakistan".</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
-    <section id="contact" class="py-16 sm:py-24 bg-gray-800">
-        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="contact" class="py-16 sm:py-24 bg-black"> <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12">
-                <h2 class="text-3xl sm:text-4xl font-bold text-indigo-400">Get In Touch</h2>
-                <p class="mt-4 text-lg text-gray-400">Let's discuss your next project or collaboration.</p>
-            </div>
-            <form action="#" method="POST" class="space-y-6"> <div>
-                    <label for="name" class="block text-sm font-medium text-gray-300">Full Name</label>
+                <h2 class="text-3xl sm:text-4xl font-bold text-cyan-400">Get In Touch</h2> <p class="mt-4 text-lg text-gray-300">Let's discuss your next project or collaboration.</p> </div>
+            <form action="#" method="POST" class="space-y-6">
+                <div>
+                    <label for="name" class="block text-sm font-medium text-gray-200">Full Name</label>
                     <input type="text" name="name" id="name" autocomplete="name" required
-                           class="mt-1 block w-full bg-gray-700 border border-gray-600 rounded-lg shadow-sm py-3 px-4 text-gray-100 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
-                </div>
+                           class="mt-1 block w-full bg-gray-800 border border-gray-700 rounded-lg shadow-sm py-3 px-4 text-gray-100 focus:outline-none focus:ring-cyan-500 focus:border-cyan-500"> </div>
                 <div>
-                    <label for="email" class="block text-sm font-medium text-gray-300">Email Address</label>
+                    <label for="email" class="block text-sm font-medium text-gray-200">Email Address</label>
                     <input type="email" name="email" id="email" autocomplete="email" required
-                           class="mt-1 block w-full bg-gray-700 border border-gray-600 rounded-lg shadow-sm py-3 px-4 text-gray-100 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                           class="mt-1 block w-full bg-gray-800 border border-gray-700 rounded-lg shadow-sm py-3 px-4 text-gray-100 focus:outline-none focus:ring-cyan-500 focus:border-cyan-500">
                 </div>
                 <div>
-                    <label for="subject" class="block text-sm font-medium text-gray-300">Subject</label>
+                    <label for="subject" class="block text-sm font-medium text-gray-200">Subject</label>
                     <input type="text" name="subject" id="subject" required
-                           class="mt-1 block w-full bg-gray-700 border border-gray-600 rounded-lg shadow-sm py-3 px-4 text-gray-100 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                           class="mt-1 block w-full bg-gray-800 border border-gray-700 rounded-lg shadow-sm py-3 px-4 text-gray-100 focus:outline-none focus:ring-cyan-500 focus:border-cyan-500">
                 </div>
                 <div>
-                    <label for="message" class="block text-sm font-medium text-gray-300">Message</label>
+                    <label for="message" class="block text-sm font-medium text-gray-200">Message</label>
                     <textarea id="message" name="message" rows="4" required
-                              class="mt-1 block w-full bg-gray-700 border border-gray-600 rounded-lg shadow-sm py-3 px-4 text-gray-100 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"></textarea>
+                              class="mt-1 block w-full bg-gray-800 border border-gray-700 rounded-lg shadow-sm py-3 px-4 text-gray-100 focus:outline-none focus:ring-cyan-500 focus:border-cyan-500"></textarea>
                 </div>
                 <div class="text-center">
                     <button type="submit"
-                            class="inline-flex justify-center py-3 px-8 border border-transparent shadow-sm text-lg font-medium rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-indigo-500 transition-colors duration-300">
-                        Send Message
+                            class="inline-flex justify-center py-3 px-8 border border-transparent shadow-sm text-lg font-medium rounded-lg text-white bg-cyan-600 hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-black focus:ring-cyan-500 transition-colors duration-300"> Send Message
                     </button>
                 </div>
             </form>
             <div class="mt-12 text-center">
-                <p class="text-gray-400">Or connect with me on social media:</p>
-                <div class="flex justify-center space-x-6 mt-4">
-                    <a href="#" class="text-gray-400 hover:text-indigo-400 transition-colors"> <span class="sr-only">Vimeo</span>
+                <p class="text-gray-300">Or connect with me on social media:</p> <div class="flex justify-center space-x-6 mt-4">
+                    <a href="#" class="text-gray-300 hover:text-cyan-400 transition-colors">
+                        <span class="sr-only">Vimeo</span>
                         <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M23.032 5.086C22.718 3.305 21.35 1.982 19.516 1.717 16.912 1.375 12 1.375 12 1.375s-4.912 0-7.516.342C2.649 1.982 1.282 3.305.968 5.086.625 7.69.625 12 .625 12s0 4.31.343 6.914c.314 1.781 1.68 3.104 3.516 3.369C7.088 22.625 12 22.625 12 22.625s4.912 0 7.516-.342c1.836-.265 3.203-1.588 3.517-3.369.343-2.604.343-6.914.343-6.914s0-4.31-.344-6.914zM9.75 16.167V7.833l6.5 4.167-6.5 4.167z"/></svg>
                     </a>
-                    <a href="#" class="text-gray-400 hover:text-indigo-400 transition-colors"> <span class="sr-only">LinkedIn</span>
+                    <a href="#" class="text-gray-300 hover:text-cyan-400 transition-colors">
+                        <span class="sr-only">LinkedIn</span>
                         <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
                     </a>
-                    <a href="#" class="text-gray-400 hover:text-indigo-400 transition-colors"> <span class="sr-only">Instagram</span>
+                    <a href="#" class="text-gray-300 hover:text-cyan-400 transition-colors">
+                        <span class="sr-only">Instagram</span>
                         <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.069-4.85.069s-3.585-.012-4.849-.069c-3.225-.148-4.771-1.664-4.919-4.919-.058-1.265-.069-1.645-.069-4.849 0-3.204.013-3.583.069-4.849.149-3.227 1.664-4.771 4.919-4.919.058-1.265.069-1.645.069-4.849zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.359 2.618 6.78 6.98 6.98 1.281.059 1.689.073 4.948.073s3.667-.014 4.947-.072c4.359-.2 6.78-2.618 6.98-6.98.059-1.281.073-1.689.073-4.948s-.014-3.667-.072-4.947c-.2-4.359-2.618-6.78-6.98-6.98-1.281-.059-1.689-.073-4.948-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
                     </a>
                 </div>
@@ -225,16 +222,12 @@
         </div>
     </section>
 
-    <footer class="bg-gray-900 border-t border-gray-700">
-        <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8 text-center">
-            <p class="text-gray-500">© <span id="currentYear"></span> Leonardo Sennis. All rights reserved.</p>
-            <p class="text-xs text-gray-600 mt-1">Designed with Tailwind CSS</p>
-        </div>
+    <footer class="bg-black border-t border-gray-800"> <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-gray-400">© <span id="currentYear"></span> Leonardo Sennis. All rights reserved.</p> <p class="text-xs text-gray-500 mt-1">Designed with Tailwind CSS</p> </div>
     </footer>
 
     <div id="videoModal" class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-[100] hidden p-4 transition-opacity duration-300">
-        <div class="bg-gray-800 p-2 sm:p-4 rounded-lg shadow-xl w-full max-w-3xl relative">
-            <button id="closeModal" class="absolute -top-3 -right-3 bg-indigo-600 text-white rounded-full p-0 w-8 h-8 flex items-center justify-center text-2xl leading-none hover:bg-indigo-700 z-10">×</button>
+        <div class="bg-gray-900 p-2 sm:p-4 rounded-lg shadow-xl w-full max-w-3xl relative"> <button id="closeModal" class="absolute -top-3 -right-3 bg-cyan-600 text-white rounded-full p-0 w-8 h-8 flex items-center justify-center text-2xl leading-none hover:bg-cyan-700 z-10">×</button>
             
             <div id="iframePlayerContainer" class="aspect-video bg-black rounded">
                 <iframe id="videoPlayer" width="100%" height="100%" src="" title="Video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen class="rounded"></iframe>
@@ -261,68 +254,38 @@
             link.addEventListener('click', () => {
                 if (!mobileMenu.classList.contains('hidden')) {
                     mobileMenu.classList.add('hidden');
-                    menuIcons[0].classList.remove('hidden'); // Show hamburger
-                    menuIcons[1].classList.add('hidden'); // Hide close icon
+                    menuIcons[0].classList.remove('hidden'); 
+                    menuIcons[1].classList.add('hidden'); 
                 }
             });
         });
         
         document.getElementById('currentYear').textContent = new Date().getFullYear();
 
-        const videoThumbnails = document.querySelectorAll('.video-thumbnail'); // These are the <a> tags
+        const videoThumbnails = document.querySelectorAll('.video-thumbnail');
         const videoModal = document.getElementById('videoModal');
         
         const iframePlayerContainer = document.getElementById('iframePlayerContainer');
-        const videoPlayer = document.getElementById('videoPlayer'); // iframe
+        const videoPlayer = document.getElementById('videoPlayer');
         
         const html5PlayerContainer = document.getElementById('html5PlayerContainer');
-        const html5VideoPlayer = document.getElementById('html5VideoPlayer'); // video tag
+        const html5VideoPlayer = document.getElementById('html5VideoPlayer');
         
         const closeModalButton = document.getElementById('closeModal');
 
-        // Function to attempt to set thumbnails for YouTube videos
-        // This function is kept from the previous version but will only work for YouTube.
-        // For Dropbox links, you MUST set the src attribute of the <img> tag manually in your HTML.
         function setThumbnail(imgElement, videoUrl) {
             if (!imgElement || !videoUrl || videoUrl === "YOUR_VIDEO_URL_HERE") {
                 return;
             }
-
-            let thumbnailUrl = null;
-            
-            if (videoUrl.includes("youtube.com/watch?v=") || videoUrl.includes("youtu.be/")) {
-                let videoId;
-                try {
-                    const url = new URL(videoUrl);
-                    if (videoUrl.includes("youtube.com/watch?v=")) { 
-                        videoId = url.searchParams.get("v");
-                    } else { 
-                        videoId = url.pathname.substring(1);
-                    }
-                    if (videoId) {
-                        thumbnailUrl = `https://img.youtube.com/vi/VIDEO_ID/hqdefault.jpg{videoId}/hqdefault.jpg`; 
-                    }
-                } catch (e) {
-                    console.warn("Could not parse YouTube URL for thumbnail:", videoUrl, e);
-                }
-            }
-
-            if (thumbnailUrl) {
-                imgElement.src = thumbnailUrl;
-                if(imgElement.alt.toLowerCase().includes('preview') || imgElement.alt.toLowerCase().includes('placeholder')) {
-                    imgElement.alt = `Anteprima video caricata da YouTube`;
-                }
-            }
+            // This function is a placeholder if you later decide to use YouTube/Vimeo thumbnails automatically.
+            // For now, it does nothing, relying on manually set 'src' for images.
         }
 
-        // Initialize thumbnails and set up click listeners
         videoThumbnails.forEach(thumbnailLink => {
             const imgElement = thumbnailLink.querySelector('img'); 
             const videoUrl = thumbnailLink.dataset.videoUrl;
             
-            // Call setThumbnail (will only affect YouTube links if any are added later)
-            // For Dropbox, it relies on the src you set in the HTML.
-            setThumbnail(imgElement, videoUrl);
+            setThumbnail(imgElement, videoUrl); // Call will do nothing for Dropbox links based on current function
 
             thumbnailLink.addEventListener('click', (event) => {
                 event.preventDefault();
