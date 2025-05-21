@@ -7,27 +7,25 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: 'Poppins', sans-serif; /* Default body font */
-            font-weight: 400; /* Poppins Regular */
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 400;
             scroll-behavior: smooth;
             background-color: #000000; 
-            color: #cbd5e1; /* Tailwind slate-300 */
+            color: #cbd5e1; /* slate-300 */
             overflow-x: hidden; 
         }
 
-        /* Headings Font */
-        h1, h2, .font-title { /* Classe per titoli specifici */
-            font-family: 'Poppins', sans-serif;
-            font-weight: 700; /* Poppins Bold */
+        h1, h2, .font-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700; /* Bold */
         }
         h3, .font-subtitle {
-            font-family: 'Poppins', sans-serif;
-            font-weight: 600; /* Poppins SemiBold */
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600; /* SemiBold */
         }
-
 
         #star-field {
             position: fixed;
@@ -41,36 +39,36 @@
 
         .star {
             position: absolute;
-            background-color: rgba(255, 255, 255, 0.3); /* Stelle un po' più visibili ma ancora tenui */
+            background-color: rgba(255, 255, 255, 0.25); 
             border-radius: 50%;
-            animation: twinkleFloat 12s infinite ease-in-out; 
-            box-shadow: 0 0 3px rgba(255, 255, 255, 0.2), 0 0 6px rgba(255, 255, 255, 0.1); /* Leggero glow */
+            animation: twinkleFloat 15s infinite ease-in-out; 
+            box-shadow: 0 0 4px rgba(255, 255, 255, 0.15), 0 0 8px rgba(255, 255, 255, 0.1); 
         }
 
         @keyframes twinkleFloat {
-            0%, 100% { opacity: 0.01; transform: scale(0.3) translateY(0px) translateX(0px); }
-            25% { opacity: 0.25; transform: scale(0.6) translateY(-5px) translateX(2px); }
-            50% { opacity: 0.03; transform: scale(0.4) translateY(0px) translateX(0px); }
-            75% { opacity: 0.25; transform: scale(0.6) translateY(5px) translateX(-2px); }
+            0%, 100% { opacity: 0.01; transform: scale(0.2) translateY(0px) translateX(0px); }
+            25% { opacity: 0.2; transform: scale(0.5) translateY(-6px) translateX(3px); }
+            50% { opacity: 0.02; transform: scale(0.3) translateY(0px) translateX(0px); }
+            75% { opacity: 0.2; transform: scale(0.5) translateY(6px) translateX(-3px); }
         }
 
         #global-mouse-light {
             position: fixed;
-            width: 1000px; /* Luce ancora più grande e diffusa */
-            height: 1000px;
-            background: radial-gradient(circle, rgba(56, 189, 248, 0.025) 0%, transparent 50%); /* Ciano estremamente tenue */
+            width: 1200px; 
+            height: 1200px;
+            background: radial-gradient(circle, rgba(34, 211, 238, 0.02) 0%, transparent 45%); 
             border-radius: 50%;
             transform: translate(-50%, -50%); 
             pointer-events: none; 
             z-index: -5; 
-            transition: transform 0.25s linear; 
+            transition: transform 0.3s cubic-bezier(0.25, 0.1, 0.25, 1); 
         }
 
         ::-webkit-scrollbar {
-            width: 6px;
+            width: 5px; /* Scrollbar ancora più sottile */
         }
         ::-webkit-scrollbar-track {
-            background: #020617; /* slate-950, più scuro */
+            background: #000000; 
         }
         ::-webkit-scrollbar-thumb {
             background: #0e7490; /* ciano-700 */
@@ -81,47 +79,49 @@
         }
 
         .hero-bg-image {
-            background-image: url('https://placehold.co/1920x1080/000000/020617?text=Nebula+Dreams'); /* Placeholder più scuro */
+            background-image: url('https://placehold.co/1920x1080/000000/020617?text=Cosmic+Void'); 
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
         }
         
         .project-card-interactive {
-            width: 17rem; 
-            height: 17rem; 
-            background-color: rgba(15, 23, 42, 0.5); /* slate-900 con 50% opacità */
-            backdrop-filter: blur(22px); 
-            -webkit-backdrop-filter: blur(22px); 
-            border: 1px solid rgba(51, 65, 85, 0.15); /* slate-700 con 15% opacità */
-            box-shadow: 0px 0px 70px rgba(20, 184, 220, 0.08), 
-                        0px 0px 30px rgba(20, 184, 220, 0.06), 
-                        inset 0px 0px 20px rgba(100, 116, 139, 0.04); /* slate-600 */
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease-out;
+            width: 16rem; 
+            height: 16rem; 
+            background-color: rgba(15, 23, 42, 0.4); /* slate-900 con 40% opacità */
+            backdrop-filter: blur(24px); 
+            -webkit-backdrop-filter: blur(24px); 
+            border: 1px solid rgba(51, 65, 85, 0.1); /* slate-700 con 10% opacità */
+            box-shadow: 0px 0px 80px rgba(20, 184, 220, 0.07), 
+                        0px 0px 35px rgba(20, 184, 220, 0.05), 
+                        inset 0px 0px 25px rgba(100, 116, 139, 0.03); 
+            transition: transform 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.5s ease-out;
             position: relative; 
             overflow: hidden; 
-            perspective: 1800px; 
+            perspective: 2000px; 
             border-radius: 50%; 
-            animation: floatBubble 14s infinite ease-in-out; 
+            animation: floatBubble 18s infinite ease-in-out; /* Animazione idle ancora più lenta e sottile */
         }
         
         @keyframes floatBubble { 
-            0%, 100% { transform: translateY(0px) scale(1); }
-            50% { transform: translateY(-12px) scale(1.005); }
+            0%, 100% { transform: translateY(0px) scale(1) rotate(0deg); }
+            25% { transform: translateY(-10px) scale(1.005) rotate(0.5deg); }
+            50% { transform: translateY(0px) scale(1) rotate(0deg); }
+            75% { transform: translateY(10px) scale(1.005) rotate(-0.5deg); }
         }
 
         .project-card-interactive::before { 
             content: '';
             position: absolute;
-            top: var(--mouse-y-card, -70%); 
+            top: var(--mouse-y-card, -80%); 
             left: var(--mouse-x-card, 50%);
-            width: 200%; 
-            height: 200%;
+            width: 220%; 
+            height: 220%;
             border-radius: 50%; 
-            background: radial-gradient(circle at center, rgba(200, 230, 255, 0.1) 0%, transparent 30%); 
+            background: radial-gradient(circle at center, rgba(220, 240, 255, 0.08) 0%, transparent 25%); /* Riflesso ancora più tenue e concentrato */
             opacity: var(--glare-opacity, 0);
-            transform: translate(-50%, -50%) rotate(25deg); 
-            transition: opacity 0.4s ease-out, background 0.2s linear;
+            transform: translate(-50%, -50%) rotate(30deg); 
+            transition: opacity 0.5s ease-out, background 0.25s linear;
             pointer-events: none; 
             z-index: 2; 
         }
@@ -141,13 +141,13 @@
             width: 100%;
             height: 100%;
             object-fit: cover; 
-            transition: transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1.2), filter 0.7s ease-out;
+            transition: transform 0.9s cubic-bezier(0.165, 0.84, 0.44, 1.1), filter 0.8s ease-out;
             border-radius: 50%; 
         }
 
         .project-card-interactive:hover .video-thumbnail-trigger img {
-            transform: scale(1.25); 
-            filter: brightness(0.3) blur(5px); 
+            transform: scale(1.3); 
+            filter: brightness(0.25) blur(6px); 
         }
         
         .text-and-play-overlay {
@@ -161,11 +161,11 @@
             align-items: center;
             justify-content: center;
             text-align: center;
-            padding: 0.8rem; /* Leggermente ridotto per font più grandi */
-            background: rgba(8, 12, 22, 0.2); /* Sfondo overlay più trasparente */
+            padding: 0.7rem; 
+            background: rgba(5, 8, 15, 0.1); /* Sfondo overlay quasi invisibile */
             opacity: 0;
-            transform: translateY(25px) scale(0.85); 
-            transition: opacity 0.55s cubic-bezier(0.25, 0.8, 0.25, 1), transform 0.55s cubic-bezier(0.25, 0.8, 0.25, 1);
+            transform: translateY(30px) scale(0.8); 
+            transition: opacity 0.6s cubic-bezier(0.25, 0.8, 0.25, 1), transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
             z-index: 3;
             border-radius: 50%;
         }
@@ -176,33 +176,33 @@
         }
         
         .text-and-play-overlay .play-icon {
-            font-size: 2.5rem; /* Icona play più grande */
-            color: rgba(220, 230, 255, 0.9); 
-            margin-bottom: 0.5rem;
-            text-shadow: 0 0 15px rgba(56, 189, 248, 0.7); 
+            font-size: 2.8rem; 
+            color: rgba(220, 230, 255, 0.85); 
+            margin-bottom: 0.6rem;
+            text-shadow: 0 0 20px rgba(56, 189, 248, 0.8); 
         }
         .text-and-play-overlay h3 {
-            font-family: 'Poppins', sans-serif; 
-            font-weight: 700; /* Poppins Bold */
-            font-size: 1.2rem; /* Titolo overlay più grande */
+            font-family: 'Space Grotesk', sans-serif; 
+            font-weight: 700; 
+            font-size: 1.15rem; 
             color: #fff;
-            letter-spacing: 0.025em;
+            letter-spacing: 0.03em; /* Leggero tracking */
         }
         .text-and-play-overlay p {
-            font-size: 0.7rem; 
-            line-height: 1.35;
-            color: #d1d5db; 
-            font-weight: 300; /* Poppins Light */
+            font-size: 0.65rem; 
+            line-height: 1.4;
+            color: #cbd5e1; /* slate-300 */
+            font-weight: 400; /* Poppins Regular */
         }
 
         .scroll-reveal-element {
             opacity: 0;
-            transform: translateY(60px); 
-            transition: opacity 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), transform 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform: translateY(70px) scale(0.95); /* Entrata da più in basso e leggermente rimpicciolito */
+            transition: opacity 1.3s cubic-bezier(0.175, 0.885, 0.32, 1.15), transform 1.3s cubic-bezier(0.175, 0.885, 0.32, 1.15); /* Transizione più lunga e con easing diverso */
         }
         .scroll-reveal-element.is-visible {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateY(0) scale(1);
         }
       
     </style>
@@ -211,11 +211,11 @@
     <div id="star-field"></div>
     <div id="global-mouse-light"></div>
 
-    <nav class="sticky top-0 z-50 bg-black bg-opacity-40 backdrop-blur-2xl shadow-2xl border-b border-slate-800/25">
+    <nav class="sticky top-0 z-50 bg-black bg-opacity-30 backdrop-blur-2xl shadow-2xl border-b border-slate-800/20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-20"> {/* Altezza Nav aumentata */}
+            <div class="flex items-center justify-between h-20">
                 <div class="flex items-center">
-                    <a href="#hero" class="text-3xl font-title font-extrabold text-cyan-400 hover:text-cyan-300 transition-colors duration-300 tracking-tight">Leonardo Sennis</a>
+                    <a href="#hero" class="text-3xl font-title font-bold text-cyan-400 hover:text-cyan-300 transition-colors duration-300 tracking-normal">Leonardo Sennis</a>
                 </div>
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-2">
@@ -249,31 +249,31 @@
     </nav>
 
     <section id="hero" class="h-screen flex items-center justify-center text-center relative hero-bg-image">
-        <div class="absolute inset-0 bg-black opacity-30 z-0"></div> 
-        <div class="relative z-10 p-8 max-w-4xl mx-auto scroll-reveal-element"> {/* Max-width aumentato */}
-            <h1 class="text-5xl sm:text-6xl md:text-7xl font-title font-extrabold text-white mb-8 leading-tight tracking-tighter"> 
+        <div class="absolute inset-0 bg-black opacity-20 z-0"></div> 
+        <div class="relative z-10 p-8 max-w-4xl mx-auto scroll-reveal-element">
+            <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-title font-black text-white mb-8 leading-tight tracking-tighter uppercase"> 
                 Crafting Visual Stories That Resonate
             </h1>
-            <p class="text-xl sm:text-2xl text-slate-200 mb-12 font-light"> 
+            <p class="text-xl sm:text-2xl text-slate-200 mb-12 font-light max-w-2xl mx-auto"> 
                 Specializing in music videos.
             </p>
-            <a href="#reel" class="bg-cyan-500 hover:bg-cyan-400 text-black font-title font-semibold py-4 px-14 rounded-full text-xl transition-all duration-300 inline-block shadow-2xl hover:shadow-cyan-300/60 focus:outline-none focus:ring-4 focus:ring-cyan-400/50 transform hover:scale-105 active:scale-100">
+            <a href="#reel" class="bg-cyan-500 hover:bg-cyan-400 text-black font-title font-bold py-4 px-16 rounded-full text-xl transition-all duration-300 inline-block shadow-2xl hover:shadow-cyan-300/70 focus:outline-none focus:ring-4 focus:ring-cyan-400/50 transform hover:scale-105 active:scale-100">
                 View My Reel
             </a>
         </div>
     </section>
 
-    <section id="about" class="py-28 sm:py-36 bg-black scroll-reveal-element">
-        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center"> {/* text-center aggiunto al contenitore principale */}
-            <div class="mb-20">
-                <h2 class="text-4xl sm:text-5xl lg:text-6xl font-title font-extrabold text-cyan-400 scroll-reveal-element" data-delay="100">About Me</h2>
+    <section id="about" class="py-28 sm:py-40 bg-black scroll-reveal-element">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="mb-24">
+                <h2 class="text-4xl sm:text-5xl lg:text-6xl font-title font-black text-cyan-400 scroll-reveal-element uppercase tracking-wide" data-delay="100">About Me</h2>
                 <p class="mt-6 text-lg text-slate-300 font-light max-w-2xl mx-auto scroll-reveal-element" data-delay="200">A Glimpse Into My Journey & Vision</p>
             </div>
             <div class="flex flex-col md:flex-row items-center gap-12 md:gap-20">
                 <div class="md:w-2/5 scroll-reveal-element" data-delay="300">
-                    <img src="IMG_8112.JPG" alt="Leonardo Sennis" class="rounded-3xl shadow-2xl mx-auto w-full max-w-xs sm:max-w-sm border-2 border-slate-700/50 hover:border-cyan-500/40 transition-all duration-500 transform hover:scale-105"> 
+                    <img src="IMG_8112.JPG" alt="Leonardo Sennis" class="rounded-3xl shadow-2xl mx-auto w-full max-w-xs sm:max-w-sm border-2 border-slate-700/40 hover:border-cyan-500/30 transition-all duration-500 transform hover:scale-105"> 
                 </div>
-                <div class="md:w-3/5 text-slate-200 md:text-left scroll-reveal-element" data-delay="400"> {/* Mantenuto text-left per il blocco di testo */}
+                <div class="md:w-3/5 text-slate-200 md:text-left scroll-reveal-element" data-delay="400"> 
                     <p class="text-lg mb-6 leading-relaxed font-light">
                         Hello! I'm Leonardo Sennis, a filmmaker with a deep passion for music. My journey in film began 4 years ago, driven by a desire to experiment.
                     </p>
@@ -288,13 +288,13 @@
         </div>
     </section>
 
-    <section id="reel" class="py-28 sm:py-36 bg-black scroll-reveal-element">
+    <section id="reel" class="py-28 sm:py-40 bg-black scroll-reveal-element">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center"> 
-            <div class="mb-20">
-                <h2 class="text-4xl sm:text-5xl lg:text-6xl font-title font-extrabold text-cyan-400 scroll-reveal-element" data-delay="100">My Work</h2>
+            <div class="mb-24">
+                <h2 class="text-4xl sm:text-5xl lg:text-6xl font-title font-black text-cyan-400 scroll-reveal-element uppercase tracking-wide" data-delay="100">My Work</h2>
                 <p class="mt-6 text-lg text-slate-300 font-light max-w-2xl mx-auto scroll-reveal-element" data-delay="200">A Selection of Recent Projects</p>
             </div>
-            <div class="flex flex-wrap justify-center items-center gap-12 md:gap-16 lg:gap-24"> {/* Aumentato gap */}
+            <div class="flex flex-wrap justify-center items-center gap-10 md:gap-16 lg:gap-20">
                 <div class="project-card-interactive scroll-reveal-element" data-delay="300"> 
                     <a href="#" class="video-thumbnail-trigger" data-video-url="https://www.dropbox.com/scl/fi/h2g4dscbolozluu5pf0q4/Memories_01_colored.mp4?rlkey=z1qm349j9pfk5mxiux69pct2k&st=pq5ahb7k&dl=0">
                         <img src="Screenshot 2025-05-21 alle 19.05.33.png" alt="MEMORIES - 5mc2">
@@ -305,7 +305,7 @@
                         </div>
                     </a>
                 </div>
-                <div class="project-card-interactive scroll-reveal-element" data-delay="350"> {/* Ritardi scalati */}
+                <div class="project-card-interactive scroll-reveal-element" data-delay="350">
                      <a href="#" class="video-thumbnail-trigger" data-video-url="https://www.dropbox.com/scl/fi/otice8hyucgk50tuag3zk/BLUEKILLER-1080p_H264.mp4?rlkey=bw5j944r8abqsun1nz3wtlg01&st=qvffrwtx&dl=0">
                         <img src="Screenshot 2025-05-21 alle 18.38.14.png" alt="BLUEKILLER - CopKiller">
                         <div class="text-and-play-overlay">
@@ -345,58 +345,78 @@
                         </div>
                     </a>
                 </div>
+                 <div class="project-card-interactive scroll-reveal-element" data-delay="550">
+                    <a href="#" class="video-thumbnail-trigger" data-video-url="YOUR_VIDEO_URL_6_HERE">
+                        <img src="https://placehold.co/300x300/050816/1d2c47?text=Project+Six" alt="Project Six">
+                        <div class="text-and-play-overlay">
+                            <div class="play-icon">▶</div>
+                            <h3 class="text-white mb-1">Project Six</h3>
+                            <p class="text-slate-300 px-2">Description for Project Six.</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="project-card-interactive scroll-reveal-element" data-delay="600">
+                    <a href="#" class="video-thumbnail-trigger" data-video-url="YOUR_VIDEO_URL_7_HERE">
+                        <img src="https://placehold.co/300x300/050816/1d2c47?text=Project+Seven" alt="Project Seven">
+                        <div class="text-and-play-overlay">
+                            <div class="play-icon">▶</div>
+                            <h3 class="text-white mb-1">Project Seven</h3>
+                            <p class="text-slate-300 px-2">Description for Project Seven.</p>
+                        </div>
+                    </a>
+                </div>
             </div>
         </div>
     </section>
 
-    <section id="contact" class="py-28 sm:py-36 bg-black scroll-reveal-element">
-        <div class="max-w-xl mx-auto px-4 sm:px-6 lg:px-8 text-center"> {/* Max-width ridotto per form più compatto */}
+    <section id="contact" class="py-28 sm:py-40 bg-black scroll-reveal-element">
+        <div class="max-w-xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <div class="mb-16">
-                <h2 class="text-4xl sm:text-5xl lg:text-6xl font-title font-extrabold text-cyan-400 scroll-reveal-element" data-delay="100">Get In Touch</h2>
+                <h2 class="text-4xl sm:text-5xl lg:text-6xl font-title font-black text-cyan-400 scroll-reveal-element uppercase tracking-wide" data-delay="100">Get In Touch</h2>
                 <p class="mt-6 text-lg text-slate-300 font-light max-w-lg mx-auto scroll-reveal-element" data-delay="200">Let's discuss your next project or collaboration.</p>
             </div>
             <form action="#" method="POST" class="space-y-8 scroll-reveal-element" data-delay="300">
                 <div>
                     <label for="name" class="sr-only">Full Name</label>
                     <input type="text" name="name" id="name" autocomplete="name" required placeholder="Full Name"
-                           class="block w-full bg-slate-900/50 border-slate-700/40 rounded-full shadow-lg py-4 px-6 text-slate-100 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 backdrop-blur-md transition-all duration-300 hover:border-cyan-600/50 placeholder-slate-500 text-center text-sm">
+                           class="block w-full bg-slate-900/50 border-slate-700/30 rounded-full shadow-xl py-4 px-7 text-slate-100 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 backdrop-blur-lg transition-all duration-300 hover:border-cyan-500/60 placeholder-slate-400 text-center text-base font-medium">
                 </div>
                 <div>
                     <label for="email" class="sr-only">Email Address</label>
                     <input type="email" name="email" id="email" autocomplete="email" required placeholder="Email Address"
-                           class="block w-full bg-slate-900/50 border-slate-700/40 rounded-full shadow-lg py-4 px-6 text-slate-100 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 backdrop-blur-md transition-all duration-300 hover:border-cyan-600/50 placeholder-slate-500 text-center text-sm">
+                           class="block w-full bg-slate-900/50 border-slate-700/30 rounded-full shadow-xl py-4 px-7 text-slate-100 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 backdrop-blur-lg transition-all duration-300 hover:border-cyan-500/60 placeholder-slate-400 text-center text-base font-medium">
                 </div>
                 <div>
                     <label for="subject" class="sr-only">Subject</label>
                     <input type="text" name="subject" id="subject" required placeholder="Subject"
-                           class="block w-full bg-slate-900/50 border-slate-700/40 rounded-full shadow-lg py-4 px-6 text-slate-100 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 backdrop-blur-md transition-all duration-300 hover:border-cyan-600/50 placeholder-slate-500 text-center text-sm">
+                           class="block w-full bg-slate-900/50 border-slate-700/30 rounded-full shadow-xl py-4 px-7 text-slate-100 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 backdrop-blur-lg transition-all duration-300 hover:border-cyan-500/60 placeholder-slate-400 text-center text-base font-medium">
                 </div>
                 <div>
                     <label for="message" class="sr-only">Message</label>
                     <textarea id="message" name="message" rows="5" required placeholder="Your Message..."
-                              class="block w-full bg-slate-900/50 border-slate-700/40 rounded-2xl shadow-lg py-4 px-6 text-slate-100 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 backdrop-blur-md transition-all duration-300 hover:border-cyan-600/50 placeholder-slate-500 text-sm"></textarea>
+                              class="block w-full bg-slate-900/50 border-slate-700/30 rounded-3xl shadow-xl py-4 px-7 text-slate-100 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 backdrop-blur-lg transition-all duration-300 hover:border-cyan-500/60 placeholder-slate-400 text-sm"></textarea>
                 </div>
                 <div class="text-center pt-4">
                     <button type="submit"
-                            class="inline-flex justify-center py-4 px-14 border border-transparent shadow-xl hover:shadow-cyan-400/50 text-lg font-title font-semibold rounded-full text-black bg-cyan-400 hover:bg-cyan-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-black focus:ring-cyan-300 transition-all duration-300 transform hover:scale-105 active:scale-100">
+                            class="inline-flex justify-center py-4 px-16 border border-transparent shadow-2xl hover:shadow-cyan-400/50 text-lg font-title font-bold rounded-full text-black bg-cyan-400 hover:bg-cyan-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-black focus:ring-cyan-300 transition-all duration-300 transform hover:scale-105 active:scale-95">
                         Send Message
                     </button>
                 </div>
             </form>
-            <div class="mt-20 text-center scroll-reveal-element" data-delay="400">
+            <div class="mt-24 text-center scroll-reveal-element" data-delay="400">
                 <p class="text-slate-300 text-sm">Or connect with me on social media:</p>
-                <div class="flex justify-center space-x-7 mt-6">
-                    <a href="#" class="text-slate-400 hover:text-cyan-400 transition-all transform hover:scale-110 duration-300 hover:drop-shadow-[0_0_10px_rgba(34,211,238,0.6)]">
+                <div class="flex justify-center space-x-8 mt-7">
+                    <a href="#" class="text-slate-400 hover:text-cyan-400 transition-all transform hover:scale-110 duration-300 hover:drop-shadow-[0_0_12px_rgba(34,211,238,0.7)]">
                         <span class="sr-only">Vimeo</span>
-                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M23.032 5.086C22.718 3.305 21.35 1.982 19.516 1.717 16.912 1.375 12 1.375 12 1.375s-4.912 0-7.516.342C2.649 1.982 1.282 3.305.968 5.086.625 7.69.625 12 .625 12s0 4.31.343 6.914c.314 1.781 1.68 3.104 3.516 3.369C7.088 22.625 12 22.625 12 22.625s4.912 0 7.516-.342c1.836-.265 3.203-1.588 3.517-3.369.343-2.604.343-6.914.343-6.914s0-4.31-.344-6.914zM9.75 16.167V7.833l6.5 4.167-6.5 4.167z"/></svg>
+                        <svg class="w-9 h-9" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M23.032 5.086C22.718 3.305 21.35 1.982 19.516 1.717 16.912 1.375 12 1.375 12 1.375s-4.912 0-7.516.342C2.649 1.982 1.282 3.305.968 5.086.625 7.69.625 12 .625 12s0 4.31.343 6.914c.314 1.781 1.68 3.104 3.516 3.369C7.088 22.625 12 22.625 12 22.625s4.912 0 7.516-.342c1.836-.265 3.203-1.588 3.517-3.369.343-2.604.343-6.914.343-6.914s0-4.31-.344-6.914zM9.75 16.167V7.833l6.5 4.167-6.5 4.167z"/></svg>
                     </a>
-                    <a href="#" class="text-slate-400 hover:text-cyan-400 transition-all transform hover:scale-110 duration-300 hover:drop-shadow-[0_0_10px_rgba(34,211,238,0.6)]">
+                    <a href="#" class="text-slate-400 hover:text-cyan-400 transition-all transform hover:scale-110 duration-300 hover:drop-shadow-[0_0_12px_rgba(34,211,238,0.7)]">
                         <span class="sr-only">LinkedIn</span>
-                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                        <svg class="w-9 h-9" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
                     </a>
-                    <a href="#" class="text-slate-400 hover:text-cyan-400 transition-all transform hover:scale-110 duration-300 hover:drop-shadow-[0_0_10px_rgba(34,211,238,0.6)]">
+                    <a href="#" class="text-slate-400 hover:text-cyan-400 transition-all transform hover:scale-110 duration-300 hover:drop-shadow-[0_0_12px_rgba(34,211,238,0.7)]">
                         <span class="sr-only">Instagram</span>
-                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.069-4.85.069s-3.585-.012-4.849-.069c-3.225-.148-4.771-1.664-4.919-4.919-.058-1.265-.069-1.645-.069-4.849 0-3.204.013-3.583.069-4.849.149-3.227 1.664-4.771 4.919-4.919.058-1.265.069-1.645.069-4.849zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.359 2.618 6.78 6.98 6.98 1.281.059 1.689.073 4.948.073s3.667-.014 4.947-.072c4.359-.2 6.78-2.618 6.98-6.98.059-1.281.073-1.689.073-4.948s-.014-3.667-.072-4.947c-.2-4.359-2.618-6.78-6.98-6.98-1.281-.059-1.689-.073-4.948-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                        <svg class="w-9 h-9" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.069-4.85.069s-3.585-.012-4.849-.069c-3.225-.148-4.771-1.664-4.919-4.919-.058-1.265-.069-1.645-.069-4.849 0-3.204.013-3.583.069-4.849.149-3.227 1.664-4.771 4.919-4.919.058-1.265.069-1.645.069-4.849zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.359 2.618 6.78 6.98 6.98 1.281.059 1.689.073 4.948.073s3.667-.014 4.947-.072c4.359-.2 6.78-2.618 6.98-6.98.059-1.281.073-1.689.073-4.948s-.014-3.667-.072-4.947c-.2-4.359-2.618-6.78-6.98-6.98-1.281-.059-1.689-.073-4.948-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
                     </a>
                 </div>
             </div>
@@ -633,7 +653,7 @@
         // Scroll Reveal Logic
         const scrollElements = document.querySelectorAll(".scroll-reveal-element");
 
-        const elementInView = (el, threshold = 0.1) => { 
+        const elementInView = (el, threshold = 0.05) => { // Ridotto threshold per attivare prima
             const rect = el.getBoundingClientRect();
             return (
                 rect.top <= (window.innerHeight || document.documentElement.clientHeight) - (rect.height * threshold) &&
@@ -660,7 +680,7 @@
         let scrollTimeout;
         window.addEventListener("scroll", () => {
             clearTimeout(scrollTimeout);
-            scrollTimeout = setTimeout(handleScrollAnimation, 50);
+            scrollTimeout = setTimeout(handleScrollAnimation, 20); // Check più frequente per fluidità
         });
 
     </script>
