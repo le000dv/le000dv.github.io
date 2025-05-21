@@ -12,8 +12,8 @@
         body {
             font-family: 'Inter', sans-serif;
             scroll-behavior: smooth;
-            background-color: #000000; /* Nero profondo per lo sfondo base */
-            color: #e5e7eb; /* Grigio chiaro per il testo base (gray-200) */
+            background-color: #000000; 
+            color: #e5e7eb; 
             overflow-x: hidden; 
         }
 
@@ -29,135 +29,144 @@
 
         .star {
             position: absolute;
-            background-color: rgba(255, 255, 255, 0.7);
+            background-color: rgba(255, 255, 255, 0.6); /* Stelle leggermente meno opache */
             border-radius: 50%;
-            animation: twinkle 4s infinite ease-in-out;
+            animation: twinkleFloat 6s infinite ease-in-out; /* Combinato twinkle e float */
         }
 
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.1; transform: scale(0.7); }
-            50% { opacity: 0.6; transform: scale(1); }
+        @keyframes twinkleFloat {
+            0%, 100% { opacity: 0.1; transform: scale(0.6) translateY(0px); }
+            25% { opacity: 0.5; transform: scale(0.9) translateY(-2px); }
+            50% { opacity: 0.2; transform: scale(0.7) translateY(0px); }
+            75% { opacity: 0.5; transform: scale(0.9) translateY(2px); }
         }
+
 
         #global-mouse-light {
             position: fixed;
-            width: 600px; /* Dimensioni della luce */
-            height: 600px;
-            background: radial-gradient(circle, rgba(56, 189, 248, 0.08) 0%, transparent 70%); /* Ciano molto tenue */
+            width: 700px; 
+            height: 700px;
+            background: radial-gradient(circle, rgba(34, 211, 238, 0.06) 0%, transparent 65%); /* Ciano ancora più tenue e diffuso */
             border-radius: 50%;
-            transform: translate(-50%, -50%); /* Centra sulla posizione del mouse */
-            pointer-events: none; /* Non interferisce con gli eventi del mouse */
-            z-index: -5; /* Sopra lo star-field ma sotto il contenuto */
-            transition: background 0.2s ease-out; /* Transizione per un effetto più morbido */
+            transform: translate(-50%, -50%); 
+            pointer-events: none; 
+            z-index: -5; 
+            transition: transform 0.1s linear; /* Movimento più diretto della luce */
         }
-
 
         ::-webkit-scrollbar {
             width: 8px;
         }
         ::-webkit-scrollbar-track {
-            background: #000000;
+            background: #0a0a0a; /* Grigio scurissimo per la traccia */
         }
         ::-webkit-scrollbar-thumb {
-            background: #22d3ee; 
+            background: #155e75; /* Ciano più scuro per il thumb */
             border-radius: 4px;
         }
         ::-webkit-scrollbar-thumb:hover {
-            background: #06b6d4; 
+            background: #0891b2; /* Ciano più chiaro su hover */
         }
 
         .hero-bg-image {
-            background-image: url('https://placehold.co/1920x1080/000000/083344?text=Immagine+Principale+Reel'); /* Placeholder con sfondo scuro ciano */
+            background-image: url('https://placehold.co/1920x1080/000000/083344?text=Visioni+Cosmiche'); 
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
         }
-
-        .video-thumbnail-container { /* Nuovo contenitore per immagine e overlay testo */
-            position: relative;
-            width: 100%;
-            aspect-ratio: 16 / 9; /* Mantiene le proporzioni 16:9 */
-            overflow: hidden; /* Nasconde parti dell'immagine che escono */
-            border-radius: theme('borderRadius.2xl'); /* Arrotondamento angoli (più piccolo di rounded-3xl della card) */
-        }
         
-        .video-thumbnail-container img {
-            display: block;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), filter 0.3s ease; /* Transizione per zoom e filtro */
-        }
-
-        .project-card-interactive:hover .video-thumbnail-container img {
-            transform: scale(1.05); /* Leggero zoom su hover */
-            filter: brightness(0.6); /* Scurisce leggermente per far risaltare il testo */
-        }
-        
-        .video-text-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            padding: 1.5rem; /* p-6 */
-            background: linear-gradient(to top, rgba(10, 10, 15, 0.85) 0%, rgba(10, 10, 15, 0.7) 50%, transparent 100%);
-            color: white;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-            z-index: 3; /* Assicura che il testo sia sopra l'immagine e il riflesso */
-        }
-
-        .project-card-interactive:hover .video-text-overlay {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .play-icon-overlay { /* Icona Play separata, sempre visibile su hover della card */
-            content: '▶';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0.8);
-            font-size: 3.5rem; /* Leggermente più grande */
-            color: rgba(229, 231, 235, 0.85);
-            opacity: 0;
-            transition: opacity 0.3s ease, transform 0.3s ease;
-            pointer-events: none;
-            z-index: 2; /* Sopra l'immagine, sotto il testo se si sovrappongono */
-        }
-
-        .project-card-interactive:hover .play-icon-overlay {
-            opacity: 1;
-            transform: translate(-50%, -50%) scale(1);
-        }
-
-
+        /* Stili per le "bolle" dei progetti circolari */
         .project-card-interactive {
-            background-color: rgba(17, 24, 39, 0.6); /* Tailwind gray-900 con 60% opacità */
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px); 
-            border: 1px solid rgba(55, 65, 81, 0.3); /* Tailwind gray-700 con 30% opacità */
-            box-shadow: 0 0 35px rgba(34, 211, 238, 0.08), 0 0 50px rgba(34, 211, 238, 0.05); /* Glow ciano molto soffuso */
-            transition: transform 0.2s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s ease;
+            width: 18rem; /* w-72 -> circa 288px, puoi aggiustare */
+            height: 18rem; /* h-72 */
+            background-color: rgba(23, 37, 84, 0.4); /* Blu indaco scuro, semitrasparente */
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px); 
+            border: 1px solid rgba(76, 89, 119, 0.25); /* Bordo più tenue */
+            box-shadow: 0 0 40px rgba(34, 211, 238, 0.1), 0 0 60px rgba(34, 211, 238, 0.08), inset 0 0 15px rgba(200, 225, 255, 0.05); /* Glow ciano e leggero highlight interno */
+            transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease-out; /* Transizione più elastica */
             position: relative; 
             overflow: hidden; 
             perspective: 1000px; 
+            border-radius: 50%; /* Rende la card perfettamente circolare */
+            animation: floatBubble 8s infinite ease-in-out; /* Animazione di fluttuazione idle */
+        }
+        
+        @keyframes floatBubble {
+            0%, 100% { transform: translateY(0px) rotate(0deg) scale(1); }
+            25% { transform: translateY(-6px) rotate(-2deg) scale(1.01); }
+            50% { transform: translateY(0px) rotate(0deg) scale(1); }
+            75% { transform: translateY(6px) rotate(2deg) scale(1.01); }
         }
 
-        .project-card-interactive::before { 
+        .project-card-interactive::before { /* Riflesso di luce sulla bolla */
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            border-radius: inherit; 
-            background: radial-gradient(circle at var(--mouse-x-card, 50%) var(--mouse-y-card, -50%), rgba(200, 225, 255, 0.2), transparent 60%); /* Riflesso più tenue */
+            border-radius: 50%; 
+            background: radial-gradient(circle at var(--mouse-x-card, 50%) var(--mouse-y-card, -10%), rgba(220, 240, 255, 0.25), transparent 50%); /* Riflesso più concentrato e luminoso */
             opacity: var(--glare-opacity, 0);
-            transition: opacity 0.3s ease-out;
+            transition: opacity 0.3s ease-out, background 0.1s linear;
             pointer-events: none; 
-            z-index: 1; 
+            z-index: 2; 
+        }
+        
+        .video-thumbnail-trigger { /* Il link <a> che contiene tutto */
+            display: flex;
+            width: 100%;
+            height: 100%;
+            align-items: center;
+            justify-content: center;
+            position: relative; /* Per posizionare gli overlay */
+            border-radius: 50%;
+            overflow: hidden; /* Assicura che l'immagine non esca dalla forma circolare */
+        }
+
+        .video-thumbnail-trigger img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Copre l'intera area circolare */
+            transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1), filter 0.4s ease;
+            border-radius: 50%; /* Assicura che l'immagine stessa sia circolare se il contenitore non la maschera perfettamente */
+        }
+
+        .project-card-interactive:hover .video-thumbnail-trigger img {
+            transform: scale(1.1); 
+            filter: brightness(0.5) blur(2px); /* Più scuro e leggermente sfocato per far risaltare il testo */
+        }
+        
+        .text-and-play-overlay { /* Contenitore per testo e icona play */
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 1rem;
+            background: rgba(10, 10, 15, 0.5); /* Sfondo scuro semitrasparente per il testo */
+            opacity: 0;
+            transform: scale(0.9);
+            transition: opacity 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            z-index: 3;
+            border-radius: 50%;
+        }
+
+        .project-card-interactive:hover .text-and-play-overlay {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        .text-and-play-overlay .play-icon {
+            font-size: 2.5rem; /* Dimensione icona play */
+            color: rgba(229, 231, 235, 0.9);
+            margin-bottom: 0.5rem;
         }
       
     </style>
@@ -166,7 +175,7 @@
     <div id="star-field"></div>
     <div id="global-mouse-light"></div>
 
-    <nav class="sticky top-0 z-50 bg-gray-950 bg-opacity-70 backdrop-blur-xl shadow-2xl border-b border-gray-800/50">
+    <nav class="sticky top-0 z-50 bg-black bg-opacity-50 backdrop-blur-xl shadow-2xl border-b border-gray-800/30">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
                 <div class="flex items-center">
@@ -174,14 +183,14 @@
                 </div>
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-4">
-                        <a href="#hero" class="text-gray-300 hover:text-cyan-400 px-3 py-2 rounded-md text-sm font-medium transition-colors">Home</a>
-                        <a href="#about" class="text-gray-300 hover:text-cyan-400 px-3 py-2 rounded-md text-sm font-medium transition-colors">About</a>
-                        <a href="#reel" class="text-gray-300 hover:text-cyan-400 px-3 py-2 rounded-md text-sm font-medium transition-colors">Reel</a>
-                        <a href="#contact" class="text-gray-300 hover:text-cyan-400 px-3 py-2 rounded-md text-sm font-medium transition-colors">Contact</a>
+                        <a href="#hero" class="text-gray-300 hover:text-cyan-300 px-3 py-2 rounded-md text-sm font-medium transition-colors">Home</a>
+                        <a href="#about" class="text-gray-300 hover:text-cyan-300 px-3 py-2 rounded-md text-sm font-medium transition-colors">About</a>
+                        <a href="#reel" class="text-gray-300 hover:text-cyan-300 px-3 py-2 rounded-md text-sm font-medium transition-colors">Reel</a>
+                        <a href="#contact" class="text-gray-300 hover:text-cyan-300 px-3 py-2 rounded-md text-sm font-medium transition-colors">Contact</a>
                     </div>
                 </div>
                 <div class="md:hidden">
-                    <button id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                    <button id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700/50 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-cyan-500">
                         <span class="sr-only">Apri menu principale</span>
                         <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
@@ -195,16 +204,16 @@
         </div>
         <div class="md:hidden hidden" id="mobile-menu">
             <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                <a href="#hero" class="text-gray-300 hover:text-cyan-400 block px-3 py-2 rounded-md text-base font-medium transition-colors">Home</a>
-                <a href="#about" class="text-gray-300 hover:text-cyan-400 block px-3 py-2 rounded-md text-base font-medium transition-colors">About</a>
-                <a href="#reel" class="text-gray-300 hover:text-cyan-400 block px-3 py-2 rounded-md text-base font-medium transition-colors">Reel</a>
-                <a href="#contact" class="text-gray-300 hover:text-cyan-400 block px-3 py-2 rounded-md text-base font-medium transition-colors">Contact</a>
+                <a href="#hero" class="text-gray-300 hover:text-cyan-300 block px-3 py-2 rounded-md text-base font-medium transition-colors">Home</a>
+                <a href="#about" class="text-gray-300 hover:text-cyan-300 block px-3 py-2 rounded-md text-base font-medium transition-colors">About</a>
+                <a href="#reel" class="text-gray-300 hover:text-cyan-300 block px-3 py-2 rounded-md text-base font-medium transition-colors">Reel</a>
+                <a href="#contact" class="text-gray-300 hover:text-cyan-300 block px-3 py-2 rounded-md text-base font-medium transition-colors">Contact</a>
             </div>
         </div>
     </nav>
 
     <section id="hero" class="h-screen flex items-center justify-center text-center relative hero-bg-image">
-        <div class="absolute inset-0 bg-black opacity-70 z-0"></div>
+        <div class="absolute inset-0 bg-black opacity-60 z-0"></div>
         <div class="relative z-10 p-8 max-w-3xl mx-auto">
             <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-6 leading-tight">
                 Crafting Visual Stories That Resonate
@@ -212,7 +221,7 @@
             <p class="text-lg sm:text-xl text-gray-200 mb-8">
                 Specializing in music videos.
             </p>
-            <a href="#reel" class="bg-cyan-600 hover:bg-cyan-700 text-white font-semibold py-3 px-8 rounded-lg text-lg transition-colors duration-300 inline-block shadow-lg hover:shadow-cyan-500/50">
+            <a href="#reel" class="bg-cyan-600 hover:bg-cyan-700 text-white font-semibold py-3 px-8 rounded-lg text-lg transition-colors duration-300 inline-block shadow-lg hover:shadow-cyan-400/60 focus:outline-none focus:ring-4 focus:ring-cyan-500/50">
                 View My Reel
             </a>
         </div>
@@ -229,13 +238,13 @@
                     <img src="IMG_8112.JPG" alt="Leonardo Sennis" class="rounded-lg shadow-2xl mx-auto w-full max-w-xs md:max-w-full"> 
                 </div>
                 <div class="md:w-2/3 text-gray-200 text-left md:text-left">
-                    <p class="text-lg mb-4">
+                    <p class="text-lg mb-4 leading-relaxed">
                         Hello! I'm Leonardo Sennis, a filmmaker with a deep passion for music. My journey in film began 4 years ago, driven by a desire to experiment.
                     </p>
-                    <p class="text-lg mb-4">
+                    <p class="text-lg mb-4 leading-relaxed">
                         I specialize in music videos. My approach is collaborative and detail-oriented, always striving to bring a unique vision to life. I believe that powerful videos can connect us, inspire change, and leave a lasting impact.
                     </p>
-                    <p class="text-lg">
+                    <p class="text-lg leading-relaxed">
                         Throughout my career, I've had the privilege of working with (...).
                     </p>
                 </div>
@@ -249,64 +258,54 @@
                 <h2 class="text-3xl sm:text-4xl font-bold text-cyan-400">My Work</h2>
                 <p class="mt-4 text-lg text-gray-300">A Selection of Recent Projects</p>
             </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
-                <div class="project-card-interactive rounded-3xl"> 
+            <div class="flex flex-wrap justify-center items-center gap-10 md:gap-12 lg:gap-16">
+                <div class="project-card-interactive"> 
                     <a href="#" class="video-thumbnail-trigger" data-video-url="https://www.dropbox.com/scl/fi/h2g4dscbolozluu5pf0q4/Memories_01_colored.mp4?rlkey=z1qm349j9pfk5mxiux69pct2k&st=pq5ahb7k&dl=0">
-                        <div class="video-thumbnail-container">
-                            <img src="https://placehold.co/600x338/0a0a0a/1f2937?text=MEMORIES+Preview" alt="MEMORIES - 5mc2">
-                            <div class="play-icon-overlay">▶</div>
-                            <div class="video-text-overlay">
-                                <h3 class="text-xl font-semibold text-white mb-1">MEMORIES</h3>
-                                <p class="text-sm text-gray-300">5mc2 - U.S. Journey</p>
-                            </div>
+                        <img src="https://placehold.co/300x300/0a0a0a/1f2937?text=MEMORIES" alt="MEMORIES - 5mc2">
+                        <div class="text-and-play-overlay">
+                            <div class="play-icon">▶</div>
+                            <h3 class="text-xl font-semibold text-white mb-1">MEMORIES</h3>
+                            <p class="text-xs text-gray-300 px-2">5mc2 - U.S. Journey</p>
                         </div>
                     </a>
                 </div>
-                <div class="project-card-interactive rounded-3xl">
+                <div class="project-card-interactive">
                      <a href="#" class="video-thumbnail-trigger" data-video-url="https://www.dropbox.com/scl/fi/otice8hyucgk50tuag3zk/BLUEKILLER-1080p_H264.mp4?rlkey=bw5j944r8abqsun1nz3wtlg01&st=qvffrwtx&dl=0">
-                        <div class="video-thumbnail-container">
-                            <img src="Screenshot 2025-05-21 alle 18.38.14.png">
-                            <div class="play-icon-overlay">▶</div>
-                            <div class="video-text-overlay">
-                                <h3 class="text-xl font-semibold text-white mb-1">BLUEKILLER</h3>
-                                <p class="text-sm text-gray-300">CopKiller - ADV</p>
-                            </div>
+                        <img src="https://placehold.co/300x300/0a0a0a/1f2937?text=BLUEKILLER" alt="BLUEKILLER - CopKiller">
+                        <div class="text-and-play-overlay">
+                            <div class="play-icon">▶</div>
+                            <h3 class="text-xl font-semibold text-white mb-1">BLUEKILLER</h3>
+                            <p class="text-xs text-gray-300 px-2">CopKiller - ADV</p>
                         </div>
                     </a>
                 </div>
-                <div class="project-card-interactive rounded-3xl">
+                <div class="project-card-interactive">
                     <a href="#" class="video-thumbnail-trigger" data-video-url="https://www.dropbox.com/scl/fi/3k2pcg4dfzz26neio0jco/DaniFaiv_AirTag_H264.mov?rlkey=4jei9og21g17jvk8soydhgtxj&st=uy7ub7vt&dl=0">
-                        <div class="video-thumbnail-container">
-                            <img src="Screenshot 2025-05-21 alle 18.39.03.png">
-                            <div class="play-icon-overlay">▶</div>
-                            <div class="video-text-overlay">
-                                <h3 class="text-xl font-semibold text-white mb-1">AIR TAG</h3>
-                                <p class="text-sm text-gray-300">Dani Faiv - Music Video</p>
-                            </div>
+                        <img src="https://placehold.co/300x300/0a0a0a/1f2937?text=AIR+TAG" alt="AIR TAG - Dani Faiv">
+                        <div class="text-and-play-overlay">
+                            <div class="play-icon">▶</div>
+                            <h3 class="text-xl font-semibold text-white mb-1">AIR TAG</h3>
+                            <p class="text-xs text-gray-300 px-2">Dani Faiv - Music Video</p>
                         </div>
                     </a>
                 </div>
-                <div class="project-card-interactive rounded-3xl">
+                <div class="project-card-interactive">
                     <a href="#" class="video-thumbnail-trigger" data-video-url="https://www.dropbox.com/scl/fi/dhp58rmycwrtk39hoy9al/Ghali-STO.mp4?rlkey=feaz852o09s3sguhukee0s0r0&st=fi7obvsu&dl=0">
-                        <div class="video-thumbnail-container">
-                            <img src="Screenshot 2025-05-21 alle 18.45.46.png">
-                             <div class="play-icon-overlay">▶</div>
-                            <div class="video-text-overlay">
-                                <h3 class="text-xl font-semibold text-white mb-1">STO</h3>
-                                <p class="text-sm text-gray-300">Ghali - Music Video</p>
-                            </div>
+                        <img src="https://placehold.co/300x300/0a0a0a/1f2937?text=STO" alt="STO - Ghali">
+                        <div class="text-and-play-overlay">
+                            <div class="play-icon">▶</div>
+                            <h3 class="text-xl font-semibold text-white mb-1">STO</h3>
+                            <p class="text-xs text-gray-300 px-2">Ghali - Music Video</p>
                         </div>
                     </a>
                 </div>
-                <div class="project-card-interactive rounded-3xl">
+                <div class="project-card-interactive">
                     <a href="#" class="video-thumbnail-trigger" data-video-url="https://www.dropbox.com/scl/fi/z5mky2fcpj5rc2ax3lzdr/Sapobully-Pakistan_FINAL_H264.mp4?rlkey=5m9jkenjdh21qgvpgxbpeq6h5&st=p7wdz77l&dl=0">
-                        <div class="video-thumbnail-container">
-                            <img src="Screenshot 2025-05-21 alle 18.46.23.png">
-                            <div class="play-icon-overlay">▶</div>
-                            <div class="video-text-overlay">
-                                <h3 class="text-xl font-semibold text-white mb-1">PAKISTAN</h3>
-                                <p class="text-sm text-gray-300">SapoBully - Music Video</p>
-                            </div>
+                        <img src="https://placehold.co/300x300/0a0a0a/1f2937?text=PAKISTAN" alt="PAKISTAN - SapoBully">
+                        <div class="text-and-play-overlay">
+                            <div class="play-icon">▶</div>
+                            <h3 class="text-xl font-semibold text-white mb-1">PAKISTAN</h3>
+                            <p class="text-xs text-gray-300 px-2">SapoBully - Music Video</p>
                         </div>
                     </a>
                 </div>
@@ -324,26 +323,26 @@
                 <div>
                     <label for="name" class="block text-sm font-medium text-gray-200">Full Name</label>
                     <input type="text" name="name" id="name" autocomplete="name" required
-                           class="mt-1 block w-full bg-gray-800 border-gray-700 rounded-lg shadow-sm py-3 px-4 text-gray-100 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500">
+                           class="mt-1 block w-full bg-gray-800/70 border-gray-700/50 rounded-lg shadow-sm py-3 px-4 text-gray-100 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 backdrop-blur-sm">
                 </div>
                 <div>
                     <label for="email" class="block text-sm font-medium text-gray-200">Email Address</label>
                     <input type="email" name="email" id="email" autocomplete="email" required
-                           class="mt-1 block w-full bg-gray-800 border-gray-700 rounded-lg shadow-sm py-3 px-4 text-gray-100 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500">
+                           class="mt-1 block w-full bg-gray-800/70 border-gray-700/50 rounded-lg shadow-sm py-3 px-4 text-gray-100 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 backdrop-blur-sm">
                 </div>
                 <div>
                     <label for="subject" class="block text-sm font-medium text-gray-200">Subject</label>
                     <input type="text" name="subject" id="subject" required
-                           class="mt-1 block w-full bg-gray-800 border-gray-700 rounded-lg shadow-sm py-3 px-4 text-gray-100 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500">
+                           class="mt-1 block w-full bg-gray-800/70 border-gray-700/50 rounded-lg shadow-sm py-3 px-4 text-gray-100 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 backdrop-blur-sm">
                 </div>
                 <div>
                     <label for="message" class="block text-sm font-medium text-gray-200">Message</label>
                     <textarea id="message" name="message" rows="4" required
-                              class="mt-1 block w-full bg-gray-800 border-gray-700 rounded-lg shadow-sm py-3 px-4 text-gray-100 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500"></textarea>
+                              class="mt-1 block w-full bg-gray-800/70 border-gray-700/50 rounded-lg shadow-sm py-3 px-4 text-gray-100 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 backdrop-blur-sm"></textarea>
                 </div>
                 <div class="text-center">
                     <button type="submit"
-                            class="inline-flex justify-center py-3 px-8 border border-transparent shadow-lg hover:shadow-cyan-500/50 text-lg font-medium rounded-lg text-white bg-cyan-600 hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-black focus:ring-cyan-500 transition-all duration-300">
+                            class="inline-flex justify-center py-3 px-8 border border-transparent shadow-lg hover:shadow-cyan-400/70 text-lg font-medium rounded-lg text-white bg-cyan-600 hover:bg-cyan-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-black focus:ring-cyan-400 transition-all duration-300">
                         Send Message
                     </button>
                 </div>
@@ -368,23 +367,23 @@
         </div>
     </section>
 
-    <footer class="bg-black border-t border-gray-800">
+    <footer class="bg-black border-t border-gray-800/50">
         <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8 text-center">
             <p class="text-gray-400">© <span id="currentYear"></span> Leonardo Sennis. All rights reserved.</p>
             <p class="text-xs text-gray-500 mt-1">Designed with Tailwind CSS & Love</p>
         </div>
     </footer>
 
-    <div id="videoModal" class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-[100] hidden p-4 transition-opacity duration-300">
-        <div class="bg-gray-900 p-2 sm:p-4 rounded-lg shadow-xl w-full max-w-3xl relative">
-            <button id="closeModal" class="absolute -top-3 -right-3 bg-cyan-600 text-white rounded-full p-0 w-8 h-8 flex items-center justify-center text-2xl leading-none hover:bg-cyan-700 z-10">×</button>
+    <div id="videoModal" class="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-[100] hidden p-4 transition-opacity duration-300 backdrop-blur-sm">
+        <div class="bg-gray-900/80 backdrop-blur-md p-2 sm:p-4 rounded-xl shadow-2xl w-full max-w-3xl relative border border-gray-700/50">
+            <button id="closeModal" class="absolute -top-3 -right-3 bg-cyan-600 text-white rounded-full p-0 w-8 h-8 flex items-center justify-center text-2xl leading-none hover:bg-cyan-500 z-10 shadow-lg">&times;</button>
             
-            <div id="iframePlayerContainer" class="aspect-video bg-black rounded">
-                <iframe id="videoPlayer" width="100%" height="100%" src="" title="Video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen class="rounded"></iframe>
+            <div id="iframePlayerContainer" class="aspect-video bg-black rounded-lg overflow-hidden">
+                <iframe id="videoPlayer" width="100%" height="100%" src="" title="Video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen class="rounded-lg"></iframe>
             </div>
 
-            <div id="html5PlayerContainer" class="hidden bg-black rounded">
-                <video id="html5VideoPlayer" width="100%" height="auto" controls autoplay playsinline class="rounded block"></video>
+            <div id="html5PlayerContainer" class="hidden bg-black rounded-lg overflow-hidden">
+                <video id="html5VideoPlayer" width="100%" height="auto" controls autoplay playsinline class="rounded-lg block"></video>
             </div>
         </div>
     </div>
@@ -414,30 +413,29 @@
 
         // Starry background generation
         const starField = document.getElementById('star-field');
-        const numStars = 70; // Ridotto numero di stelle per un look più minimal
+        const numStars = 60; // Ancora meno stelle per un effetto più pulito
         for (let i = 0; i < numStars; i++) {
             let star = document.createElement('div');
             star.className = 'star';
             star.style.left = Math.random() * 100 + '%';
             star.style.top = Math.random() * 100 + '%';
-            let size = Math.random() * 1.5 + 0.3; // Dimensioni più piccole (0.3px a 1.8px)
+            let size = Math.random() * 1.2 + 0.2; // Stelle ancora più piccole
             star.style.width = size + 'px';
             star.style.height = size + 'px';
-            star.style.animationDelay = Math.random() * 5 + 's'; 
-            star.style.animationDuration = (Math.random() * 3 + 3) + 's'; // Durata animazione variabile
-            star.style.opacity = Math.random() * 0.4 + 0.1; // Opacità iniziale più bassa
+            star.style.animationDelay = Math.random() * 6 + 's'; 
+            star.style.animationDuration = (Math.random() * 4 + 4) + 's'; 
+            star.style.opacity = Math.random() * 0.3 + 0.1; 
             starField.appendChild(star);
         }
 
-        // Global mouse light effect
         const globalLight = document.getElementById('global-mouse-light');
         document.addEventListener('mousemove', (e) => {
-            globalLight.style.left = e.clientX + 'px';
-            globalLight.style.top = e.clientY + 'px';
+            requestAnimationFrame(() => { // Ottimizzazione per il movimento
+                globalLight.style.transform = `translate(${e.clientX - globalLight.offsetWidth / 2}px, ${e.clientY - globalLight.offsetHeight / 2}px)`;
+            });
         });
 
 
-        // Video Modal Logic & Card Interaction
         const projectCards = document.querySelectorAll('.project-card-interactive');
         const videoModal = document.getElementById('videoModal');
         const iframePlayerContainer = document.getElementById('iframePlayerContainer');
@@ -447,8 +445,11 @@
         const closeModalButton = document.getElementById('closeModal');
 
         projectCards.forEach(card => {
-            const thumbnailLink = card.querySelector('.video-thumbnail-trigger'); // Cambiato selettore
+            const thumbnailLink = card.querySelector('.video-thumbnail-trigger');
             if (!thumbnailLink) return;
+
+            // Randomize animation delay for idle floating
+            card.style.animationDelay = `${Math.random() * -8}s`; // Ritardo negativo per iniziare in punti diversi del ciclo
 
             card.addEventListener('mousemove', (e) => {
                 const rect = card.getBoundingClientRect();
@@ -460,18 +461,24 @@
                 const deltaX = (x - centerX) / centerX; 
                 const deltaY = (y - centerY) / centerY; 
 
-                const rotateY = deltaX * 5; // Ridotta rotazione per un effetto più sottile
-                const rotateX = -deltaY * 5;
+                const rotateY = deltaX * 6; 
+                const rotateX = -deltaY * 6;
 
-                card.style.setProperty('--mouse-x-card', `${(x / rect.width) * 100}%`);
-                card.style.setProperty('--mouse-y-card', `${(y / rect.height) * 100}%`);
-                card.style.setProperty('--glare-opacity', '0.7'); // Aumenta leggermente l'opacità del riflesso su hover
-                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`; // Scala leggermente ridotta
+                requestAnimationFrame(() => {
+                    card.style.setProperty('--mouse-x-card', `${(x / rect.width) * 100}%`);
+                    card.style.setProperty('--mouse-y-card', `${(y / rect.height) * 100}%`);
+                    card.style.setProperty('--glare-opacity', '1'); // Glare più visibile su hover
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`; // Scala leggermente aumentata
+                });
             });
 
             card.addEventListener('mouseleave', () => {
-                card.style.setProperty('--glare-opacity', '0');
-                card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)';
+                 requestAnimationFrame(() => {
+                    card.style.setProperty('--glare-opacity', '0');
+                    // La trasformazione torna a quella dell'animazione idle, non a 'none'
+                    // L'animazione CSS floatBubble si occuperà del reset della posizione/rotazione
+                    card.style.transform = ''; // Rimuove la trasformazione inline per far riprendere l'animazione CSS
+                });
             });
 
             thumbnailLink.addEventListener('click', (event) => {
