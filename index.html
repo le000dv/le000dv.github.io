@@ -37,21 +37,21 @@
 
         #cursor-burst {
             position: fixed;
-            width: 50px; /* Dimensioni della "sferrata" */
-            height: 50px;
-            background: white; /* Colore base, verrà invertito da mix-blend-mode */
+            width: 40px; /* Leggermente più piccolo */
+            height: 40px;
+            background: white; 
             border-radius: 50%;
-            transform: translate(-50%, -50%) scale(0); /* Inizia invisibile e piccolo */
+            transform: translate(-50%, -50%) scale(0); 
             pointer-events: none; 
             z-index: 9999; 
-            mix-blend-mode: difference; /* Inverte il colore rispetto allo sfondo */
-            transition: transform 0.2s cubic-bezier(0.25, 0.1, 0.25, 1.5), opacity 0.2s ease-out;
+            mix-blend-mode: difference; 
+            transition: transform 0.15s cubic-bezier(0.25, 0.1, 0.25, 1.75), opacity 0.15s ease-out; /* Transizione più reattiva */
             opacity: 0;
-            filter: blur(10px); /* Effetto sfumato/energia */
+            filter: blur(8px); /* Blur leggermente ridotto per più definizione */
         }
         body:hover #cursor-burst {
             transform: translate(-50%, -50%) scale(1);
-            opacity: 1;
+            opacity: 0.9; /* Opacità alta ma non piena per un effetto più "energetico" */
         }
 
 
@@ -105,41 +105,47 @@
         
         .view-reel-text-link {
             font-family: 'Unbounded', cursive;
-            font-weight: 900; /* Unbounded Black per massimo impatto */
-            font-size: 2.5rem; /* Più grande */
+            font-weight: 900; 
+            font-size: 2.5rem; 
             letter-spacing: 0.05em;
-            padding: 0.5rem 0;
+            padding: 0.75rem 0.5rem; /* Aggiunto padding per area cliccabile */
             position: relative;
-            cursor: pointer; /* Cambia il cursore di sistema (anche se nascosto) */
+            cursor: none; /* Il cursore personalizzato è già attivo */
             text-decoration: none;
-            color: #000000; /* Colore iniziale del testo */
-            overflow: hidden; /* Per l'effetto liquido */
-            display: inline-block; /* Per permettere padding e overflow */
-            transition: color 0.5s cubic-bezier(0.7, 0, 0.3, 1);
+            color: #000000; 
+            overflow: hidden; 
+            display: inline-block; 
+            transition: color 0.6s cubic-bezier(0.7, 0, 0.3, 1); /* Transizione colore testo originale */
+        }
+
+        .view-reel-text-link span { /* Contenitore per il testo visibile */
+            display: block;
+            position: relative;
+            z-index: 1; /* Testo originale sopra lo pseudo-elemento */
         }
 
         .view-reel-text-link::before {
-            content: 'VIEW REEL';
+            content: attr(data-text); /* Usa il testo dall'attributo data-text */
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            color: #ffffff; /* Testo bianco quando lo sfondo nero sale */
-            background-color: #000000; /* Sfondo nero che sale */
-            transform: translateY(100%);
-            transition: transform 0.5s cubic-bezier(0.7, 0, 0.3, 1);
+            color: #ffffff; 
+            background-color: #000000; 
+            transform: translateY(101%); /* Inizia completamente sotto */
+            transition: transform 0.6s cubic-bezier(0.7, 0, 0.3, 1);
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: -1; /* Dietro al testo originale finché non lo copre */
+            z-index: 0; /* Dietro al testo originale */
         }
 
         .view-reel-text-link:hover::before {
             transform: translateY(0%);
         }
          .view-reel-text-link:hover {
-            color: transparent; /* Rende il testo originale trasparente per mostrare quello del pseudo-elemento */
+            color: #ffffff; /* Il testo originale diventa bianco quando il nero sale */
         }
         
         .btn-3d {
@@ -149,8 +155,8 @@
             padding: 0.7rem 1.6rem; 
             font-size: 0.75rem; 
             letter-spacing: 0.075em;
-            border-radius: 9999px; /* Completamente tondo */
-            cursor: pointer;
+            border-radius: 9999px; 
+            cursor: none;
             transition: all 0.18s cubic-bezier(0.25, 0.1, 0.25, 1.25);
             position: relative;
             text-align: center;
@@ -199,23 +205,23 @@
         .project-card-interactive {
             width: 16rem; 
             height: 16rem; 
-            background-color: rgba(128,128,128, 0.05); /* Molto trasparente per effetto vetro */
-            backdrop-filter: blur(20px); 
-            -webkit-backdrop-filter: blur(20px); 
-            border: none; /* Nessun bordo */
-            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.08), /* Ombra più soffusa */
-                        inset 0px 0px 10px rgba(255, 255, 255, 0.03); 
+            background-color: rgba(128,128,128, 0.02); /* Quasi completamente trasparente */
+            backdrop-filter: blur(16px); 
+            -webkit-backdrop-filter: blur(16px); 
+            border: none; 
+            box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.05), 
+                        inset 0px 0px 8px rgba(255, 255, 255, 0.02); 
             transition: transform 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.5s ease-out;
             position: relative; 
             overflow: hidden; 
             perspective: 1800px; 
             border-radius: 50%; 
-            animation: floatBubbleBW 20s infinite ease-in-out; /* Animazione più lenta */
+            animation: floatBubbleBW 22s infinite ease-in-out; /* Animazione ancora più lenta */
         }
         
         @keyframes floatBubbleBW { 
             0%, 100% { transform: translateY(0px) scale(1) rotate(0deg); }
-            50% { transform: translateY(-8px) scale(1.003) rotate(0.1deg); }
+            50% { transform: translateY(-6px) scale(1.003) rotate(0.05deg); }
         }
 
         .project-card-interactive::before { 
@@ -226,7 +232,7 @@
             width: 200%; 
             height: 200%;
             border-radius: 50%; 
-            background: radial-gradient(circle at center, rgba(255, 255, 255, 0.08) 0%, transparent 35%); /* Riflesso bianco molto tenue */
+            background: radial-gradient(circle at center, rgba(255, 255, 255, 0.06) 0%, transparent 30%); /* Riflesso bianco molto più tenue */
             opacity: var(--glare-opacity, 0);
             transform: translate(-50%, -50%) rotate(20deg); 
             transition: opacity 0.5s ease-out, background 0.25s linear;
@@ -244,7 +250,7 @@
 
         .project-card-interactive:hover .video-thumbnail-trigger img {
             transform: scale(1.2); 
-            filter: brightness(0.3) blur(5px); 
+            filter: brightness(0.2) blur(6px); /* Scurisce e sfoca di più */
         }
         
         .text-and-play-overlay {
@@ -259,7 +265,7 @@
             justify-content: center;
             text-align: center;
             padding: 0.7rem; 
-            background: rgba(5, 8, 15, 0.2); 
+            background: rgba(5, 8, 15, 0.1); 
             opacity: 0;
             transform: translateY(25px) scale(0.85); 
             transition: opacity 0.5s cubic-bezier(0.25, 0.8, 0.25, 1), transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
@@ -276,7 +282,7 @@
             font-size: 2.5rem; 
             color: rgba(245, 245, 245, 0.9); 
             margin-bottom: 0.5rem;
-            text-shadow: 0 0 18px rgba(220, 220, 255, 0.4); /* Glow bianco/azzurrino */
+            text-shadow: 0 0 18px rgba(220, 220, 255, 0.4); 
         }
         .text-and-play-overlay h3 {
             font-family: 'Unbounded', cursive; 
@@ -291,23 +297,6 @@
             color: #e0e0e0; 
             font-weight: 400;
         }
-
-        .form-input {
-            font-family: 'Inter', sans-serif; text-transform: uppercase; font-weight: 500;
-            padding: 0.9rem 1.75rem; border-radius: 9999px; 
-            transition: all 0.25s ease; box-shadow: inset 0 1px 3px rgba(0,0,0,0.08);
-            letter-spacing: 0.05em; font-size: 0.8rem;
-        }
-        .form-input-on-dark { 
-            background-color: rgba(31, 41, 55, 0.3); border: 1px solid rgba(75, 85, 99, 0.3); 
-            color: #f3f4f6; 
-        }
-        .form-input-on-dark::placeholder { color: #9ca3af;  }
-        .form-input-on-dark:focus {
-            background-color: rgba(31, 41, 55, 0.5); border-color: #cbd5e1; 
-            box-shadow: inset 0 1px 3px rgba(0,0,0,0.08), 0 0 0 3px rgba(203,213,225,0.2); 
-        }
-        .form-textarea-on-dark { border-radius: 1.75rem; }
 
         .scroll-reveal-element {
             opacity: 0;
@@ -325,8 +314,8 @@
 
     <div id="hero-landing">
         <div class="director-name-landing dynamic-text-color">LEONARDO SENNIS</div>
-        <a href="#main-content-anchor" id="viewReelButtonLanding" class="view-reel-text-link mt-20">
-            VIEW REEL
+        <a href="#main-content-anchor" id="viewReelButtonLanding" class="view-reel-text-link mt-20" data-text="VIEW REEL">
+            <span>VIEW REEL</span>
         </a>
     </div>
     
@@ -371,7 +360,7 @@
                 </div>
                 <div class="flex flex-col md:flex-row items-center gap-12 md:gap-16">
                     <div class="md:w-2/5 scroll-reveal-element" data-delay="200">
-                        <img src="immagini/IMG_8112.JPG" alt="LEONARDO SENNIS" class="rounded-xl shadow-2xl mx-auto w-full max-w-xs sm:max-w-sm border-2 border-black/5"> 
+                        <img src="IMG_8112.JPG"> 
                     </div>
                     <div class="md:w-3/5 text-left scroll-reveal-element" data-delay="300"> 
                         <p class="font-body-light text-base sm:text-lg dynamic-text-color mb-6 leading-relaxed">
@@ -552,9 +541,10 @@
     <script>
     window.addEventListener('DOMContentLoaded', () => {
         const landingPage = document.getElementById('hero-landing');
-        const mainContentWrapper = document.getElementById('main-content'); // Contenitore del contenuto principale
+        const mainContentWrapper = document.getElementById('main-content');
         const viewReelButtonLanding = document.getElementById('viewReelButtonLanding');
         const mainNav = document.getElementById('main-nav'); 
+        const cursorBurst = document.getElementById('cursor-burst');
 
         if(mainContentWrapper) mainContentWrapper.style.display = 'none';
         if(mainNav) mainNav.style.display = 'none';
@@ -645,6 +635,30 @@
         if (currentYearEl) {
             currentYearEl.textContent = new Date().getFullYear();
         }
+        
+        // Cursor Burst Logic
+        if (cursorBurst) {
+            let cursorRafScheduled = false;
+            document.addEventListener('mousemove', (e) => {
+                if (!cursorRafScheduled) {
+                    cursorRafScheduled = true;
+                    requestAnimationFrame(() => {
+                        cursorBurst.style.left = e.clientX + 'px';
+                        cursorBurst.style.top = e.clientY + 'px';
+                        cursorRafScheduled = false;
+                    });
+                }
+            });
+             document.body.addEventListener('mouseenter', () => {
+                cursorBurst.style.transform = 'translate(-50%, -50%) scale(1)';
+                cursorBurst.style.opacity = '1';
+            });
+            document.body.addEventListener('mouseleave', () => {
+                cursorBurst.style.transform = 'translate(-50%, -50%) scale(0)';
+                cursorBurst.style.opacity = '0';
+            });
+        }
+
 
         const videoModal = document.getElementById('videoModal');
         const iframePlayerContainer = document.getElementById('iframePlayerContainer');
@@ -792,13 +806,12 @@
                 const sectionTop = sectionElement ? sectionElement.getBoundingClientRect().top : viewportHeight;
                 const elementTopRelativeToViewport = el.getBoundingClientRect().top;
                 
-                // Calcola la percentuale di scroll all'interno della viewport per l'elemento
                 const scrollPercent = (elementTopRelativeToViewport / viewportHeight);
 
-                if (scrollPercent > 0.55) { // Più in basso nella viewport (sfondo più scuro)
+                if (scrollPercent > 0.55) { 
                     el.classList.remove('text-on-light');
                     el.classList.add('text-on-dark');
-                } else { // Più in alto (sfondo più chiaro)
+                } else { 
                     el.classList.remove('text-on-dark');
                     el.classList.add('text-on-light');
                 }
@@ -807,14 +820,14 @@
             if (mainNav) {
                 const navRect = mainNav.getBoundingClientRect();
                 const navTop = navRect.top;
-                 if (navTop < viewportHeight * 0.35) { // Se la nav è nella parte alta dello schermo
+                 if (navTop < viewportHeight * 0.35) { 
                     mainNav.style.backgroundColor = 'rgba(255,255,255,0.2)'; 
                     mainNav.style.borderColor = 'rgba(0,0,0,0.07)';
                     mainNav.querySelectorAll('a, .font-display').forEach(el => {
                         el.classList.remove('text-on-dark');
                         el.classList.add('text-on-light');
                     });
-                } else { // Se la nav è più in basso
+                } else { 
                     mainNav.style.backgroundColor = 'rgba(10,10,10,0.2)'; 
                     mainNav.style.borderColor = 'rgba(255,255,255,0.05)';
                     mainNav.querySelectorAll('a, .font-display').forEach(el => {
