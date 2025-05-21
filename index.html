@@ -14,7 +14,7 @@
             scroll-behavior: smooth;
             background-color: #000000; /* Nero profondo per lo sfondo base */
             color: #e5e7eb; /* Grigio chiaro per il testo base (gray-200) */
-            overflow-x: hidden; /* Previene lo scroll orizzontale causato dalle stelle */
+            overflow-x: hidden; 
         }
 
         #star-field {
@@ -23,23 +23,35 @@
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -10; /* Dietro a tutto il contenuto */
+            z-index: -10; 
             overflow: hidden;
         }
 
         .star {
             position: absolute;
-            background-color: white;
+            background-color: rgba(255, 255, 255, 0.7);
             border-radius: 50%;
-            animation: twinkle 3s infinite ease-in-out;
+            animation: twinkle 4s infinite ease-in-out;
         }
 
         @keyframes twinkle {
-            0%, 100% { opacity: 0.2; transform: scale(0.8); }
-            50% { opacity: 0.8; transform: scale(1.1); }
+            0%, 100% { opacity: 0.1; transform: scale(0.7); }
+            50% { opacity: 0.6; transform: scale(1); }
         }
 
-        /* Custom scrollbar */
+        #global-mouse-light {
+            position: fixed;
+            width: 600px; /* Dimensioni della luce */
+            height: 600px;
+            background: radial-gradient(circle, rgba(56, 189, 248, 0.08) 0%, transparent 70%); /* Ciano molto tenue */
+            border-radius: 50%;
+            transform: translate(-50%, -50%); /* Centra sulla posizione del mouse */
+            pointer-events: none; /* Non interferisce con gli eventi del mouse */
+            z-index: -5; /* Sopra lo star-field ma sotto il contenuto */
+            transition: background 0.2s ease-out; /* Transizione per un effetto più morbido */
+        }
+
+
         ::-webkit-scrollbar {
             width: 8px;
         }
@@ -47,96 +59,115 @@
             background: #000000;
         }
         ::-webkit-scrollbar-thumb {
-            background: #22d3ee; /* cyan-400 */
+            background: #22d3ee; 
             border-radius: 4px;
         }
         ::-webkit-scrollbar-thumb:hover {
-            background: #06b6d4; /* cyan-500 */
+            background: #06b6d4; 
         }
 
         .hero-bg-image {
-            background-image: url('https://placehold.co/1920x1080/000000/111827?text=Immagine+Principale+Reel');
+            background-image: url('https://placehold.co/1920x1080/000000/083344?text=Immagine+Principale+Reel'); /* Placeholder con sfondo scuro ciano */
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
         }
 
-        .video-thumbnail { /* Contenitore dell'immagine di anteprima del video */
+        .video-thumbnail-container { /* Nuovo contenitore per immagine e overlay testo */
             position: relative;
-            cursor: pointer;
-            display: block; /* Assicura che prenda lo spazio definito da aspect-video */
             width: 100%;
-            height: 100%; /* Per riempire il contenitore aspect-video */
+            aspect-ratio: 16 / 9; /* Mantiene le proporzioni 16:9 */
+            overflow: hidden; /* Nasconde parti dell'immagine che escono */
+            border-radius: theme('borderRadius.2xl'); /* Arrotondamento angoli (più piccolo di rounded-3xl della card) */
+        }
+        
+        .video-thumbnail-container img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), filter 0.3s ease; /* Transizione per zoom e filtro */
         }
 
-        .video-thumbnail::after { /* Icona Play */
+        .project-card-interactive:hover .video-thumbnail-container img {
+            transform: scale(1.05); /* Leggero zoom su hover */
+            filter: brightness(0.6); /* Scurisce leggermente per far risaltare il testo */
+        }
+        
+        .video-text-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1.5rem; /* p-6 */
+            background: linear-gradient(to top, rgba(10, 10, 15, 0.85) 0%, rgba(10, 10, 15, 0.7) 50%, transparent 100%);
+            color: white;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            z-index: 3; /* Assicura che il testo sia sopra l'immagine e il riflesso */
+        }
+
+        .project-card-interactive:hover .video-text-overlay {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .play-icon-overlay { /* Icona Play separata, sempre visibile su hover della card */
             content: '▶';
             position: absolute;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 3rem;
-            color: rgba(229, 231, 235, 0.8);
+            transform: translate(-50%, -50%) scale(0.8);
+            font-size: 3.5rem; /* Leggermente più grande */
+            color: rgba(229, 231, 235, 0.85);
             opacity: 0;
             transition: opacity 0.3s ease, transform 0.3s ease;
             pointer-events: none;
+            z-index: 2; /* Sopra l'immagine, sotto il testo se si sovrappongono */
         }
 
-        .project-card-interactive:hover .video-thumbnail::after { /* Mostra icona play su hover della card */
+        .project-card-interactive:hover .play-icon-overlay {
             opacity: 1;
-            transform: translate(-50%, -50%) scale(1.1);
+            transform: translate(-50%, -50%) scale(1);
         }
 
-        .video-thumbnail img {
-            transition: filter 0.3s ease;
-            width: 100%;
-            height: 100%;
-            object-fit: cover; /* Assicura che l'immagine copra l'area mantenendo le proporzioni */
-        }
 
-        .project-card-interactive:hover .video-thumbnail img {
-            filter: brightness(0.7);
-        }
-
-        /* Stili per le "bolle" dei progetti */
         .project-card-interactive {
-            background-color: rgba(30, 38, 58, 0.4); /* Bluastro scuro semitrasparente */
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px); /* Per Safari */
-            border: 1px solid rgba(100, 116, 139, 0.2); /* Bordo grigio-bluastro sottile */
-            box-shadow: 0 0 25px rgba(34, 211, 238, 0.15), 0 0 40px rgba(34, 211, 238, 0.1); /* Glow ciano più diffuso */
-            transition: transform 0.15s linear, box-shadow 0.3s ease;
-            position: relative; /* Necessario per lo pseudo-elemento del riflesso */
-            overflow: hidden; /* Mantiene il contenuto dentro i bordi arrotondati */
-            perspective: 1000px; /* Per l'effetto tilt 3D */
+            background-color: rgba(17, 24, 39, 0.6); /* Tailwind gray-900 con 60% opacità */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px); 
+            border: 1px solid rgba(55, 65, 81, 0.3); /* Tailwind gray-700 con 30% opacità */
+            box-shadow: 0 0 35px rgba(34, 211, 238, 0.08), 0 0 50px rgba(34, 211, 238, 0.05); /* Glow ciano molto soffuso */
+            transition: transform 0.2s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s ease;
+            position: relative; 
+            overflow: hidden; 
+            perspective: 1000px; 
         }
 
-        .project-card-interactive::before { /* Elemento per il riflesso di luce */
+        .project-card-interactive::before { 
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            border-radius: inherit; /* Eredita il border-radius della card */
-            background: radial-gradient(circle at var(--mouse-x-card, 50%) var(--mouse-y-card, -50%), rgba(200, 225, 255, 0.35), transparent 70%);
+            border-radius: inherit; 
+            background: radial-gradient(circle at var(--mouse-x-card, 50%) var(--mouse-y-card, -50%), rgba(200, 225, 255, 0.2), transparent 60%); /* Riflesso più tenue */
             opacity: var(--glare-opacity, 0);
             transition: opacity 0.3s ease-out;
-            pointer-events: none; /* Non interferisce con gli eventi del mouse sulla card */
-            z-index: 1; /* Sopra l'immagine ma sotto il testo */
+            pointer-events: none; 
+            z-index: 1; 
         }
-        .project-card-interactive .p-6 { /* Assicura che il testo sia sopra il riflesso */
-            position: relative;
-            z-index: 2;
-        }
-
-
+      
     </style>
 </head>
 <body class="bg-black text-gray-200">
     <div id="star-field"></div>
+    <div id="global-mouse-light"></div>
 
-    <nav class="sticky top-0 z-50 bg-gray-950 bg-opacity-80 backdrop-blur-lg shadow-xl border-b border-gray-800"> <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <nav class="sticky top-0 z-50 bg-gray-950 bg-opacity-70 backdrop-blur-xl shadow-2xl border-b border-gray-800/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
                 <div class="flex items-center">
                     <a href="#hero" class="text-2xl font-bold text-cyan-400 hover:text-cyan-300 transition-colors">Leonardo Sennis</a>
@@ -220,49 +251,64 @@
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
                 <div class="project-card-interactive rounded-3xl"> 
-                    <a href="#" class="video-thumbnail block aspect-video" data-video-url="https://www.dropbox.com/scl/fi/h2g4dscbolozluu5pf0q4/Memories_01_colored.mp4?rlkey=z1qm349j9pfk5mxiux69pct2k&st=pq5ahb7k&dl=0">
-                        <img src="https://placehold.co/600x338/0a0a0a/1f2937?text=MEMORIES+Preview" alt="MEMORIES - 5mc2" class="rounded-t-3xl">
+                    <a href="#" class="video-thumbnail-trigger" data-video-url="https://www.dropbox.com/scl/fi/h2g4dscbolozluu5pf0q4/Memories_01_colored.mp4?rlkey=z1qm349j9pfk5mxiux69pct2k&st=pq5ahb7k&dl=0">
+                        <div class="video-thumbnail-container">
+                            <img src="https://placehold.co/600x338/0a0a0a/1f2937?text=MEMORIES+Preview" alt="MEMORIES - 5mc2">
+                            <div class="play-icon-overlay">▶</div>
+                            <div class="video-text-overlay">
+                                <h3 class="text-xl font-semibold text-white mb-1">MEMORIES</h3>
+                                <p class="text-sm text-gray-300">5mc2 - U.S. Journey</p>
+                            </div>
+                        </div>
                     </a>
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold text-white mb-2">MEMORIES</h3>
-                        <p class="text-sm text-gray-300">A short form content that depicts the journey of 5mc2's team throughout the U.S.</p>
-                    </div>
                 </div>
                 <div class="project-card-interactive rounded-3xl">
-                     <a href="#" class="video-thumbnail block aspect-video" data-video-url="https://www.dropbox.com/scl/fi/otice8hyucgk50tuag3zk/BLUEKILLER-1080p_H264.mp4?rlkey=bw5j944r8abqsun1nz3wtlg01&st=qvffrwtx&dl=0">
-                        <img src="https://placehold.co/600x338/0a0a0a/1f2937?text=BLUEKILLER+Preview" alt="BLUEKILLER - CopKiller" class="rounded-t-3xl">
+                     <a href="#" class="video-thumbnail-trigger" data-video-url="https://www.dropbox.com/scl/fi/otice8hyucgk50tuag3zk/BLUEKILLER-1080p_H264.mp4?rlkey=bw5j944r8abqsun1nz3wtlg01&st=qvffrwtx&dl=0">
+                        <div class="video-thumbnail-container">
+                            <img src="https://placehold.co/600x338/0a0a0a/1f2937?text=BLUEKILLER+Preview" alt="BLUEKILLER - CopKiller">
+                            <div class="play-icon-overlay">▶</div>
+                            <div class="video-text-overlay">
+                                <h3 class="text-xl font-semibold text-white mb-1">BLUEKILLER</h3>
+                                <p class="text-sm text-gray-300">CopKiller - ADV</p>
+                            </div>
+                        </div>
                     </a>
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold text-white mb-2">BLUEKILLER</h3>
-                        <p class="text-sm text-gray-300">An ADV for italian brand CopKiller's "BlueKiller" collection.</p>
-                    </div>
                 </div>
                 <div class="project-card-interactive rounded-3xl">
-                    <a href="#" class="video-thumbnail block aspect-video" data-video-url="https://www.dropbox.com/scl/fi/3k2pcg4dfzz26neio0jco/DaniFaiv_AirTag_H264.mov?rlkey=4jei9og21g17jvk8soydhgtxj&st=uy7ub7vt&dl=0">
-                        <img src="https://placehold.co/600x338/0a0a0a/1f2937?text=AIR+TAG+Preview" alt="AIR TAG - Dani Faiv" class="rounded-t-3xl">
+                    <a href="#" class="video-thumbnail-trigger" data-video-url="https://www.dropbox.com/scl/fi/3k2pcg4dfzz26neio0jco/DaniFaiv_AirTag_H264.mov?rlkey=4jei9og21g17jvk8soydhgtxj&st=uy7ub7vt&dl=0">
+                        <div class="video-thumbnail-container">
+                            <img src="https://placehold.co/600x338/0a0a0a/1f2937?text=AIR+TAG+Preview" alt="AIR TAG - Dani Faiv">
+                            <div class="play-icon-overlay">▶</div>
+                            <div class="video-text-overlay">
+                                <h3 class="text-xl font-semibold text-white mb-1">AIR TAG</h3>
+                                <p class="text-sm text-gray-300">Dani Faiv - Music Video</p>
+                            </div>
+                        </div>
                     </a>
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold text-white mb-2">AIR TAG</h3>
-                        <p class="text-sm text-gray-300">Music video direction for Dani Faiv - "Air Tag".</p>
-                    </div>
                 </div>
                 <div class="project-card-interactive rounded-3xl">
-                    <a href="#" class="video-thumbnail block aspect-video" data-video-url="https://www.dropbox.com/scl/fi/dhp58rmycwrtk39hoy9al/Ghali-STO.mp4?rlkey=feaz852o09s3sguhukee0s0r0&st=fi7obvsu&dl=0">
-                        <img src="https://placehold.co/600x338/0a0a0a/1f2937?text=STO+Preview" alt="STO - Ghali" class="rounded-t-3xl">
+                    <a href="#" class="video-thumbnail-trigger" data-video-url="https://www.dropbox.com/scl/fi/dhp58rmycwrtk39hoy9al/Ghali-STO.mp4?rlkey=feaz852o09s3sguhukee0s0r0&st=fi7obvsu&dl=0">
+                        <div class="video-thumbnail-container">
+                            <img src="https://placehold.co/600x338/0a0a0a/1f2937?text=STO+Preview" alt="STO - Ghali">
+                             <div class="play-icon-overlay">▶</div>
+                            <div class="video-text-overlay">
+                                <h3 class="text-xl font-semibold text-white mb-1">STO</h3>
+                                <p class="text-sm text-gray-300">Ghali - Music Video</p>
+                            </div>
+                        </div>
                     </a>
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold text-white mb-2">STO</h3>
-                        <p class="text-sm text-gray-300">Music video for Ghali - "Sto", shot with Matteo Ranzato & Giulio Rosati.</p>
-                    </div>
                 </div>
                 <div class="project-card-interactive rounded-3xl">
-                    <a href="#" class="video-thumbnail block aspect-video" data-video-url="https://www.dropbox.com/scl/fi/z5mky2fcpj5rc2ax3lzdr/Sapobully-Pakistan_FINAL_H264.mp4?rlkey=5m9jkenjdh21qgvpgxbpeq6h5&st=p7wdz77l&dl=0">
-                        <img src="https://placehold.co/600x338/0a0a0a/1f2937?text=PAKISTAN+Preview" alt="PAKISTAN - SapoBully" class="rounded-t-3xl">
+                    <a href="#" class="video-thumbnail-trigger" data-video-url="https://www.dropbox.com/scl/fi/z5mky2fcpj5rc2ax3lzdr/Sapobully-Pakistan_FINAL_H264.mp4?rlkey=5m9jkenjdh21qgvpgxbpeq6h5&st=p7wdz77l&dl=0">
+                        <div class="video-thumbnail-container">
+                            <img src="https://placehold.co/600x338/0a0a0a/1f2937?text=PAKISTAN+Preview" alt="PAKISTAN - SapoBully">
+                            <div class="play-icon-overlay">▶</div>
+                            <div class="video-text-overlay">
+                                <h3 class="text-xl font-semibold text-white mb-1">PAKISTAN</h3>
+                                <p class="text-sm text-gray-300">SapoBully - Music Video</p>
+                            </div>
+                        </div>
                     </a>
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold text-white mb-2">PAKISTAN</h3>
-                        <p class="text-sm text-gray-300">Music video directed with Matteo Ranzato for SapoBully - "Pakistan".</p>
-                    </div>
                 </div>
             </div>
         </div>
@@ -368,20 +414,27 @@
 
         // Starry background generation
         const starField = document.getElementById('star-field');
-        const numStars = 150; // Numero di stelle
+        const numStars = 70; // Ridotto numero di stelle per un look più minimal
         for (let i = 0; i < numStars; i++) {
             let star = document.createElement('div');
             star.className = 'star';
-            let xy = Math.random() * 100; // Percentuale per x e y
-            star.style.left = xy + '%';
+            star.style.left = Math.random() * 100 + '%';
             star.style.top = Math.random() * 100 + '%';
-            let size = Math.random() * 2.5 + 0.5; // Dimensioni da 0.5px a 3px
+            let size = Math.random() * 1.5 + 0.3; // Dimensioni più piccole (0.3px a 1.8px)
             star.style.width = size + 'px';
             star.style.height = size + 'px';
-            star.style.animationDelay = Math.random() * 3 + 's'; // Ritardo animazione per non farle brillare tutte insieme
-            star.style.opacity = Math.random() * 0.5 + 0.2; // Opacità iniziale
+            star.style.animationDelay = Math.random() * 5 + 's'; 
+            star.style.animationDuration = (Math.random() * 3 + 3) + 's'; // Durata animazione variabile
+            star.style.opacity = Math.random() * 0.4 + 0.1; // Opacità iniziale più bassa
             starField.appendChild(star);
         }
+
+        // Global mouse light effect
+        const globalLight = document.getElementById('global-mouse-light');
+        document.addEventListener('mousemove', (e) => {
+            globalLight.style.left = e.clientX + 'px';
+            globalLight.style.top = e.clientY + 'px';
+        });
 
 
         // Video Modal Logic & Card Interaction
@@ -394,10 +447,9 @@
         const closeModalButton = document.getElementById('closeModal');
 
         projectCards.forEach(card => {
-            const thumbnailLink = card.querySelector('.video-thumbnail');
+            const thumbnailLink = card.querySelector('.video-thumbnail-trigger'); // Cambiato selettore
             if (!thumbnailLink) return;
 
-            // Card tilt and glare effect
             card.addEventListener('mousemove', (e) => {
                 const rect = card.getBoundingClientRect();
                 const x = e.clientX - rect.left;
@@ -405,16 +457,16 @@
                 const centerX = rect.width / 2;
                 const centerY = rect.height / 2;
                 
-                const deltaX = (x - centerX) / centerX; // Da -1 a 1
-                const deltaY = (y - centerY) / centerY; // Da -1 a 1
+                const deltaX = (x - centerX) / centerX; 
+                const deltaY = (y - centerY) / centerY; 
 
-                const rotateY = deltaX * 7; // Max rotazione 7 gradi
-                const rotateX = -deltaY * 7;
+                const rotateY = deltaX * 5; // Ridotta rotazione per un effetto più sottile
+                const rotateX = -deltaY * 5;
 
                 card.style.setProperty('--mouse-x-card', `${(x / rect.width) * 100}%`);
                 card.style.setProperty('--mouse-y-card', `${(y / rect.height) * 100}%`);
-                card.style.setProperty('--glare-opacity', '1');
-                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.03)`;
+                card.style.setProperty('--glare-opacity', '0.7'); // Aumenta leggermente l'opacità del riflesso su hover
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`; // Scala leggermente ridotta
             });
 
             card.addEventListener('mouseleave', () => {
@@ -422,7 +474,6 @@
                 card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)';
             });
 
-            // Modal opening logic
             thumbnailLink.addEventListener('click', (event) => {
                 event.preventDefault();
                 const videoUrl = thumbnailLink.dataset.videoUrl;
