@@ -7,7 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         html {
             scroll-behavior: smooth;
@@ -32,7 +32,28 @@
             color: #0a0a0a; 
             overflow-x: hidden; 
             min-height: 100vh;
+            cursor: none; /* Nasconde il cursore di sistema */
         }
+
+        #cursor-burst {
+            position: fixed;
+            width: 50px; /* Dimensioni della "sferrata" */
+            height: 50px;
+            background: white; /* Colore base, verrà invertito da mix-blend-mode */
+            border-radius: 50%;
+            transform: translate(-50%, -50%) scale(0); /* Inizia invisibile e piccolo */
+            pointer-events: none; 
+            z-index: 9999; 
+            mix-blend-mode: difference; /* Inverte il colore rispetto allo sfondo */
+            transition: transform 0.2s cubic-bezier(0.25, 0.1, 0.25, 1.5), opacity 0.2s ease-out;
+            opacity: 0;
+            filter: blur(10px); /* Effetto sfumato/energia */
+        }
+        body:hover #cursor-burst {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+        }
+
 
         .font-display {
             font-family: 'Unbounded', cursive;
@@ -67,7 +88,7 @@
             padding: 2rem;
             min-height: 100vh; 
             text-align: center;
-            position: relative; /* Per posizionare il nome */
+            position: relative; 
          }
          .director-name-landing {
             font-family: 'Unbounded', cursive;
@@ -81,50 +102,44 @@
             transform: translateX(-50%);
             text-shadow: 0 1px 0px rgba(0,0,0,0.05);
         }
-        .btn-3d-round-landing {
+        
+        .view-reel-text-link {
             font-family: 'Unbounded', cursive;
-            font-weight: 700;
-            text-transform: uppercase;
-            color: #ffffff;
-            background-color: #080808; 
-            border: 1px solid #000000; 
-            border-radius: 50%; 
-            width: 12rem; 
-            height: 12rem; 
-            font-size: 1.125rem; 
-            line-height: 1.3;
-            letter-spacing: 0.075em;
+            font-weight: 900; /* Unbounded Black per massimo impatto */
+            font-size: 2.5rem; /* Più grande */
+            letter-spacing: 0.05em;
+            padding: 0.5rem 0;
+            position: relative;
+            cursor: pointer; /* Cambia il cursore di sistema (anche se nascosto) */
+            text-decoration: none;
+            color: #000000; /* Colore iniziale del testo */
+            overflow: hidden; /* Per l'effetto liquido */
+            display: inline-block; /* Per permettere padding e overflow */
+            transition: color 0.5s cubic-bezier(0.7, 0, 0.3, 1);
+        }
+
+        .view-reel-text-link::before {
+            content: 'VIEW REEL';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            color: #ffffff; /* Testo bianco quando lo sfondo nero sale */
+            background-color: #000000; /* Sfondo nero che sale */
+            transform: translateY(100%);
+            transition: transform 0.5s cubic-bezier(0.7, 0, 0.3, 1);
             display: flex;
             align-items: center;
             justify-content: center;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.18s cubic-bezier(0.25, 0.1, 0.25, 1.5);
-            box-shadow: 
-                0 5px 0px #222222, 
-                0 10px 20px rgba(0,0,0,0.25), 
-                inset 0 2px 1px rgba(255,255,255,0.1), 
-                inset 0 -2px 2px rgba(0,0,0,0.2); 
-            position: relative;
-            text-decoration: none;
+            z-index: -1; /* Dietro al testo originale finché non lo copre */
         }
-        .btn-3d-round-landing:hover {
-            background-color: #181818; 
-            transform: translateY(-4px) scale(1.03);
-            box-shadow: 
-                0 7px 0px #000000, 
-                0 12px 25px rgba(0,0,0,0.3),
-                inset 0 2px 1px rgba(255,255,255,0.15),
-                inset 0 -2px 2px rgba(0,0,0,0.25);
+
+        .view-reel-text-link:hover::before {
+            transform: translateY(0%);
         }
-        .btn-3d-round-landing:active {
-            background-color: #000000;
-            transform: translateY(2px) scale(0.97);
-            box-shadow: 
-                0 2px 0px #000000, 
-                0 4px 8px rgba(0,0,0,0.3), 
-                inset 0 2px 3px rgba(0,0,0,0.5), 
-                inset 0 -1px 1px rgba(255,255,255,0.05);
+         .view-reel-text-link:hover {
+            color: transparent; /* Rende il testo originale trasparente per mostrare quello del pseudo-elemento */
         }
         
         .btn-3d {
@@ -134,7 +149,7 @@
             padding: 0.7rem 1.6rem; 
             font-size: 0.75rem; 
             letter-spacing: 0.075em;
-            border-radius: 0.75rem; 
+            border-radius: 9999px; /* Completamente tondo */
             cursor: pointer;
             transition: all 0.18s cubic-bezier(0.25, 0.1, 0.25, 1.25);
             position: relative;
@@ -169,54 +184,113 @@
         }
         
         .nav-main {
-            background-color: rgba(255,255,255,0.2); 
-            backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-            border-bottom: 1px solid rgba(0,0,0,0.07);
+            background-color: rgba(255,255,255,0.15); 
+            backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
             transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out;
         }
         .nav-link-main {
-            padding: 0.6rem 1.2rem; border-radius: 0.6rem; 
+            padding: 0.6rem 1.2rem; border-radius: 9999px; 
             font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em;
             transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
         }
-        .nav-link-main:hover { background-color: rgba(0,0,0,0.04); }
+        .nav-link-main:hover { background-color: rgba(0,0,0,0.06); }
 
-        .project-card {
-            background-color: rgba(128,128,128,0.08); /* Grigio neutro molto trasparente */
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(128,128,128,0.15); 
-            border-radius: 1rem; 
-            padding: 0; 
-            transition: transform 0.35s ease-out, box-shadow 0.35s ease-out;
-            box-shadow: 0 6px 12px rgba(0,0,0,0.07);
+        .project-card-interactive {
+            width: 16rem; 
+            height: 16rem; 
+            background-color: rgba(128,128,128, 0.05); /* Molto trasparente per effetto vetro */
+            backdrop-filter: blur(20px); 
+            -webkit-backdrop-filter: blur(20px); 
+            border: none; /* Nessun bordo */
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.08), /* Ombra più soffusa */
+                        inset 0px 0px 10px rgba(255, 255, 255, 0.03); 
+            transition: transform 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.5s ease-out;
+            position: relative; 
             overflow: hidden; 
+            perspective: 1800px; 
+            border-radius: 50%; 
+            animation: floatBubbleBW 20s infinite ease-in-out; /* Animazione più lenta */
         }
-        .project-card:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+        
+        @keyframes floatBubbleBW { 
+            0%, 100% { transform: translateY(0px) scale(1) rotate(0deg); }
+            50% { transform: translateY(-8px) scale(1.003) rotate(0.1deg); }
         }
-        .project-card .image-container {
-            aspect-ratio: 16 / 10; 
-            overflow: hidden;
-            border-top-left-radius: 0.9rem; 
-            border-top-right-radius: 0.9rem;
-        }
-        .project-card img {
-            width: 100%; height: 100%; object-fit: cover;
-            transition: transform 0.6s ease-out;
-        }
-        .project-card:hover img { transform: scale(1.1); }
-        .project-card .content-area { padding: 1.5rem; }
-        .project-card .play-button-trigger { margin-top: 1.25rem; padding: 0.7rem 1.4rem; font-size: 0.7rem; }
-        .play-button-overlay {
-            position: absolute; inset: 0; background-color: rgba(0,0,0,0.6);
-            opacity: 0; transition: opacity 0.3s ease;
-            display: flex; align-items: center; justify-content: center;
-        }
-        .project-card:hover .play-button-overlay { opacity: 1; }
-        .play-button-overlay .btn-3d { font-size: 1.5rem; padding: 0.8rem; width: 4rem; height: 4rem; line-height: 1; }
 
+        .project-card-interactive::before { 
+            content: '';
+            position: absolute;
+            top: var(--mouse-y-card, -70%); 
+            left: var(--mouse-x-card, 50%);
+            width: 200%; 
+            height: 200%;
+            border-radius: 50%; 
+            background: radial-gradient(circle at center, rgba(255, 255, 255, 0.08) 0%, transparent 35%); /* Riflesso bianco molto tenue */
+            opacity: var(--glare-opacity, 0);
+            transform: translate(-50%, -50%) rotate(20deg); 
+            transition: opacity 0.5s ease-out, background 0.25s linear;
+            pointer-events: none; 
+            z-index: 2; 
+        }
+        
+        .video-thumbnail-trigger img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; 
+            transition: transform 0.9s cubic-bezier(0.165, 0.84, 0.44, 1.1), filter 0.8s ease-out;
+            border-radius: 50%; 
+        }
+
+        .project-card-interactive:hover .video-thumbnail-trigger img {
+            transform: scale(1.2); 
+            filter: brightness(0.3) blur(5px); 
+        }
+        
+        .text-and-play-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0.7rem; 
+            background: rgba(5, 8, 15, 0.2); 
+            opacity: 0;
+            transform: translateY(25px) scale(0.85); 
+            transition: opacity 0.5s cubic-bezier(0.25, 0.8, 0.25, 1), transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+            z-index: 3;
+            border-radius: 50%;
+        }
+
+        .project-card-interactive:hover .text-and-play-overlay {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+        
+        .text-and-play-overlay .play-icon {
+            font-size: 2.5rem; 
+            color: rgba(245, 245, 245, 0.9); 
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 18px rgba(220, 220, 255, 0.4); /* Glow bianco/azzurrino */
+        }
+        .text-and-play-overlay h3 {
+            font-family: 'Unbounded', cursive; 
+            font-weight: 700; 
+            font-size: 1.05rem; 
+            color: #ffffff; 
+            letter-spacing: 0.03em;
+        }
+        .text-and-play-overlay p {
+            font-size: 0.6rem; 
+            line-height: 1.35;
+            color: #e0e0e0; 
+            font-weight: 400;
+        }
 
         .form-input {
             font-family: 'Inter', sans-serif; text-transform: uppercase; font-weight: 500;
@@ -247,15 +321,16 @@
     </style>
 </head>
 <body data-section="hero-landing"> 
+    <div id="cursor-burst"></div>
 
     <div id="hero-landing">
-        <div class="director-name-landing text-on-light">LEONARDO SENNIS</div>
-        <a href="#main-content-anchor" id="viewReelButtonLanding" class="btn-3d-round-landing mt-20">
+        <div class="director-name-landing dynamic-text-color">LEONARDO SENNIS</div>
+        <a href="#main-content-anchor" id="viewReelButtonLanding" class="view-reel-text-link mt-20">
             VIEW REEL
         </a>
     </div>
     
-    <div id="main-content-anchor" class="pt-20"></div> 
+    <div id="main-content-anchor" class="pt-1"></div> 
 
     <nav id="main-nav" class="sticky top-0 z-50 nav-main hidden">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -296,7 +371,7 @@
                 </div>
                 <div class="flex flex-col md:flex-row items-center gap-12 md:gap-16">
                     <div class="md:w-2/5 scroll-reveal-element" data-delay="200">
-                        <img src="https://placehold.co/600x750/e0e0e0/1c1c1c?text=FOTO+LEONARDO&font=unbounded" alt="LEONARDO SENNIS" class="rounded-xl shadow-2xl mx-auto w-full max-w-sm border-2 border-black/5"> 
+                        <img src="immagini/IMG_8112.JPG" alt="LEONARDO SENNIS" class="rounded-xl shadow-2xl mx-auto w-full max-w-xs sm:max-w-sm border-2 border-black/5"> 
                     </div>
                     <div class="md:w-3/5 text-left scroll-reveal-element" data-delay="300"> 
                         <p class="font-body-light text-base sm:text-lg dynamic-text-color mb-6 leading-relaxed">
@@ -318,111 +393,83 @@
                 <div class="mb-16 sm:mb-20">
                     <h2 class="font-display text-4xl sm:text-5xl font-bold dynamic-text-color scroll-reveal-element" data-delay="100">REEL</h2>
                 </div>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 md:gap-10">
+                <div class="flex flex-wrap justify-center items-center gap-10 md:gap-16 lg:gap-20">
                     
-                    <div class="project-card scroll-reveal-element group" data-delay="200"> 
-                        <a href="#" class="video-thumbnail-trigger block relative" data-video-url="https://www.dropbox.com/scl/fi/h2g4dscbolozluu5pf0q4/Memories_01_colored.mp4?rlkey=z1qm349j9pfk5mxiux69pct2k&st=pq5ahb7k&dl=0">
-                            <div class="image-container">
-                                <img src="Screenshot 2025-05-21 alle 19.05.33.png" alt="MEMORIES - 5MC2">
-                            </div>
-                            <div class="play-button-overlay">
-                                <div class="btn-3d btn-3d-light play-button-icon">▶</div>
+                    <div class="project-card-interactive scroll-reveal-element" data-delay="200"> 
+                        <a href="#" class="video-thumbnail-trigger" data-video-url="https://www.dropbox.com/scl/fi/h2g4dscbolozluu5pf0q4/Memories_01_colored.mp4?rlkey=z1qm349j9pfk5mxiux69pct2k&st=pq5ahb7k&dl=0">
+                            <img src="Screenshot 2025-05-21 alle 19.05.33.png" alt="MEMORIES - 5MC2">
+                            <div class="text-and-play-overlay">
+                                <div class="play-icon">▶</div>
+                                <h3 class="text-white mb-1">MEMORIES</h3>
+                                <p class="text-slate-200 px-2">5MC2 - U.S. JOURNEY</p>
                             </div>
                         </a>
-                        <div class="content-area">
-                            <h3 class="font-display text-lg font-semibold dynamic-text-color">MEMORIES</h3>
-                            <p class="font-body text-xs dynamic-text-color/70 mt-1">5MC2 - U.S. JOURNEY</p>
-                        </div>
                     </div>
 
-                    <div class="project-card scroll-reveal-element group" data-delay="250">
-                         <a href="#" class="video-thumbnail-trigger block relative" data-video-url="https://www.dropbox.com/scl/fi/otice8hyucgk50tuag3zk/BLUEKILLER-1080p_H264.mp4?rlkey=bw5j944r8abqsun1nz3wtlg01&st=qvffrwtx&dl=0">
-                            <div class="image-container">
-                                <img src="Screenshot 2025-05-21 alle 18.38.14.png" alt="BLUEKILLER - COPKILLER">
-                            </div>
-                            <div class="play-button-overlay">
-                                <div class="btn-3d btn-3d-light play-button-icon">▶</div>
+                    <div class="project-card-interactive scroll-reveal-element" data-delay="250">
+                         <a href="#" class="video-thumbnail-trigger" data-video-url="https://www.dropbox.com/scl/fi/otice8hyucgk50tuag3zk/BLUEKILLER-1080p_H264.mp4?rlkey=bw5j944r8abqsun1nz3wtlg01&st=qvffrwtx&dl=0">
+                            <img src="Screenshot 2025-05-21 alle 18.38.14.png" alt="BLUEKILLER - COPKILLER">
+                            <div class="text-and-play-overlay">
+                                <div class="play-icon">▶</div>
+                                <h3 class="text-white mb-1">BLUEKILLER</h3>
+                                <p class="text-slate-200 px-2">COPKILLER - ADV</p>
                             </div>
                         </a>
-                        <div class="content-area">
-                            <h3 class="font-display text-lg font-semibold dynamic-text-color">BLUEKILLER</h3>
-                            <p class="font-body text-xs dynamic-text-color/70 mt-1">COPKILLER - ADV</p>
-                        </div>
                     </div>
                     
-                    <div class="project-card scroll-reveal-element group" data-delay="300">
-                        <a href="#" class="video-thumbnail-trigger block relative" data-video-url="https://www.dropbox.com/scl/fi/3k2pcg4dfzz26neio0jco/DaniFaiv_AirTag_H264.mov?rlkey=4jei9og21g17jvk8soydhgtxj&st=uy7ub7vt&dl=0">
-                            <div class="image-container">
-                                <img src="Screenshot 2025-05-21 alle 19.08.32.png" alt="AIR TAG - DANI FAIV">
-                            </div>
-                             <div class="play-button-overlay">
-                                <div class="btn-3d btn-3d-light play-button-icon">▶</div>
+                    <div class="project-card-interactive scroll-reveal-element" data-delay="300">
+                        <a href="#" class="video-thumbnail-trigger" data-video-url="https://www.dropbox.com/scl/fi/3k2pcg4dfzz26neio0jco/DaniFaiv_AirTag_H264.mov?rlkey=4jei9og21g17jvk8soydhgtxj&st=uy7ub7vt&dl=0">
+                            <img src="Screenshot 2025-05-21 alle 19.08.32.png" alt="AIR TAG - DANI FAIV">
+                             <div class="text-and-play-overlay">
+                                <div class="play-icon">▶</div>
+                                <h3 class="text-white mb-1">AIR TAG</h3>
+                                <p class="text-slate-200 px-2">DANI FAIV - MUSIC VIDEO</p>
                             </div>
                         </a>
-                        <div class="content-area">
-                            <h3 class="font-display text-lg font-semibold dynamic-text-color">AIR TAG</h3>
-                            <p class="font-body text-xs dynamic-text-color/70 mt-1">DANI FAIV - MUSIC VIDEO</p>
-                        </div>
                     </div>
 
-                    <div class="project-card scroll-reveal-element group" data-delay="350">
-                        <a href="#" class="video-thumbnail-trigger block relative" data-video-url="https://www.dropbox.com/scl/fi/dhp58rmycwrtk39hoy9al/Ghali-STO.mp4?rlkey=feaz852o09s3sguhukee0s0r0&st=fi7obvsu&dl=0">
-                            <div class="image-container">
-                                <img src="Screenshot 2025-05-21 alle 18.45.46.png" alt="STO - GHALI">
-                            </div>
-                            <div class="play-button-overlay">
-                                <div class="btn-3d btn-3d-light play-button-icon">▶</div>
+                    <div class="project-card-interactive scroll-reveal-element" data-delay="350">
+                        <a href="#" class="video-thumbnail-trigger" data-video-url="https://www.dropbox.com/scl/fi/dhp58rmycwrtk39hoy9al/Ghali-STO.mp4?rlkey=feaz852o09s3sguhukee0s0r0&st=fi7obvsu&dl=0">
+                            <img src="Screenshot 2025-05-21 alle 18.45.46.png" alt="STO - GHALI">
+                            <div class="text-and-play-overlay">
+                                <div class="play-icon">▶</div>
+                                <h3 class="text-white mb-1">STO</h3>
+                                <p class="text-slate-200 px-2">GHALI - MUSIC VIDEO</p>
                             </div>
                         </a>
-                        <div class="content-area">
-                            <h3 class="font-display text-lg font-semibold dynamic-text-color">STO</h3>
-                            <p class="font-body text-xs dynamic-text-color/70 mt-1">GHALI - MUSIC VIDEO</p>
-                        </div>
                     </div>
 
-                    <div class="project-card scroll-reveal-element group" data-delay="400">
-                        <a href="#" class="video-thumbnail-trigger block relative" data-video-url="https://www.dropbox.com/scl/fi/z5mky2fcpj5rc2ax3lzdr/Sapobully-Pakistan_FINAL_H264.mp4?rlkey=5m9jkenjdh21qgvpgxbpeq6h5&st=p7wdz77l&dl=0">
-                           <div class="image-container">
-                                <img src="Screenshot 2025-05-21 alle 18.46.23.png" alt="PAKISTAN - SAPOBULLY">
-                            </div>
-                            <div class="play-button-overlay">
-                                <div class="btn-3d btn-3d-light play-button-icon">▶</div>
+                    <div class="project-card-interactive scroll-reveal-element" data-delay="400">
+                        <a href="#" class="video-thumbnail-trigger" data-video-url="https://www.dropbox.com/scl/fi/z5mky2fcpj5rc2ax3lzdr/Sapobully-Pakistan_FINAL_H264.mp4?rlkey=5m9jkenjdh21qgvpgxbpeq6h5&st=p7wdz77l&dl=0">
+                           <img src="Screenshot 2025-05-21 alle 18.46.23.png" alt="PAKISTAN - SAPOBULLY">
+                            <div class="text-and-play-overlay">
+                                <div class="play-icon">▶</div>
+                                <h3 class="text-white mb-1">PAKISTAN</h3>
+                                <p class="text-slate-200 px-2">SAPOBULLY - MUSIC VIDEO</p>
                             </div>
                         </a>
-                        <div class="content-area">
-                            <h3 class="font-display text-lg font-semibold dynamic-text-color">PAKISTAN</h3>
-                            <p class="font-body text-xs dynamic-text-color/70 mt-1">SAPOBULLY - MUSIC VIDEO</p>
-                        </div>
                     </div>
                     
-                     <div class="project-card scroll-reveal-element group" data-delay="450">
-                        <a href="#" class="video-thumbnail-trigger block relative" data-video-url="https://www.dropbox.com/scl/fi/fjyex75trjx9bnnqmjo93/WazeRRX-RoadRunner-Anthem-DAMN.mp4?rlkey=t87ve28erll6vxw1wjjpxz465&st=j6pltm40&dl=0">
-                            <div class="image-container">
-                                <img src="Screenshot 2025-05-22 alle 00.27.07.png" alt="ROAD RUNNER ANTHEM - WAZERRX">
-                            </div>
-                            <div class="play-button-overlay">
-                                <div class="btn-3d btn-3d-light play-button-icon">▶</div>
+                     <div class="project-card-interactive scroll-reveal-element" data-delay="450">
+                        <a href="#" class="video-thumbnail-trigger" data-video-url="https://www.dropbox.com/scl/fi/fjyex75trjx9bnnqmjo93/WazeRRX-RoadRunner-Anthem-DAMN.mp4?rlkey=t87ve28erll6vxw1wjjpxz465&st=j6pltm40&dl=0">
+                            <img src="Screenshot 2025-05-22 alle 00.27.07.png" alt="ROAD RUNNER ANTHEM - WAZERRX">
+                            <div class="text-and-play-overlay">
+                                <div class="play-icon">▶</div>
+                                <h3 class="text-white mb-1">ROAD RUNNER ANTHEM</h3>
+                                <p class="text-slate-200 px-2">WAZERRX - MUSIC VIDEO</p>
                             </div>
                         </a>
-                        <div class="content-area">
-                            <h3 class="font-display text-lg font-semibold dynamic-text-color">ROAD RUNNER ANTHEM</h3>
-                            <p class="font-body text-xs dynamic-text-color/70 mt-1">WAZERRX - MUSIC VIDEO</p>
-                        </div>
                     </div>
                     
-                    <div class="project-card scroll-reveal-element group" data-delay="500">
-                        <a href="#" class="video-thumbnail-trigger block relative" data-video-url="https://www.dropbox.com/scl/fi/kiowp96jzyj5ko40d2ukk/Waze-RRX-RIVOLTA-ft.-Rooc-Lee-created-by-DaVision.mov?rlkey=dklao3yeic0dbeyh2bmrlj1wc&st=fhsekw1x&dl=0">
-                            <div class="image-container">
-                                <img src="Screenshot 2025-05-22 alle 00.28.39.png" alt="RIVOLTA - WAZERRX FT. ROOC LEE">
-                            </div>
-                            <div class="play-button-overlay">
-                                <div class="btn-3d btn-3d-light play-button-icon">▶</div>
+                    <div class="project-card-interactive scroll-reveal-element" data-delay="500">
+                        <a href="#" class="video-thumbnail-trigger" data-video-url="https://www.dropbox.com/scl/fi/kiowp96jzyj5ko40d2ukk/Waze-RRX-RIVOLTA-ft.-Rooc-Lee-created-by-DaVision.mov?rlkey=dklao3yeic0dbeyh2bmrlj1wc&st=fhsekw1x&dl=0">
+                            <img src="Screenshot 2025-05-22 alle 00.28.39.png" alt="RIVOLTA - WAZERRX FT. ROOC LEE">
+                            <div class="text-and-play-overlay">
+                                <div class="play-icon">▶</div>
+                                <h3 class="text-white mb-1">RIVOLTA</h3>
+                                <p class="text-slate-200 px-2">WAZERRX FT. ROOC LEE - MUSIC VIDEO</p>
                             </div>
                         </a>
-                        <div class="content-area">
-                            <h3 class="font-display text-lg font-semibold dynamic-text-color">RIVOLTA</h3>
-                            <p class="font-body text-xs dynamic-text-color/70 mt-1">WAZERRX FT. ROOC LEE - MUSIC VIDEO</p>
-                        </div>
                     </div>
 
                 </div>
@@ -505,15 +552,15 @@
     <script>
     window.addEventListener('DOMContentLoaded', () => {
         const landingPage = document.getElementById('hero-landing');
-        const mainContent = document.getElementById('main-content');
+        const mainContentWrapper = document.getElementById('main-content'); // Contenitore del contenuto principale
         const viewReelButtonLanding = document.getElementById('viewReelButtonLanding');
         const mainNav = document.getElementById('main-nav'); 
 
-        if(mainContent) mainContent.style.display = 'none';
+        if(mainContentWrapper) mainContentWrapper.style.display = 'none';
         if(mainNav) mainNav.style.display = 'none';
 
 
-        if (viewReelButtonLanding && mainContent && mainNav) {
+        if (viewReelButtonLanding && mainContentWrapper && mainNav) {
             viewReelButtonLanding.addEventListener('click', (e) => {
                 e.preventDefault();
                 if(landingPage) {
@@ -525,20 +572,20 @@
                 setTimeout(() => {
                     if(landingPage) landingPage.style.display = 'none';
                     
-                    if(mainContent) {
-                        mainContent.style.display = 'block'; 
+                    if(mainContentWrapper) {
+                        mainContentWrapper.style.display = 'block'; 
                     }
                     if(mainNav) {
-                        mainNav.style.display = 'flex'; // Usa flex per la nav
+                        mainNav.style.display = 'flex'; 
                     }
                     
-                    if(mainContent){
-                        mainContent.style.opacity = '0';
-                        mainContent.style.transform = 'translateY(30px)';
+                    if(mainContentWrapper){
+                        mainContentWrapper.style.opacity = '0';
+                        mainContentWrapper.style.transform = 'translateY(30px)';
                         requestAnimationFrame(() => {
-                             mainContent.style.transition = 'opacity 0.8s ease-in 0.1s, transform 0.8s ease-in 0.1s';
-                             mainContent.style.opacity = '1';
-                             mainContent.style.transform = 'translateY(0px)';
+                             mainContentWrapper.style.transition = 'opacity 0.8s ease-in 0.1s, transform 0.8s ease-in 0.1s';
+                             mainContentWrapper.style.opacity = '1';
+                             mainContentWrapper.style.transform = 'translateY(0px)';
                         });
                     }
 
@@ -552,7 +599,6 @@
                 }, 500); 
             });
         }
-
 
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
@@ -575,19 +621,18 @@
                         const targetId = link.getAttribute('href').substring(1);
                         const targetSection = document.getElementById(targetId);
                         if(targetSection) {
-                            // Per la landing page, gestisci lo scroll solo se main-content è visibile
                             if (targetId === 'hero-landing' && landingPage && landingPage.style.display !== 'none') {
                                 landingPage.scrollIntoView({behavior: 'smooth'});
-                            } else if (targetSection && mainContent && mainContent.style.display !== 'none') {
+                            } else if (targetSection && mainContentWrapper && mainContentWrapper.style.display !== 'none') {
                                 targetSection.scrollIntoView({ behavior: 'smooth' });
-                            } else if (targetId === 'hero-landing' && landingPage) { // Se main content è nascosto e si clicca home
+                            } else if (targetId === 'hero-landing' && landingPage) { 
                                 landingPage.style.display = 'flex';
                                 landingPage.style.opacity = '0';
                                 requestAnimationFrame(() => {
                                     landingPage.style.opacity = '1';
                                     landingPage.style.transform = 'scale(1)';
                                 });
-                                if(mainContent) mainContent.style.display = 'none';
+                                if(mainContentWrapper) mainContentWrapper.style.display = 'none';
                                 if(mainNav) mainNav.style.display = 'none';
                             }
                         }
@@ -695,14 +740,16 @@
                 }, 300); 
             }
 
-            closeModalButton.addEventListener('click', closeVideoModal);
-            videoModal.addEventListener('click', (event) => {
-                if (event.target === videoModal) { 
-                    closeVideoModal();
-                }
-            });
+            if(closeModalButton) closeModalButton.addEventListener('click', closeVideoModal);
+            if(videoModal) {
+                videoModal.addEventListener('click', (event) => {
+                    if (event.target === videoModal) { 
+                        closeVideoModal();
+                    }
+                });
+            }
             document.addEventListener('keydown', (event) => {
-                if (event.key === 'Escape' && !videoModal.classList.contains('hidden')) {
+                if (event.key === 'Escape' && videoModal && !videoModal.classList.contains('hidden')) {
                     closeVideoModal();
                 }
             });
@@ -723,7 +770,6 @@
             let minDistanceToViewportTop = Infinity;
             let mostVisibleSectionArea = 0;
 
-
             sections.forEach(section => {
                 if (!section || (section.id === 'hero-landing' && section.style.display === 'none')) return; 
                 
@@ -737,36 +783,43 @@
                 }
             });
             
-            // Fallback se nessuna sezione è considerata "più visibile" (es. durante transizioni veloci)
             if (mostVisibleSectionArea === 0 && landingPage && landingPage.style.display !== 'none') {
                 currentSectionId = 'hero-landing';
             }
 
-
             dynamicTextElements.forEach(el => {
-                if (currentSectionId === 'contact' || currentSectionId === 'reel') { 
+                const sectionElement = el.closest('section') || el.closest('#hero-landing');
+                const sectionTop = sectionElement ? sectionElement.getBoundingClientRect().top : viewportHeight;
+                const elementTopRelativeToViewport = el.getBoundingClientRect().top;
+                
+                // Calcola la percentuale di scroll all'interno della viewport per l'elemento
+                const scrollPercent = (elementTopRelativeToViewport / viewportHeight);
+
+                if (scrollPercent > 0.55) { // Più in basso nella viewport (sfondo più scuro)
                     el.classList.remove('text-on-light');
                     el.classList.add('text-on-dark');
-                } else { 
+                } else { // Più in alto (sfondo più chiaro)
                     el.classList.remove('text-on-dark');
                     el.classList.add('text-on-light');
                 }
             });
             
             if (mainNav) {
-                 if (currentSectionId === 'contact' || currentSectionId === 'reel') {
+                const navRect = mainNav.getBoundingClientRect();
+                const navTop = navRect.top;
+                 if (navTop < viewportHeight * 0.35) { // Se la nav è nella parte alta dello schermo
+                    mainNav.style.backgroundColor = 'rgba(255,255,255,0.2)'; 
+                    mainNav.style.borderColor = 'rgba(0,0,0,0.07)';
+                    mainNav.querySelectorAll('a, .font-display').forEach(el => {
+                        el.classList.remove('text-on-dark');
+                        el.classList.add('text-on-light');
+                    });
+                } else { // Se la nav è più in basso
                     mainNav.style.backgroundColor = 'rgba(10,10,10,0.2)'; 
                     mainNav.style.borderColor = 'rgba(255,255,255,0.05)';
                     mainNav.querySelectorAll('a, .font-display').forEach(el => {
                         el.classList.remove('text-on-light');
                         el.classList.add('text-on-dark');
-                    });
-                } else {
-                    mainNav.style.backgroundColor = 'rgba(255,255,255,0.2)'; 
-                     mainNav.style.borderColor = 'rgba(0,0,0,0.07)';
-                     mainNav.querySelectorAll('a, .font-display').forEach(el => {
-                        el.classList.remove('text-on-dark');
-                        el.classList.add('text-on-light');
                     });
                 }
             }
