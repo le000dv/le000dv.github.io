@@ -13,20 +13,31 @@
             font-family: 'Space Grotesk', sans-serif;
             font-weight: 400;
             scroll-behavior: smooth;
-            background-color: #000000; 
-            color: #cbd5e1; /* slate-300 */
+            /* Gradiente da bianco in alto a nero in basso con stop intermedi */
+            background: linear-gradient(to bottom, 
+                #ffffff 0%, /* Bianco puro all'inizio */
+                #f0f0f0 15%, /* Grigio molto chiaro */
+                #dcdcdc 30%, /* Grigio chiaro */
+                #a9a9a9 50%, /* Grigio medio */
+                #696969 70%, /* Grigio scuro */
+                #282828 85%, /* Grigio molto scuro */
+                #000000 100% /* Nero puro alla fine */
+            );
+            color: #1f2937; /* Default text color (dark gray, good for light backgrounds) */
             overflow-x: hidden; 
+            min-height: 100vh; /* Assicura che il gradiente copra almeno l'altezza della viewport */
         }
 
         h1, h2, .font-title {
             font-family: 'Space Grotesk', sans-serif;
-            font-weight: 700; /* Bold */
+            font-weight: 700; 
         }
         h3, .font-subtitle {
             font-family: 'Space Grotesk', sans-serif;
-            font-weight: 600; /* SemiBold */
+            font-weight: 600; 
         }
 
+        /* Rimosso #star-field e #global-mouse-light per il tema B&W gradient - REINTRODOTTI PER DEBUG */
         #star-field {
             position: fixed;
             top: 0;
@@ -51,8 +62,7 @@
             50% { opacity: 0.02; transform: scale(0.3) translateY(0px) translateX(0px); }
             75% { opacity: 0.2; transform: scale(0.5) translateY(6px) translateX(-3px); }
         }
-
-        #global-mouse-light {
+         #global-mouse-light {
             position: fixed;
             width: 1200px; 
             height: 1200px;
@@ -64,50 +74,49 @@
             transition: transform 0.3s cubic-bezier(0.25, 0.1, 0.25, 1); 
         }
 
+
         ::-webkit-scrollbar {
-            width: 5px; /* Scrollbar ancora più sottile */
+            width: 6px;
         }
         ::-webkit-scrollbar-track {
-            background: #000000; 
+            background: #f1f1f1; /* Sfondo traccia chiaro */
         }
         ::-webkit-scrollbar-thumb {
-            background: #0e7490; /* ciano-700 */
+            background: #555; /* Thumb grigio scuro */
             border-radius: 10px;
         }
         ::-webkit-scrollbar-thumb:hover {
-            background: #06b6d4; /* ciano-600 */
+            background: #333; /* Thumb più scuro su hover */
         }
 
         .hero-bg-image {
-            background-image: "Gemini_Generated_Image_qgfsoyqgfsoyqgfs.jpg;"
+             background-image: url('https://placehold.co/1920x1080/ffffff/111827?text=Hero+Image+Area');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
+            mix-blend-mode: multiply; 
         }
         
         .project-card-interactive {
             width: 16rem; 
             height: 16rem; 
-            background-color: rgba(15, 23, 42, 0.4); /* slate-900 con 40% opacità */
-            backdrop-filter: blur(24px); 
-            -webkit-backdrop-filter: blur(24px); 
-            border: 1px solid rgba(51, 65, 85, 0.1); /* slate-700 con 10% opacità */
-            box-shadow: 0px 0px 80px rgba(20, 184, 220, 0.07), 
-                        0px 0px 35px rgba(20, 184, 220, 0.05), 
-                        inset 0px 0px 25px rgba(100, 116, 139, 0.03); 
+            background-color: rgba(10, 10, 10, 0.3); 
+            backdrop-filter: blur(12px); 
+            -webkit-backdrop-filter: blur(12px); 
+            border: 1px solid rgba(200, 200, 200, 0.15); 
+            box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.1), 
+                        inset 0px 0px 10px rgba(255, 255, 255, 0.05); 
             transition: transform 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.5s ease-out;
             position: relative; 
             overflow: hidden; 
-            perspective: 2000px; 
+            perspective: 1800px; 
             border-radius: 50%; 
-            animation: floatBubble 18s infinite ease-in-out; /* Animazione idle ancora più lenta e sottile */
+            animation: floatBubbleBW 18s infinite ease-in-out;
         }
         
-        @keyframes floatBubble { 
-            0%, 100% { transform: translateY(0px) scale(1) rotate(0deg); }
-            25% { transform: translateY(-10px) scale(1.005) rotate(0.5deg); }
-            50% { transform: translateY(0px) scale(1) rotate(0deg); }
-            75% { transform: translateY(10px) scale(1.005) rotate(-0.5deg); }
+        @keyframes floatBubbleBW { 
+            0%, 100% { transform: translateY(0px) scale(1) rotate(0deg); box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.1), inset 0px 0px 10px rgba(255, 255, 255, 0.05); }
+            50% { transform: translateY(-10px) scale(1.005) rotate(0.2deg); box-shadow: 0px 5px 50px rgba(0, 0, 0, 0.15), inset 0px 0px 15px rgba(255, 255, 255, 0.07); }
         }
 
         .project-card-interactive::before { 
@@ -115,28 +124,17 @@
             position: absolute;
             top: var(--mouse-y-card, -80%); 
             left: var(--mouse-x-card, 50%);
-            width: 220%; 
-            height: 220%;
+            width: 200%; 
+            height: 200%;
             border-radius: 50%; 
-            background: radial-gradient(circle at center, rgba(220, 240, 255, 0.08) 0%, transparent 25%); /* Riflesso ancora più tenue e concentrato */
+            background: radial-gradient(circle at center, rgba(255, 255, 255, 0.12) 0%, transparent 30%); 
             opacity: var(--glare-opacity, 0);
-            transform: translate(-50%, -50%) rotate(30deg); 
+            transform: translate(-50%, -50%) rotate(25deg); 
             transition: opacity 0.5s ease-out, background 0.25s linear;
             pointer-events: none; 
             z-index: 2; 
         }
         
-        .video-thumbnail-trigger {
-            display: flex;
-            width: 100%;
-            height: 100%;
-            align-items: center;
-            justify-content: center;
-            position: relative; 
-            border-radius: 50%;
-            overflow: hidden; 
-        }
-
         .video-thumbnail-trigger img {
             width: 100%;
             height: 100%;
@@ -146,8 +144,8 @@
         }
 
         .project-card-interactive:hover .video-thumbnail-trigger img {
-            transform: scale(1.3); 
-            filter: brightness(0.25) blur(6px); 
+            transform: scale(1.25); 
+            filter: brightness(0.4) blur(5px); 
         }
         
         .text-and-play-overlay {
@@ -162,7 +160,7 @@
             justify-content: center;
             text-align: center;
             padding: 0.7rem; 
-            background: rgba(5, 8, 15, 0.1); /* Sfondo overlay quasi invisibile */
+            background: rgba(0,0,0, 0.3); 
             opacity: 0;
             transform: translateY(30px) scale(0.8); 
             transition: opacity 0.6s cubic-bezier(0.25, 0.8, 0.25, 1), transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
@@ -177,28 +175,28 @@
         
         .text-and-play-overlay .play-icon {
             font-size: 2.8rem; 
-            color: rgba(220, 230, 255, 0.85); 
+            color: rgba(245, 245, 245, 0.9); 
             margin-bottom: 0.6rem;
-            text-shadow: 0 0 20px rgba(56, 189, 248, 0.8); 
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.3); 
         }
         .text-and-play-overlay h3 {
             font-family: 'Space Grotesk', sans-serif; 
             font-weight: 700; 
             font-size: 1.15rem; 
-            color: #fff;
-            letter-spacing: 0.03em; /* Leggero tracking */
+            color: #ffffff; 
+            letter-spacing: 0.03em;
         }
         .text-and-play-overlay p {
             font-size: 0.65rem; 
             line-height: 1.4;
-            color: #cbd5e1; /* slate-300 */
-            font-weight: 400; /* Poppins Regular */
+            color: #e0e0e0; 
+            font-weight: 400;
         }
 
         .scroll-reveal-element {
             opacity: 0;
-            transform: translateY(70px) scale(0.95); /* Entrata da più in basso e leggermente rimpicciolito */
-            transition: opacity 1.3s cubic-bezier(0.175, 0.885, 0.32, 1.15), transform 1.3s cubic-bezier(0.175, 0.885, 0.32, 1.15); /* Transizione più lunga e con easing diverso */
+            transform: translateY(70px) scale(0.95); 
+            transition: opacity 1.3s cubic-bezier(0.175, 0.885, 0.32, 1.15), transform 1.3s cubic-bezier(0.175, 0.885, 0.32, 1.15);
         }
         .scroll-reveal-element.is-visible {
             opacity: 1;
@@ -207,26 +205,26 @@
       
     </style>
 </head>
-<body class="bg-black text-slate-300">
+<body class="text-slate-800">
     <div id="star-field"></div>
     <div id="global-mouse-light"></div>
 
-    <nav class="sticky top-0 z-50 bg-black bg-opacity-30 backdrop-blur-2xl shadow-2xl border-b border-slate-800/20">
+    <nav class="sticky top-0 z-50 bg-white/60 backdrop-blur-xl shadow-lg border-b border-slate-300/50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-20">
                 <div class="flex items-center">
-                    <a href="#hero" class="text-3xl font-title font-bold text-cyan-400 hover:text-cyan-300 transition-colors duration-300 tracking-normal">Leonardo Sennis</a>
+                    <a href="#hero" class="text-3xl font-title font-bold text-black hover:text-gray-700 transition-colors duration-300 tracking-normal">Leonardo Sennis</a>
                 </div>
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-2">
-                        <a href="#hero" class="text-slate-300 hover:text-cyan-300 px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 hover:bg-cyan-500/10 transform hover:scale-105">Home</a>
-                        <a href="#about" class="text-slate-300 hover:text-cyan-300 px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 hover:bg-cyan-500/10 transform hover:scale-105">About</a>
-                        <a href="#reel" class="text-slate-300 hover:text-cyan-300 px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 hover:bg-cyan-500/10 transform hover:scale-105">Reel</a>
-                        <a href="#contact" class="text-slate-300 hover:text-cyan-300 px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 hover:bg-cyan-500/10 transform hover:scale-105">Contact</a>
+                        <a href="#hero" class="text-slate-700 hover:text-black px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 hover:bg-gray-500/10 transform hover:scale-105">Home</a>
+                        <a href="#about" class="text-slate-700 hover:text-black px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 hover:bg-gray-500/10 transform hover:scale-105">About</a>
+                        <a href="#reel" class="text-slate-700 hover:text-black px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 hover:bg-gray-500/10 transform hover:scale-105">Reel</a>
+                        <a href="#contact" class="text-slate-700 hover:text-black px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 hover:bg-gray-500/10 transform hover:scale-105">Contact</a>
                     </div>
                 </div>
                 <div class="md:hidden">
-                    <button id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-700/60 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-cyan-500">
+                    <button id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-lg text-slate-500 hover:text-black hover:bg-slate-200/60 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-500">
                         <span class="sr-only">Apri menu principale</span>
                         <svg class="block h-7 w-7" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
@@ -239,41 +237,41 @@
             </div>
         </div>
         <div class="md:hidden hidden" id="mobile-menu">
-            <div class="px-3 pt-2 pb-4 space-y-1 sm:px-4 border-t border-slate-800/30">
-                <a href="#hero" class="text-slate-300 hover:text-cyan-300 hover:bg-cyan-500/10 block px-3 py-3 rounded-lg text-base font-medium transition-all duration-300">Home</a>
-                <a href="#about" class="text-slate-300 hover:text-cyan-300 hover:bg-cyan-500/10 block px-3 py-3 rounded-lg text-base font-medium transition-all duration-300">About</a>
-                <a href="#reel" class="text-slate-300 hover:text-cyan-300 hover:bg-cyan-500/10 block px-3 py-3 rounded-lg text-base font-medium transition-all duration-300">Reel</a>
-                <a href="#contact" class="text-slate-300 hover:text-cyan-300 hover:bg-cyan-500/10 block px-3 py-3 rounded-lg text-base font-medium transition-all duration-300">Contact</a>
+            <div class="px-3 pt-2 pb-4 space-y-1 sm:px-4 border-t border-slate-300/50">
+                <a href="#hero" class="text-slate-700 hover:text-black hover:bg-gray-500/10 block px-3 py-3 rounded-lg text-base font-medium transition-all duration-300">Home</a>
+                <a href="#about" class="text-slate-700 hover:text-black hover:bg-gray-500/10 block px-3 py-3 rounded-lg text-base font-medium transition-all duration-300">About</a>
+                <a href="#reel" class="text-slate-700 hover:text-black hover:bg-gray-500/10 block px-3 py-3 rounded-lg text-base font-medium transition-all duration-300">Reel</a>
+                <a href="#contact" class="text-slate-700 hover:text-black hover:bg-gray-500/10 block px-3 py-3 rounded-lg text-base font-medium transition-all duration-300">Contact</a>
             </div>
         </div>
     </nav>
 
-    <section id="hero" class="h-screen flex items-center justify-center text-center relative hero-bg-image">
-        <div class="absolute inset-0 bg-black opacity-20 z-0"></div> 
+    <section id="hero" class="h-screen flex items-center justify-center text-center relative">
+        <div class="absolute inset-0 opacity-20 z-0 hero-bg-image"></div>
         <div class="relative z-10 p-8 max-w-4xl mx-auto scroll-reveal-element">
-            <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-title font-black text-white mb-8 leading-tight tracking-tighter uppercase"> 
+            <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-title font-black text-black mb-8 leading-tight tracking-tighter uppercase"> 
                 Crafting Visual Stories That Resonate
             </h1>
-            <p class="text-xl sm:text-2xl text-slate-200 mb-12 font-light max-w-2xl mx-auto"> 
+            <p class="text-xl sm:text-2xl text-neutral-700 mb-12 font-light max-w-2xl mx-auto"> 
                 Specializing in music videos.
             </p>
-            <a href="#reel" class="bg-cyan-500 hover:bg-cyan-400 text-black font-title font-bold py-4 px-16 rounded-full text-xl transition-all duration-300 inline-block shadow-2xl hover:shadow-cyan-300/70 focus:outline-none focus:ring-4 focus:ring-cyan-400/50 transform hover:scale-105 active:scale-100">
+            <a href="#reel" class="bg-black hover:bg-neutral-800 text-white font-title font-bold py-4 px-16 rounded-full text-xl transition-all duration-300 inline-block shadow-2xl hover:shadow-neutral-800/50 focus:outline-none focus:ring-4 focus:ring-neutral-500/40 transform hover:scale-105 active:scale-100">
                 View My Reel
             </a>
         </div>
     </section>
 
-    <section id="about" class="py-28 sm:py-40 bg-black scroll-reveal-element">
+    <section id="about" class="py-28 sm:py-40 scroll-reveal-element">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <div class="mb-24">
-                <h2 class="text-4xl sm:text-5xl lg:text-6xl font-title font-black text-cyan-400 scroll-reveal-element uppercase tracking-wide" data-delay="100">About Me</h2>
-                <p class="mt-6 text-lg text-slate-300 font-light max-w-2xl mx-auto scroll-reveal-element" data-delay="200">A Glimpse Into My Journey & Vision</p>
+                <h2 class="text-4xl sm:text-5xl lg:text-6xl font-title font-black text-black scroll-reveal-element uppercase tracking-wide" data-delay="100">About Me</h2>
+                <p class="mt-6 text-lg text-neutral-700 font-light max-w-2xl mx-auto scroll-reveal-element" data-delay="200">A Glimpse Into My Journey & Vision</p>
             </div>
             <div class="flex flex-col md:flex-row items-center gap-12 md:gap-20">
                 <div class="md:w-2/5 scroll-reveal-element" data-delay="300">
-                    <img src="IMG_8112.JPG" alt="Leonardo Sennis" class="rounded-3xl shadow-2xl mx-auto w-full max-w-xs sm:max-w-sm border-2 border-slate-700/40 hover:border-cyan-500/30 transition-all duration-500 transform hover:scale-105"> 
+                    <img src="IMG_8112.JPG" alt="Leonardo Sennis" class="rounded-3xl shadow-2xl mx-auto w-full max-w-xs sm:max-w-sm border-2 border-neutral-300/50 hover:border-neutral-500/40 transition-all duration-500 transform hover:scale-105"> 
                 </div>
-                <div class="md:w-3/5 text-slate-200 md:text-left scroll-reveal-element" data-delay="400"> 
+                <div class="md:w-3/5 text-neutral-800 md:text-left scroll-reveal-element" data-delay="400"> 
                     <p class="text-lg mb-6 leading-relaxed font-light">
                         Hello! I'm Leonardo Sennis, a filmmaker with a deep passion for music. My journey in film began 4 years ago, driven by a desire to experiment.
                     </p>
@@ -288,10 +286,10 @@
         </div>
     </section>
 
-    <section id="reel" class="py-28 sm:py-40 bg-black scroll-reveal-element">
+    <section id="reel" class="py-28 sm:py-40 scroll-reveal-element">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center"> 
             <div class="mb-24">
-                <h2 class="text-4xl sm:text-5xl lg:text-6xl font-title font-black text-cyan-400 scroll-reveal-element uppercase tracking-wide" data-delay="100">REEL</h2>
+                <h2 class="text-4xl sm:text-5xl lg:text-6xl font-title font-black text-black scroll-reveal-element uppercase tracking-wide" data-delay="100">REEL</h2>
             </div>
             <div class="flex flex-wrap justify-center items-center gap-10 md:gap-16 lg:gap-20">
                 <div class="project-card-interactive scroll-reveal-element" data-delay="300"> 
@@ -300,7 +298,7 @@
                         <div class="text-and-play-overlay">
                             <div class="play-icon">▶</div>
                             <h3 class="text-white mb-1">MEMORIES</h3>
-                            <p class="text-slate-300 px-2">5mc2 - U.S. Journey</p>
+                            <p class="text-slate-200 px-2">5mc2 - U.S. Journey</p>
                         </div>
                     </a>
                 </div>
@@ -310,7 +308,7 @@
                         <div class="text-and-play-overlay">
                             <div class="play-icon">▶</div>
                             <h3 class="text-white mb-1">BLUEKILLER</h3>
-                            <p class="text-slate-300 px-2">CopKiller - ADV</p>
+                            <p class="text-slate-200 px-2">CopKiller - ADV</p>
                         </div>
                     </a>
                 </div>
@@ -320,7 +318,7 @@
                         <div class="text-and-play-overlay">
                             <div class="play-icon">▶</div>
                             <h3 class="text-white mb-1">AIR TAG</h3>
-                            <p class="text-slate-300 px-2">Dani Faiv - Music Video</p>
+                            <p class="text-slate-200 px-2">Dani Faiv - Music Video</p>
                         </div>
                     </a>
                 </div>
@@ -330,7 +328,7 @@
                         <div class="text-and-play-overlay">
                             <div class="play-icon">▶</div>
                             <h3 class="text-white mb-1">STO</h3>
-                            <p class="text-slate-300 px-2">Ghali - Music Video</p>
+                            <p class="text-slate-200 px-2">Ghali - Music Video</p>
                         </div>
                     </a>
                 </div>
@@ -340,27 +338,27 @@
                         <div class="text-and-play-overlay">
                             <div class="play-icon">▶</div>
                             <h3 class="text-white mb-1">PAKISTAN</h3>
-                            <p class="text-slate-300 px-2">SapoBully - Music Video</p>
+                            <p class="text-slate-200 px-2">SapoBully - Music Video</p>
                         </div>
                     </a>
                 </div>
                  <div class="project-card-interactive scroll-reveal-element" data-delay="550">
                     <a href="#" class="video-thumbnail-trigger" data-video-url="https://www.dropbox.com/scl/fi/fjyex75trjx9bnnqmjo93/WazeRRX-RoadRunner-Anthem-DAMN.mp4?rlkey=t87ve28erll6vxw1wjjpxz465&st=j6pltm40&dl=0">
-                        <img src="Screenshot 2025-05-22 alle 00.27.07.png">
+                        <img src="Screenshot 2025-05-22 alle 00.27.07.png" alt="Road Runner Anthem - WazeRRX">
                         <div class="text-and-play-overlay">
                             <div class="play-icon">▶</div>
                             <h3 class="text-white mb-1">ROAD RUNNER ANTHEM</h3>
-                            <p class="text-slate-300 px-2">WazeRRX - Music Video</p>
+                            <p class="text-slate-200 px-2">WazeRRX - Music Video</p>
                         </div>
                     </a>
                 </div>
                 <div class="project-card-interactive scroll-reveal-element" data-delay="600">
                     <a href="#" class="video-thumbnail-trigger" data-video-url="https://www.dropbox.com/scl/fi/kiowp96jzyj5ko40d2ukk/Waze-RRX-RIVOLTA-ft.-Rooc-Lee-created-by-DaVision.mov?rlkey=dklao3yeic0dbeyh2bmrlj1wc&st=fhsekw1x&dl=0">
-                        <img src="Screenshot 2025-05-22 alle 00.28.39.png">
+                        <img src="Screenshot 2025-05-22 alle 00.28.39.png" alt="Rivolta - WazeRRX ft. Rooc Lee">
                         <div class="text-and-play-overlay">
                             <div class="play-icon">▶</div>
                             <h3 class="text-white mb-1">RIVOLTA</h3>
-                            <p class="text-slate-300 px-2">WazeRRX - Music Video</p>
+                            <p class="text-slate-200 px-2">WazeRRX ft. Rooc Lee - Music Video</p>
                         </div>
                     </a>
                 </div>
@@ -368,36 +366,36 @@
         </div>
     </section>
 
-    <section id="contact" class="py-28 sm:py-40 bg-black scroll-reveal-element">
+    <section id="contact" class="py-28 sm:py-40 scroll-reveal-element"> 
         <div class="max-w-xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <div class="mb-16">
-                <h2 class="text-4xl sm:text-5xl lg:text-6xl font-title font-black text-cyan-400 scroll-reveal-element uppercase tracking-wide" data-delay="100">Get In Touch</h2>
+                <h2 class="text-4xl sm:text-5xl lg:text-6xl font-title font-black text-white scroll-reveal-element uppercase tracking-wide" data-delay="100">Get In Touch</h2>
                 <p class="mt-6 text-lg text-slate-300 font-light max-w-lg mx-auto scroll-reveal-element" data-delay="200">Let's discuss your next project or collaboration.</p>
             </div>
             <form action="#" method="POST" class="space-y-8 scroll-reveal-element" data-delay="300">
                 <div>
                     <label for="name" class="sr-only">Full Name</label>
                     <input type="text" name="name" id="name" autocomplete="name" required placeholder="Full Name"
-                           class="block w-full bg-slate-900/50 border-slate-700/30 rounded-full shadow-xl py-4 px-7 text-slate-100 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 backdrop-blur-lg transition-all duration-300 hover:border-cyan-500/60 placeholder-slate-400 text-center text-base font-medium">
+                           class="block w-full bg-neutral-800/50 border-neutral-700/40 rounded-full shadow-xl py-4 px-7 text-slate-100 focus:outline-none focus:ring-2 focus:ring-neutral-400 focus:border-neutral-400 backdrop-blur-md transition-all duration-300 hover:border-neutral-500/60 placeholder-slate-400 text-center text-base font-medium">
                 </div>
                 <div>
                     <label for="email" class="sr-only">Email Address</label>
                     <input type="email" name="email" id="email" autocomplete="email" required placeholder="Email Address"
-                           class="block w-full bg-slate-900/50 border-slate-700/30 rounded-full shadow-xl py-4 px-7 text-slate-100 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 backdrop-blur-lg transition-all duration-300 hover:border-cyan-500/60 placeholder-slate-400 text-center text-base font-medium">
+                           class="block w-full bg-neutral-800/50 border-neutral-700/40 rounded-full shadow-xl py-4 px-7 text-slate-100 focus:outline-none focus:ring-2 focus:ring-neutral-400 focus:border-neutral-400 backdrop-blur-md transition-all duration-300 hover:border-neutral-500/60 placeholder-slate-400 text-center text-base font-medium">
                 </div>
                 <div>
                     <label for="subject" class="sr-only">Subject</label>
                     <input type="text" name="subject" id="subject" required placeholder="Subject"
-                           class="block w-full bg-slate-900/50 border-slate-700/30 rounded-full shadow-xl py-4 px-7 text-slate-100 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 backdrop-blur-lg transition-all duration-300 hover:border-cyan-500/60 placeholder-slate-400 text-center text-base font-medium">
+                           class="block w-full bg-neutral-800/50 border-neutral-700/40 rounded-full shadow-xl py-4 px-7 text-slate-100 focus:outline-none focus:ring-2 focus:ring-neutral-400 focus:border-neutral-400 backdrop-blur-md transition-all duration-300 hover:border-neutral-500/60 placeholder-slate-400 text-center text-base font-medium">
                 </div>
                 <div>
                     <label for="message" class="sr-only">Message</label>
                     <textarea id="message" name="message" rows="5" required placeholder="Your Message..."
-                              class="block w-full bg-slate-900/50 border-slate-700/30 rounded-3xl shadow-xl py-4 px-7 text-slate-100 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 backdrop-blur-lg transition-all duration-300 hover:border-cyan-500/60 placeholder-slate-400 text-sm"></textarea>
+                              class="block w-full bg-neutral-800/50 border-neutral-700/40 rounded-3xl shadow-xl py-4 px-7 text-slate-100 focus:outline-none focus:ring-2 focus:ring-neutral-400 focus:border-neutral-400 backdrop-blur-md transition-all duration-300 hover:border-neutral-500/60 placeholder-slate-400 text-sm"></textarea>
                 </div>
                 <div class="text-center pt-4">
                     <button type="submit"
-                            class="inline-flex justify-center py-4 px-16 border border-transparent shadow-2xl hover:shadow-cyan-400/50 text-lg font-title font-bold rounded-full text-black bg-cyan-400 hover:bg-cyan-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-black focus:ring-cyan-300 transition-all duration-300 transform hover:scale-105 active:scale-95">
+                            class="inline-flex justify-center py-4 px-16 border border-transparent shadow-2xl hover:shadow-slate-400/30 text-lg font-title font-bold rounded-full text-black bg-white hover:bg-neutral-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-black focus:ring-neutral-300 transition-all duration-300 transform hover:scale-105 active:scale-95">
                         Send Message
                     </button>
                 </div>
@@ -405,15 +403,15 @@
             <div class="mt-24 text-center scroll-reveal-element" data-delay="400">
                 <p class="text-slate-300 text-sm">Or connect with me on social media:</p>
                 <div class="flex justify-center space-x-8 mt-7">
-                    <a href="#" class="text-slate-400 hover:text-cyan-400 transition-all transform hover:scale-110 duration-300 hover:drop-shadow-[0_0_12px_rgba(34,211,238,0.7)]">
+                    <a href="#" class="text-slate-400 hover:text-white transition-all transform hover:scale-110 duration-300 hover:drop-shadow-[0_0_12px_rgba(255,255,255,0.3)]">
                         <span class="sr-only">Vimeo</span>
                         <svg class="w-9 h-9" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M23.032 5.086C22.718 3.305 21.35 1.982 19.516 1.717 16.912 1.375 12 1.375 12 1.375s-4.912 0-7.516.342C2.649 1.982 1.282 3.305.968 5.086.625 7.69.625 12 .625 12s0 4.31.343 6.914c.314 1.781 1.68 3.104 3.516 3.369C7.088 22.625 12 22.625 12 22.625s4.912 0 7.516-.342c1.836-.265 3.203-1.588 3.517-3.369.343-2.604.343-6.914.343-6.914s0-4.31-.344-6.914zM9.75 16.167V7.833l6.5 4.167-6.5 4.167z"/></svg>
                     </a>
-                    <a href="#" class="text-slate-400 hover:text-cyan-400 transition-all transform hover:scale-110 duration-300 hover:drop-shadow-[0_0_12px_rgba(34,211,238,0.7)]">
+                    <a href="#" class="text-slate-400 hover:text-white transition-all transform hover:scale-110 duration-300 hover:drop-shadow-[0_0_12px_rgba(255,255,255,0.3)]">
                         <span class="sr-only">LinkedIn</span>
                         <svg class="w-9 h-9" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
                     </a>
-                    <a href="#" class="text-slate-400 hover:text-cyan-400 transition-all transform hover:scale-110 duration-300 hover:drop-shadow-[0_0_12px_rgba(34,211,238,0.7)]">
+                    <a href="#" class="text-slate-400 hover:text-white transition-all transform hover:scale-110 duration-300 hover:drop-shadow-[0_0_12px_rgba(255,255,255,0.3)]">
                         <span class="sr-only">Instagram</span>
                         <svg class="w-9 h-9" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.069-4.85.069s-3.585-.012-4.849-.069c-3.225-.148-4.771-1.664-4.919-4.919-.058-1.265-.069-1.645-.069-4.849 0-3.204.013-3.583.069-4.849.149-3.227 1.664-4.771 4.919-4.919.058-1.265.069-1.645.069-4.849zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.359 2.618 6.78 6.98 6.98 1.281.059 1.689.073 4.948.073s3.667-.014 4.947-.072c4.359-.2 6.78-2.618 6.98-6.98.059-1.281.073-1.689.073-4.948s-.014-3.667-.072-4.947c-.2-4.359-2.618-6.78-6.98-6.98-1.281-.059-1.689-.073-4.948-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
                     </a>
@@ -431,7 +429,7 @@
 
     <div id="videoModal" class="fixed inset-0 bg-black bg-opacity-85 flex items-center justify-center z-[100] hidden p-4 transition-opacity duration-300 backdrop-blur-lg">
         <div class="bg-slate-900/70 backdrop-blur-xl p-2 sm:p-3 rounded-2xl shadow-2xl w-full max-w-4xl relative border border-slate-700/50"> 
-            <button id="closeModal" class="absolute -top-4 -right-4 bg-cyan-500 text-black rounded-full p-0 w-10 h-10 flex items-center justify-center text-2xl leading-none hover:bg-cyan-400 z-10 shadow-xl transform hover:scale-110 transition-transform focus:outline-none focus:ring-2 focus:ring-cyan-300">×</button>
+            <button id="closeModal" class="absolute -top-4 -right-4 bg-white text-black rounded-full p-0 w-10 h-10 flex items-center justify-center text-2xl leading-none hover:bg-slate-200 z-10 shadow-xl transform hover:scale-110 transition-transform focus:outline-none focus:ring-2 focus:ring-slate-300">×</button>
             
             <div id="iframePlayerContainer" class="aspect-video bg-black rounded-lg overflow-hidden">
                 <iframe id="videoPlayer" width="100%" height="100%" src="" title="Video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen class="rounded-lg"></iframe>
@@ -444,57 +442,64 @@
     </div>
 
     <script>
-        // Mobile menu toggle
+    window.addEventListener('DOMContentLoaded', () => {
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
         const menuIcons = mobileMenuButton.querySelectorAll('svg');
 
-        mobileMenuButton.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-            menuIcons.forEach(icon => icon.classList.toggle('hidden'));
-        });
-
-        mobileMenu.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                if (!mobileMenu.classList.contains('hidden')) {
-                    mobileMenu.classList.add('hidden');
-                    menuIcons[0].classList.remove('hidden'); 
-                    menuIcons[1].classList.add('hidden'); 
-                }
+        if (mobileMenuButton && mobileMenu && menuIcons.length === 2) {
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+                menuIcons.forEach(icon => icon.classList.toggle('hidden'));
             });
-        });
-        
-        document.getElementById('currentYear').textContent = new Date().getFullYear();
 
-        // Starry background generation
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                        menuIcons[0].classList.remove('hidden'); 
+                        menuIcons[1].classList.add('hidden'); 
+                    }
+                });
+            });
+        }
+        
+        const currentYearEl = document.getElementById('currentYear');
+        if (currentYearEl) {
+            currentYearEl.textContent = new Date().getFullYear();
+        }
+
         const starField = document.getElementById('star-field');
-        const numStars = 40; 
-        for (let i = 0; i < numStars; i++) {
-            let star = document.createElement('div');
-            star.className = 'star';
-            star.style.left = Math.random() * 100 + '%';
-            star.style.top = Math.random() * 100 + '%';
-            let size = Math.random() * 0.8 + 0.1; 
-            star.style.width = size + 'px';
-            star.style.height = size + 'px';
-            star.style.animationDelay = Math.random() * 10 + 's'; 
-            star.style.animationDuration = (Math.random() * 6 + 6) + 's'; 
-            star.style.opacity = Math.random() * 0.2 + 0.02; 
-            starField.appendChild(star);
+        if (starField) {
+            const numStars = 40; 
+            for (let i = 0; i < numStars; i++) {
+                let star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                let size = Math.random() * 0.8 + 0.1; 
+                star.style.width = size + 'px';
+                star.style.height = size + 'px';
+                star.style.animationDelay = Math.random() * 10 + 's'; 
+                star.style.animationDuration = (Math.random() * 6 + 6) + 's'; 
+                star.style.opacity = Math.random() * 0.2 + 0.02; 
+                starField.appendChild(star);
+            }
         }
 
         const globalLight = document.getElementById('global-mouse-light');
         let rafScheduled = false;
-        document.addEventListener('mousemove', (e) => {
-            if (!rafScheduled) {
-                rafScheduled = true;
-                requestAnimationFrame(() => { 
-                    globalLight.style.transform = `translate(${e.clientX - globalLight.offsetWidth / 2}px, ${e.clientY - globalLight.offsetHeight / 2}px)`;
-                    rafScheduled = false;
-                });
-            }
-        });
-
+        if (globalLight) {
+            document.addEventListener('mousemove', (e) => {
+                if (!rafScheduled) {
+                    rafScheduled = true;
+                    requestAnimationFrame(() => { 
+                        globalLight.style.transform = `translate(${e.clientX - globalLight.offsetWidth / 2}px, ${e.clientY - globalLight.offsetHeight / 2}px)`;
+                        rafScheduled = false;
+                    });
+                }
+            });
+        }
 
         const projectCards = document.querySelectorAll('.project-card-interactive');
         const videoModal = document.getElementById('videoModal');
@@ -504,184 +509,178 @@
         const html5VideoPlayer = document.getElementById('html5VideoPlayer');
         const closeModalButton = document.getElementById('closeModal');
 
-        projectCards.forEach(card => {
-            const thumbnailLink = card.querySelector('.video-thumbnail-trigger');
-            if (!thumbnailLink) return;
+        if (projectCards.length > 0 && videoModal && iframePlayerContainer && videoPlayer && html5PlayerContainer && html5VideoPlayer && closeModalButton) {
+            projectCards.forEach(card => {
+                const thumbnailLink = card.querySelector('.video-thumbnail-trigger');
+                if (!thumbnailLink) return;
 
-            card.style.animationDelay = `${Math.random() * -12}s`; 
+                card.style.animationDelay = `${Math.random() * -12}s`; 
 
-            let cardRafScheduled = false;
-            card.addEventListener('mousemove', (e) => {
-                if(!cardRafScheduled) {
-                    cardRafScheduled = true;
-                    requestAnimationFrame(() => {
-                        const rect = card.getBoundingClientRect();
-                        const x = e.clientX - rect.left;
-                        const y = e.clientY - rect.top;
-                        const centerX = rect.width / 2;
-                        const centerY = rect.height / 2;
-                        
-                        const deltaX = (x - centerX) / centerX; 
-                        const deltaY = (y - centerY) / centerY; 
+                let cardRafScheduled = false;
+                card.addEventListener('mousemove', (e) => {
+                    if(!cardRafScheduled) {
+                        cardRafScheduled = true;
+                        requestAnimationFrame(() => {
+                            const rect = card.getBoundingClientRect();
+                            const x = e.clientX - rect.left;
+                            const y = e.clientY - rect.top;
+                            const centerX = rect.width / 2;
+                            const centerY = rect.height / 2;
+                            
+                            const deltaX = (x - centerX) / centerX; 
+                            const deltaY = (y - centerY) / centerY; 
 
-                        const rotateY = deltaX * 8; 
-                        const rotateX = -deltaY * 8;
+                            const rotateY = deltaX * 8; 
+                            const rotateX = -deltaY * 8;
 
-                        card.style.setProperty('--mouse-x-card', `${(x / rect.width) * 100}%`);
-                        card.style.setProperty('--mouse-y-card', `${(y / rect.height) * 100}%`);
-                        card.style.setProperty('--glare-opacity', '0.9'); 
-                        card.style.transform = `perspective(1500px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.08)`; 
-                        cardRafScheduled = false;
+                            card.style.setProperty('--mouse-x-card', `${(x / rect.width) * 100}%`);
+                            card.style.setProperty('--mouse-y-card', `${(y / rect.height) * 100}%`);
+                            card.style.setProperty('--glare-opacity', '0.9'); 
+                            card.style.transform = `perspective(1500px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.08)`; 
+                            cardRafScheduled = false;
+                        });
+                    }
+                });
+
+                card.addEventListener('mouseleave', () => {
+                     requestAnimationFrame(() => {
+                        card.style.setProperty('--glare-opacity', '0');
+                        card.style.transform = ''; 
                     });
-                }
-            });
-
-            card.addEventListener('mouseleave', () => {
-                 requestAnimationFrame(() => {
-                    card.style.setProperty('--glare-opacity', '0');
-                    card.style.transform = ''; 
                 });
-            });
 
-            thumbnailLink.addEventListener('click', (event) => {
-                event.preventDefault();
-                const videoUrl = thumbnailLink.dataset.videoUrl;
-                
-                if (!videoUrl || videoUrl === "YOUR_VIDEO_URL_HERE") {
-                    console.warn("URL video non impostato o segnaposto per questo elemento:", thumbnailLink);
-                    if (videoUrl === "YOUR_VIDEO_URL_HERE") { 
-                        iframePlayerContainer.classList.remove('hidden');
+                thumbnailLink.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    const videoUrl = thumbnailLink.dataset.videoUrl;
+                    
+                    if (!videoUrl || videoUrl === "YOUR_VIDEO_URL_HERE") {
+                        console.warn("URL video non impostato o segnaposto per questo elemento:", thumbnailLink);
+                        if (videoUrl === "YOUR_VIDEO_URL_HERE") { 
+                            iframePlayerContainer.classList.remove('hidden');
+                            html5PlayerContainer.classList.add('hidden');
+                            videoPlayer.src = "https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1" + "?autoplay=1&rel=0&modestbranding=1";
+                            videoModal.classList.remove('hidden');
+                            document.body.style.overflow = 'hidden';
+                        }
+                        return; 
+                    }
+
+                    let embedUrl = videoUrl;
+                    let useHtml5Player = false;
+                    const videoUrlLower = videoUrl.toLowerCase();
+
+                    if (videoUrl.includes("dropbox.com/") && (videoUrlLower.includes(".mp4") || videoUrlLower.includes(".mov"))) {
+                        embedUrl = videoUrl.replace("www.dropbox.com", "dl.dropboxusercontent.com");
+                        if (embedUrl.includes("dl=0")) {
+                            embedUrl = embedUrl.replace("dl=0", "raw=1");
+                        } else if (!embedUrl.includes("raw=1")) {
+                            embedUrl += (embedUrl.includes("?") ? "&" : "?") + "raw=1";
+                        }
+                        useHtml5Player = true;
+                    } else if (videoUrlLower.endsWith(".mp4") || videoUrlLower.endsWith(".mov")) {
+                        useHtml5Player = true;
+                    } else if (videoUrl.includes("youtube.com/watch?v=") || videoUrl.includes("youtu.be/")) {
+                        let videoId;
+                        try {
+                            const url = new URL(videoUrl);
+                            if (videoUrl.includes("youtube.com/watch?v=")) {
+                                videoId = url.searchParams.get("v");
+                            } else { 
+                                videoId = url.pathname.substring(1);
+                            }
+                            if (videoId) {
+                               embedUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&playsinline=1`;
+                            } else {
+                                console.error("Impossibile analizzare l'ID video di YouTube da:", videoUrl); return;
+                            }
+                        } catch (e) {
+                            console.error("Errore durante l'analisi dell'URL di YouTube:", videoUrl, e); return;
+                        }
+                    } else if (videoUrl.includes("vimeo.com/")) {
+                        try {
+                            const url = new URL(videoUrl);
+                            const videoId = url.pathname.split('/').pop();
+                            if (videoId && !isNaN(videoId)) {
+                               embedUrl = `https://player.vimeo.com/video/${videoId}?autoplay=1&title=0&byline=0&portrait=0&dnt=1`;
+                            } else {
+                                console.error("Impossibile analizzare l'ID video di Vimeo da:", videoUrl); return;
+                            }
+                        } catch (e) {
+                            console.error("Errore durante l'analisi dell'URL di Vimeo:", videoUrl, e); return;
+                        }
+                    }
+
+                    if (useHtml5Player) {
+                        iframePlayerContainer.classList.add('hidden');
+                        html5PlayerContainer.classList.remove('hidden');
+                        html5VideoPlayer.src = embedUrl;
+                        html5VideoPlayer.play().catch(error => console.error("Errore durante la riproduzione del video HTML5:", error));
+                    } else {
                         html5PlayerContainer.classList.add('hidden');
-                        videoPlayer.src = "https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1" + "?autoplay=1&rel=0&modestbranding=1";
-                        videoModal.classList.remove('hidden');
-                        document.body.style.overflow = 'hidden';
+                        iframePlayerContainer.classList.remove('hidden');
+                        videoPlayer.src = embedUrl;
                     }
-                    return; 
-                }
 
-                let embedUrl = videoUrl;
-                let useHtml5Player = false;
-                const videoUrlLower = videoUrl.toLowerCase();
-
-                if (videoUrl.includes("dropbox.com/") && (videoUrlLower.includes(".mp4") || videoUrlLower.includes(".mov"))) {
-                    embedUrl = videoUrl.replace("www.dropbox.com", "dl.dropboxusercontent.com");
-                    if (embedUrl.includes("dl=0")) {
-                        embedUrl = embedUrl.replace("dl=0", "raw=1");
-                    } else if (!embedUrl.includes("raw=1")) {
-                        embedUrl += (embedUrl.includes("?") ? "&" : "?") + "raw=1";
-                    }
-                    useHtml5Player = true;
-                } else if (videoUrlLower.endsWith(".mp4") || videoUrlLower.endsWith(".mov")) {
-                    useHtml5Player = true;
-                } else if (videoUrl.includes("youtube.com/watch?v=") || videoUrl.includes("youtu.be/")) {
-                    let videoId;
-                    try {
-                        const url = new URL(videoUrl);
-                        if (videoUrl.includes("youtube.com/watch?v=")) {
-                            videoId = url.searchParams.get("v");
-                        } else { 
-                            videoId = url.pathname.substring(1);
-                        }
-                        if (videoId) {
-                           embedUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&playsinline=1`;
-                        } else {
-                            console.error("Impossibile analizzare l'ID video di YouTube da:", videoUrl); return;
-                        }
-                    } catch (e) {
-                        console.error("Errore durante l'analisi dell'URL di YouTube:", videoUrl, e); return;
-                    }
-                } else if (videoUrl.includes("vimeo.com/")) {
-                    try {
-                        const url = new URL(videoUrl);
-                        const videoId = url.pathname.split('/').pop();
-                        if (videoId && !isNaN(videoId)) {
-                           embedUrl = `https://player.vimeo.com/video/${videoId}?autoplay=1&title=0&byline=0&portrait=0&dnt=1`;
-                        } else {
-                            console.error("Impossibile analizzare l'ID video di Vimeo da:", videoUrl); return;
-                        }
-                    } catch (e) {
-                        console.error("Errore durante l'analisi dell'URL di Vimeo:", videoUrl, e); return;
-                    }
-                }
-
-                if (useHtml5Player) {
-                    iframePlayerContainer.classList.add('hidden');
-                    html5PlayerContainer.classList.remove('hidden');
-                    html5VideoPlayer.src = embedUrl;
-                    html5VideoPlayer.play().catch(error => console.error("Errore durante la riproduzione del video HTML5:", error));
-                } else {
-                    html5PlayerContainer.classList.add('hidden');
-                    iframePlayerContainer.classList.remove('hidden');
-                    videoPlayer.src = embedUrl;
-                }
-
-                videoModal.classList.remove('hidden');
-                videoModal.style.opacity = '0'; 
-                requestAnimationFrame(() => { 
-                    videoModal.style.opacity = '1';
+                    videoModal.classList.remove('hidden');
+                    videoModal.style.opacity = '0'; 
+                    requestAnimationFrame(() => { 
+                        videoModal.style.opacity = '1';
+                    });
+                    document.body.style.overflow = 'hidden';
                 });
-                document.body.style.overflow = 'hidden';
             });
-        });
 
-        function closeVideoModal() {
-            videoPlayer.src = ""; 
-            html5VideoPlayer.pause();
-            html5VideoPlayer.src = ""; 
-            videoModal.style.opacity = '0'; 
-            setTimeout(() => { 
-                videoModal.classList.add('hidden');
-                document.body.style.overflow = '';
-            }, 300); 
+            function closeVideoModal() {
+                videoPlayer.src = ""; 
+                html5VideoPlayer.pause();
+                html5VideoPlayer.src = ""; 
+                videoModal.style.opacity = '0'; 
+                setTimeout(() => { 
+                    videoModal.classList.add('hidden');
+                    document.body.style.overflow = '';
+                }, 300); 
+            }
+
+            closeModalButton.addEventListener('click', closeVideoModal);
+
+            videoModal.addEventListener('click', (event) => {
+                if (event.target === videoModal) { 
+                    closeVideoModal();
+                }
+            });
+
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape' && !videoModal.classList.contains('hidden')) {
+                    closeVideoModal();
+                }
+            });
         }
 
-        closeModalButton.addEventListener('click', closeVideoModal);
 
-        videoModal.addEventListener('click', (event) => {
-            if (event.target === videoModal) { 
-                closeVideoModal();
-            }
-        });
-
-        document.addEventListener('keydown', (event) => {
-            if (event.key === 'Escape' && !videoModal.classList.contains('hidden')) {
-                closeVideoModal();
-            }
-        });
-
-        // Scroll Reveal Logic
         const scrollElements = document.querySelectorAll(".scroll-reveal-element");
+        if (scrollElements.length > 0) {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1 
+            };
 
-        const elementInView = (el, threshold = 0.05) => { // Ridotto threshold per attivare prima
-            const rect = el.getBoundingClientRect();
-            return (
-                rect.top <= (window.innerHeight || document.documentElement.clientHeight) - (rect.height * threshold) &&
-                rect.bottom >= (rect.height * threshold)
-            );
-        };
+            const observer = new IntersectionObserver((entries, observerRef) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const delay = parseInt(entry.target.dataset.delay) || 0;
+                        setTimeout(() => {
+                            entry.target.classList.add("is-visible");
+                        }, delay);
+                    } 
+                });
+            }, observerOptions);
 
-        const displayScrollElement = (element) => {
-            element.classList.add("is-visible");
-        };
-        
-        const handleScrollAnimation = () => {
-            scrollElements.forEach((el) => {
-                const delay = parseInt(el.dataset.delay) || 0;
-                if (elementInView(el) && !el.classList.contains("is-visible")) { 
-                    setTimeout(() => {
-                       displayScrollElement(el);
-                    }, delay);
-                } 
-            })
+            scrollElements.forEach(el => {
+                observer.observe(el);
+            });
         }
-        
-        handleScrollAnimation(); 
-        let scrollTimeout;
-        window.addEventListener("scroll", () => {
-            clearTimeout(scrollTimeout);
-            scrollTimeout = setTimeout(handleScrollAnimation, 20); // Check più frequente per fluidità
-        });
-
+    });
     </script>
 </body>
 </html>
