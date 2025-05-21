@@ -7,7 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -29,116 +29,113 @@
 
         .star {
             position: absolute;
-            background-color: rgba(255, 255, 255, 0.6); /* Stelle leggermente meno opache */
+            background-color: rgba(255, 255, 255, 0.5); /* Stelle più tenui */
             border-radius: 50%;
-            animation: twinkleFloat 6s infinite ease-in-out; /* Combinato twinkle e float */
+            animation: twinkleFloat 8s infinite ease-in-out; 
         }
 
-        @keyframes twinkleFloat {
-            0%, 100% { opacity: 0.1; transform: scale(0.6) translateY(0px); }
-            25% { opacity: 0.5; transform: scale(0.9) translateY(-2px); }
-            50% { opacity: 0.2; transform: scale(0.7) translateY(0px); }
-            75% { opacity: 0.5; transform: scale(0.9) translateY(2px); }
+        @keyframes twinkleFloat { /* Animazione più lenta e sottile */
+            0%, 100% { opacity: 0.05; transform: scale(0.5) translateY(0px); }
+            25% { opacity: 0.4; transform: scale(0.8) translateY(-3px); }
+            50% { opacity: 0.1; transform: scale(0.6) translateY(0px); }
+            75% { opacity: 0.4; transform: scale(0.8) translateY(3px); }
         }
-
 
         #global-mouse-light {
             position: fixed;
-            width: 700px; 
-            height: 700px;
-            background: radial-gradient(circle, rgba(34, 211, 238, 0.06) 0%, transparent 65%); /* Ciano ancora più tenue e diffuso */
+            width: 800px; /* Luce più grande */
+            height: 800px;
+            background: radial-gradient(circle, rgba(34, 211, 238, 0.04) 0%, transparent 60%); /* Ciano ancora più tenue e diffuso */
             border-radius: 50%;
             transform: translate(-50%, -50%); 
             pointer-events: none; 
             z-index: -5; 
-            transition: transform 0.1s linear; /* Movimento più diretto della luce */
+            transition: transform 0.15s linear; 
         }
 
         ::-webkit-scrollbar {
-            width: 8px;
+            width: 7px;
         }
         ::-webkit-scrollbar-track {
-            background: #0a0a0a; /* Grigio scurissimo per la traccia */
+            background: #0c0c0c; 
         }
         ::-webkit-scrollbar-thumb {
-            background: #155e75; /* Ciano più scuro per il thumb */
-            border-radius: 4px;
+            background: #0e7490; /* ciano-700 */
+            border-radius: 10px;
         }
         ::-webkit-scrollbar-thumb:hover {
-            background: #0891b2; /* Ciano più chiaro su hover */
+            background: #0891b2; /* ciano-600 */
         }
 
         .hero-bg-image {
-            background-image: url('https://placehold.co/1920x1080/000000/083344?text=Visioni+Cosmiche'); 
+            background-image: url('https://placehold.co/1920x1080/000000/064e3b?text=Cosmic+Canvas'); /* Placeholder aggiornato */
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
         }
         
-        /* Stili per le "bolle" dei progetti circolari */
         .project-card-interactive {
-            width: 18rem; /* w-72 -> circa 288px, puoi aggiustare */
-            height: 18rem; /* h-72 */
-            background-color: rgba(23, 37, 84, 0.4); /* Blu indaco scuro, semitrasparente */
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px); 
-            border: 1px solid rgba(76, 89, 119, 0.25); /* Bordo più tenue */
-            box-shadow: 0 0 40px rgba(34, 211, 238, 0.1), 0 0 60px rgba(34, 211, 238, 0.08), inset 0 0 15px rgba(200, 225, 255, 0.05); /* Glow ciano e leggero highlight interno */
-            transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease-out; /* Transizione più elastica */
+            width: 17rem; /* w-68, circa 272px */
+            height: 17rem; /* h-68 */
+            background-color: rgba(17, 24, 39, 0.45); /* gray-900 con 45% opacità, più scuro */
+            backdrop-filter: blur(18px); /* Blur più intenso */
+            -webkit-backdrop-filter: blur(18px); 
+            border: 1px solid rgba(55, 65, 81, 0.2); /* Bordo ancora più tenue */
+            box-shadow: 0 0 50px rgba(20, 184, 200, 0.07), 0 0 70px rgba(20, 184, 200, 0.05), inset 0 0 20px rgba(173, 216, 230, 0.04); /* Glow ciano più soffuso, highlight interno più leggero */
+            transition: transform 0.3s cubic-bezier(0.215, 0.610, 0.355, 1), box-shadow 0.4s ease-out; /* Transizione più fluida */
             position: relative; 
             overflow: hidden; 
-            perspective: 1000px; 
-            border-radius: 50%; /* Rende la card perfettamente circolare */
-            animation: floatBubble 8s infinite ease-in-out; /* Animazione di fluttuazione idle */
+            perspective: 1200px; 
+            border-radius: 50%; 
+            animation: floatBubble 10s infinite ease-in-out; /* Animazione idle più lenta */
         }
         
-        @keyframes floatBubble {
-            0%, 100% { transform: translateY(0px) rotate(0deg) scale(1); }
-            25% { transform: translateY(-6px) rotate(-2deg) scale(1.01); }
-            50% { transform: translateY(0px) rotate(0deg) scale(1); }
-            75% { transform: translateY(6px) rotate(2deg) scale(1.01); }
+        @keyframes floatBubble { /* Animazione idle più elegante e lenta */
+            0%, 100% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-10px) scale(1.01); }
         }
 
-        .project-card-interactive::before { /* Riflesso di luce sulla bolla */
+        .project-card-interactive::before { /* Riflesso di luce */
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: var(--mouse-y-card, -50%); /* Posizione iniziale fuori vista in alto */
+            left: var(--mouse-x-card, 50%);
+            width: 150%; /* Riflesso più ampio */
+            height: 150%;
             border-radius: 50%; 
-            background: radial-gradient(circle at var(--mouse-x-card, 50%) var(--mouse-y-card, -10%), rgba(220, 240, 255, 0.25), transparent 50%); /* Riflesso più concentrato e luminoso */
+            background: radial-gradient(circle at center, rgba(200, 230, 255, 0.15) 0%, transparent 40%); /* Riflesso più morbido e diffuso */
             opacity: var(--glare-opacity, 0);
-            transition: opacity 0.3s ease-out, background 0.1s linear;
+            transform: translate(-50%, -50%) rotate(15deg); /* Leggera rotazione del riflesso */
+            transition: opacity 0.4s ease-out, background 0.2s linear;
             pointer-events: none; 
             z-index: 2; 
         }
         
-        .video-thumbnail-trigger { /* Il link <a> che contiene tutto */
+        .video-thumbnail-trigger {
             display: flex;
             width: 100%;
             height: 100%;
             align-items: center;
             justify-content: center;
-            position: relative; /* Per posizionare gli overlay */
+            position: relative; 
             border-radius: 50%;
-            overflow: hidden; /* Assicura che l'immagine non esca dalla forma circolare */
+            overflow: hidden; 
         }
 
         .video-thumbnail-trigger img {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Copre l'intera area circolare */
-            transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1), filter 0.4s ease;
-            border-radius: 50%; /* Assicura che l'immagine stessa sia circolare se il contenitore non la maschera perfettamente */
+            object-fit: cover; 
+            transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1), filter 0.5s ease-out;
+            border-radius: 50%; 
         }
 
         .project-card-interactive:hover .video-thumbnail-trigger img {
-            transform: scale(1.1); 
-            filter: brightness(0.5) blur(2px); /* Più scuro e leggermente sfocato per far risaltare il testo */
+            transform: scale(1.15); 
+            filter: brightness(0.4) blur(3px); 
         }
         
-        .text-and-play-overlay { /* Contenitore per testo e icona play */
+        .text-and-play-overlay {
             position: absolute;
             top: 0;
             left: 0;
@@ -150,23 +147,42 @@
             justify-content: center;
             text-align: center;
             padding: 1rem;
-            background: rgba(10, 10, 15, 0.5); /* Sfondo scuro semitrasparente per il testo */
+            background: rgba(5, 5, 10, 0.4); /* Sfondo overlay ancora più scuro per contrasto */
             opacity: 0;
-            transform: scale(0.9);
-            transition: opacity 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            transform: translateY(15px) scale(0.95); /* Leggero offset iniziale */
+            transition: opacity 0.45s cubic-bezier(0.25, 0.8, 0.25, 1), transform 0.45s cubic-bezier(0.25, 0.8, 0.25, 1);
             z-index: 3;
             border-radius: 50%;
         }
 
         .project-card-interactive:hover .text-and-play-overlay {
             opacity: 1;
-            transform: scale(1);
+            transform: translateY(0) scale(1);
         }
         
         .text-and-play-overlay .play-icon {
-            font-size: 2.5rem; /* Dimensione icona play */
-            color: rgba(229, 231, 235, 0.9);
-            margin-bottom: 0.5rem;
+            font-size: 2.2rem; 
+            color: rgba(209, 213, 219, 0.9); /* gray-300 */
+            margin-bottom: 0.6rem;
+            text-shadow: 0 0 10px rgba(34, 211, 238, 0.5); /* Leggero glow sull'icona */
+        }
+        .text-and-play-overlay h3 {
+            font-weight: 600; /* Più bold */
+        }
+        .text-and-play-overlay p {
+            font-size: 0.8rem; /* Leggermente più piccolo */
+            line-height: 1.3;
+        }
+
+        /* Scroll Reveal Animations */
+        .scroll-reveal-element {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275), transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .scroll-reveal-element.is-visible {
+            opacity: 1;
+            transform: translateY(0);
         }
       
     </style>
@@ -175,18 +191,18 @@
     <div id="star-field"></div>
     <div id="global-mouse-light"></div>
 
-    <nav class="sticky top-0 z-50 bg-black bg-opacity-50 backdrop-blur-xl shadow-2xl border-b border-gray-800/30">
+    <nav class="sticky top-0 z-50 bg-black bg-opacity-60 backdrop-blur-2xl shadow-2xl border-b border-gray-800/20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
                 <div class="flex items-center">
-                    <a href="#hero" class="text-2xl font-bold text-cyan-400 hover:text-cyan-300 transition-colors">Leonardo Sennis</a>
+                    <a href="#hero" class="text-2xl font-bold text-cyan-400 hover:text-cyan-300 transition-colors duration-300">Leonardo Sennis</a>
                 </div>
                 <div class="hidden md:block">
-                    <div class="ml-10 flex items-baseline space-x-4">
-                        <a href="#hero" class="text-gray-300 hover:text-cyan-300 px-3 py-2 rounded-md text-sm font-medium transition-colors">Home</a>
-                        <a href="#about" class="text-gray-300 hover:text-cyan-300 px-3 py-2 rounded-md text-sm font-medium transition-colors">About</a>
-                        <a href="#reel" class="text-gray-300 hover:text-cyan-300 px-3 py-2 rounded-md text-sm font-medium transition-colors">Reel</a>
-                        <a href="#contact" class="text-gray-300 hover:text-cyan-300 px-3 py-2 rounded-md text-sm font-medium transition-colors">Contact</a>
+                    <div class="ml-10 flex items-baseline space-x-1">
+                        <a href="#hero" class="text-gray-300 hover:text-cyan-300 px-3 py-2 rounded-md text-sm font-medium transition-all duration-300 hover:bg-cyan-400/10">Home</a>
+                        <a href="#about" class="text-gray-300 hover:text-cyan-300 px-3 py-2 rounded-md text-sm font-medium transition-all duration-300 hover:bg-cyan-400/10">About</a>
+                        <a href="#reel" class="text-gray-300 hover:text-cyan-300 px-3 py-2 rounded-md text-sm font-medium transition-all duration-300 hover:bg-cyan-400/10">Reel</a>
+                        <a href="#contact" class="text-gray-300 hover:text-cyan-300 px-3 py-2 rounded-md text-sm font-medium transition-all duration-300 hover:bg-cyan-400/10">Contact</a>
                     </div>
                 </div>
                 <div class="md:hidden">
@@ -204,44 +220,44 @@
         </div>
         <div class="md:hidden hidden" id="mobile-menu">
             <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                <a href="#hero" class="text-gray-300 hover:text-cyan-300 block px-3 py-2 rounded-md text-base font-medium transition-colors">Home</a>
-                <a href="#about" class="text-gray-300 hover:text-cyan-300 block px-3 py-2 rounded-md text-base font-medium transition-colors">About</a>
-                <a href="#reel" class="text-gray-300 hover:text-cyan-300 block px-3 py-2 rounded-md text-base font-medium transition-colors">Reel</a>
-                <a href="#contact" class="text-gray-300 hover:text-cyan-300 block px-3 py-2 rounded-md text-base font-medium transition-colors">Contact</a>
+                <a href="#hero" class="text-gray-300 hover:text-cyan-300 hover:bg-cyan-400/10 block px-3 py-2 rounded-md text-base font-medium transition-all duration-300">Home</a>
+                <a href="#about" class="text-gray-300 hover:text-cyan-300 hover:bg-cyan-400/10 block px-3 py-2 rounded-md text-base font-medium transition-all duration-300">About</a>
+                <a href="#reel" class="text-gray-300 hover:text-cyan-300 hover:bg-cyan-400/10 block px-3 py-2 rounded-md text-base font-medium transition-all duration-300">Reel</a>
+                <a href="#contact" class="text-gray-300 hover:text-cyan-300 hover:bg-cyan-400/10 block px-3 py-2 rounded-md text-base font-medium transition-all duration-300">Contact</a>
             </div>
         </div>
     </nav>
 
     <section id="hero" class="h-screen flex items-center justify-center text-center relative hero-bg-image">
-        <div class="absolute inset-0 bg-black opacity-60 z-0"></div>
-        <div class="relative z-10 p-8 max-w-3xl mx-auto">
+        <div class="absolute inset-0 bg-black opacity-50 z-0"></div>
+        <div class="relative z-10 p-8 max-w-3xl mx-auto scroll-reveal-element">
             <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-6 leading-tight">
                 Crafting Visual Stories That Resonate
             </h1>
             <p class="text-lg sm:text-xl text-gray-200 mb-8">
                 Specializing in music videos.
             </p>
-            <a href="#reel" class="bg-cyan-600 hover:bg-cyan-700 text-white font-semibold py-3 px-8 rounded-lg text-lg transition-colors duration-300 inline-block shadow-lg hover:shadow-cyan-400/60 focus:outline-none focus:ring-4 focus:ring-cyan-500/50">
+            <a href="#reel" class="bg-cyan-600 hover:bg-cyan-500 text-white font-semibold py-3 px-10 rounded-lg text-lg transition-all duration-300 inline-block shadow-xl hover:shadow-cyan-400/50 focus:outline-none focus:ring-4 focus:ring-cyan-500/40 transform hover:scale-105">
                 View My Reel
             </a>
         </div>
     </section>
 
-    <section id="about" class="py-16 sm:py-24 bg-black">
+    <section id="about" class="py-20 sm:py-28 bg-black scroll-reveal-element">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl sm:text-4xl font-bold text-cyan-400">About Me</h2>
-                <p class="mt-4 text-lg text-gray-300">A Glimpse Into My Journey & Vision</p>
+            <div class="text-center mb-16">
+                <h2 class="text-3xl sm:text-4xl font-bold text-cyan-400 scroll-reveal-element" data-delay="100">About Me</h2>
+                <p class="mt-4 text-lg text-gray-300 scroll-reveal-element" data-delay="200">A Glimpse Into My Journey & Vision</p>
             </div>
-            <div class="flex flex-col md:flex-row items-center gap-8 md:gap-12">
-                <div class="md:w-1/3">
-                    <img src="IMG_8112.JPG" alt="Leonardo Sennis" class="rounded-lg shadow-2xl mx-auto w-full max-w-xs md:max-w-full"> 
+            <div class="flex flex-col md:flex-row items-center gap-10 md:gap-16">
+                <div class="md:w-1/3 scroll-reveal-element" data-delay="300">
+                    <img src="IMG_8112.JPG" alt="Leonardo Sennis" class="rounded-2xl shadow-2xl mx-auto w-full max-w-xs md:max-w-sm border-2 border-gray-800/50"> 
                 </div>
-                <div class="md:w-2/3 text-gray-200 text-left md:text-left">
-                    <p class="text-lg mb-4 leading-relaxed">
+                <div class="md:w-2/3 text-gray-200 text-left md:text-left scroll-reveal-element" data-delay="400">
+                    <p class="text-lg mb-5 leading-relaxed">
                         Hello! I'm Leonardo Sennis, a filmmaker with a deep passion for music. My journey in film began 4 years ago, driven by a desire to experiment.
                     </p>
-                    <p class="text-lg mb-4 leading-relaxed">
+                    <p class="text-lg mb-5 leading-relaxed">
                         I specialize in music videos. My approach is collaborative and detail-oriented, always striving to bring a unique vision to life. I believe that powerful videos can connect us, inspire change, and leave a lasting impact.
                     </p>
                     <p class="text-lg leading-relaxed">
@@ -252,59 +268,58 @@
         </div>
     </section>
 
-    <section id="reel" class="py-16 sm:py-24 bg-black">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl sm:text-4xl font-bold text-cyan-400">My Work</h2>
-                <p class="mt-4 text-lg text-gray-300">A Selection of Recent Projects</p>
+    <section id="reel" class="py-20 sm:py-28 bg-black scroll-reveal-element">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8"> <div class="text-center mb-16">
+                <h2 class="text-3xl sm:text-4xl font-bold text-cyan-400 scroll-reveal-element" data-delay="100">My Work</h2>
+                <p class="mt-4 text-lg text-gray-300 scroll-reveal-element" data-delay="200">A Selection of Recent Projects</p>
             </div>
-            <div class="flex flex-wrap justify-center items-center gap-10 md:gap-12 lg:gap-16">
-                <div class="project-card-interactive"> 
+            <div class="flex flex-wrap justify-center items-center gap-12 md:gap-14 lg:gap-20">
+                <div class="project-card-interactive scroll-reveal-element" data-delay="300"> 
                     <a href="#" class="video-thumbnail-trigger" data-video-url="https://www.dropbox.com/scl/fi/h2g4dscbolozluu5pf0q4/Memories_01_colored.mp4?rlkey=z1qm349j9pfk5mxiux69pct2k&st=pq5ahb7k&dl=0">
                         <img src="Screenshot 2025-05-21 alle 19.05.33.png">
                         <div class="text-and-play-overlay">
                             <div class="play-icon">▶</div>
-                            <h3 class="text-xl font-semibold text-white mb-1">MEMORIES</h3>
+                            <h3 class="text-lg font-semibold text-white mb-1">MEMORIES</h3>
                             <p class="text-xs text-gray-300 px-2">5mc2 - U.S. Journey</p>
                         </div>
                     </a>
                 </div>
-                <div class="project-card-interactive">
+                <div class="project-card-interactive scroll-reveal-element" data-delay="400">
                      <a href="#" class="video-thumbnail-trigger" data-video-url="https://www.dropbox.com/scl/fi/otice8hyucgk50tuag3zk/BLUEKILLER-1080p_H264.mp4?rlkey=bw5j944r8abqsun1nz3wtlg01&st=qvffrwtx&dl=0">
                         <img src="Screenshot 2025-05-21 alle 18.38.14.png">
                         <div class="text-and-play-overlay">
                             <div class="play-icon">▶</div>
-                            <h3 class="text-xl font-semibold text-white mb-1">BLUEKILLER</h3>
+                            <h3 class="text-lg font-semibold text-white mb-1">BLUEKILLER</h3>
                             <p class="text-xs text-gray-300 px-2">CopKiller - ADV</p>
                         </div>
                     </a>
                 </div>
-                <div class="project-card-interactive">
+                <div class="project-card-interactive scroll-reveal-element" data-delay="500">
                     <a href="#" class="video-thumbnail-trigger" data-video-url="https://www.dropbox.com/scl/fi/3k2pcg4dfzz26neio0jco/DaniFaiv_AirTag_H264.mov?rlkey=4jei9og21g17jvk8soydhgtxj&st=uy7ub7vt&dl=0">
                         <img src="Screenshot 2025-05-21 alle 19.08.32.png">
                         <div class="text-and-play-overlay">
                             <div class="play-icon">▶</div>
-                            <h3 class="text-xl font-semibold text-white mb-1">AIR TAG</h3>
+                            <h3 class="text-lg font-semibold text-white mb-1">AIR TAG</h3>
                             <p class="text-xs text-gray-300 px-2">Dani Faiv - Music Video</p>
                         </div>
                     </a>
                 </div>
-                <div class="project-card-interactive">
+                <div class="project-card-interactive scroll-reveal-element" data-delay="600">
                     <a href="#" class="video-thumbnail-trigger" data-video-url="https://www.dropbox.com/scl/fi/dhp58rmycwrtk39hoy9al/Ghali-STO.mp4?rlkey=feaz852o09s3sguhukee0s0r0&st=fi7obvsu&dl=0">
                         <img src="Screenshot 2025-05-21 alle 18.45.46.png">
                         <div class="text-and-play-overlay">
                             <div class="play-icon">▶</div>
-                            <h3 class="text-xl font-semibold text-white mb-1">STO</h3>
+                            <h3 class="text-lg font-semibold text-white mb-1">STO</h3>
                             <p class="text-xs text-gray-300 px-2">Ghali - Music Video</p>
                         </div>
                     </a>
                 </div>
-                <div class="project-card-interactive">
+                <div class="project-card-interactive scroll-reveal-element" data-delay="700">
                     <a href="#" class="video-thumbnail-trigger" data-video-url="https://www.dropbox.com/scl/fi/z5mky2fcpj5rc2ax3lzdr/Sapobully-Pakistan_FINAL_H264.mp4?rlkey=5m9jkenjdh21qgvpgxbpeq6h5&st=p7wdz77l&dl=0">
                         <img src="Screenshot 2025-05-21 alle 18.46.23.png">
                         <div class="text-and-play-overlay">
                             <div class="play-icon">▶</div>
-                            <h3 class="text-xl font-semibold text-white mb-1">PAKISTAN</h3>
+                            <h3 class="text-lg font-semibold text-white mb-1">PAKISTAN</h3>
                             <p class="text-xs text-gray-300 px-2">SapoBully - Music Video</p>
                         </div>
                     </a>
@@ -313,52 +328,52 @@
         </div>
     </section>
 
-    <section id="contact" class="py-16 sm:py-24 bg-black">
+    <section id="contact" class="py-20 sm:py-28 bg-black scroll-reveal-element">
         <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl sm:text-4xl font-bold text-cyan-400">Get In Touch</h2>
-                <p class="mt-4 text-lg text-gray-300">Let's discuss your next project or collaboration.</p>
+            <div class="text-center mb-16">
+                <h2 class="text-3xl sm:text-4xl font-bold text-cyan-400 scroll-reveal-element" data-delay="100">Get In Touch</h2>
+                <p class="mt-4 text-lg text-gray-300 scroll-reveal-element" data-delay="200">Let's discuss your next project or collaboration.</p>
             </div>
-            <form action="#" method="POST" class="space-y-6">
+            <form action="#" method="POST" class="space-y-7 scroll-reveal-element" data-delay="300">
                 <div>
-                    <label for="name" class="block text-sm font-medium text-gray-200">Full Name</label>
+                    <label for="name" class="block text-sm font-medium text-gray-200 mb-1">Full Name</label>
                     <input type="text" name="name" id="name" autocomplete="name" required
-                           class="mt-1 block w-full bg-gray-800/70 border-gray-700/50 rounded-lg shadow-sm py-3 px-4 text-gray-100 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 backdrop-blur-sm">
+                           class="mt-1 block w-full bg-gray-900/50 border-gray-700/40 rounded-lg shadow-sm py-3 px-4 text-gray-100 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 backdrop-blur-md transition-all duration-300 hover:border-cyan-600/70">
                 </div>
                 <div>
-                    <label for="email" class="block text-sm font-medium text-gray-200">Email Address</label>
+                    <label for="email" class="block text-sm font-medium text-gray-200 mb-1">Email Address</label>
                     <input type="email" name="email" id="email" autocomplete="email" required
-                           class="mt-1 block w-full bg-gray-800/70 border-gray-700/50 rounded-lg shadow-sm py-3 px-4 text-gray-100 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 backdrop-blur-sm">
+                           class="mt-1 block w-full bg-gray-900/50 border-gray-700/40 rounded-lg shadow-sm py-3 px-4 text-gray-100 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 backdrop-blur-md transition-all duration-300 hover:border-cyan-600/70">
                 </div>
                 <div>
-                    <label for="subject" class="block text-sm font-medium text-gray-200">Subject</label>
+                    <label for="subject" class="block text-sm font-medium text-gray-200 mb-1">Subject</label>
                     <input type="text" name="subject" id="subject" required
-                           class="mt-1 block w-full bg-gray-800/70 border-gray-700/50 rounded-lg shadow-sm py-3 px-4 text-gray-100 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 backdrop-blur-sm">
+                           class="mt-1 block w-full bg-gray-900/50 border-gray-700/40 rounded-lg shadow-sm py-3 px-4 text-gray-100 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 backdrop-blur-md transition-all duration-300 hover:border-cyan-600/70">
                 </div>
                 <div>
-                    <label for="message" class="block text-sm font-medium text-gray-200">Message</label>
+                    <label for="message" class="block text-sm font-medium text-gray-200 mb-1">Message</label>
                     <textarea id="message" name="message" rows="4" required
-                              class="mt-1 block w-full bg-gray-800/70 border-gray-700/50 rounded-lg shadow-sm py-3 px-4 text-gray-100 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 backdrop-blur-sm"></textarea>
+                              class="mt-1 block w-full bg-gray-900/50 border-gray-700/40 rounded-lg shadow-sm py-3 px-4 text-gray-100 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 backdrop-blur-md transition-all duration-300 hover:border-cyan-600/70"></textarea>
                 </div>
-                <div class="text-center">
+                <div class="text-center pt-3">
                     <button type="submit"
-                            class="inline-flex justify-center py-3 px-8 border border-transparent shadow-lg hover:shadow-cyan-400/70 text-lg font-medium rounded-lg text-white bg-cyan-600 hover:bg-cyan-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-black focus:ring-cyan-400 transition-all duration-300">
+                            class="inline-flex justify-center py-3.5 px-10 border border-transparent shadow-xl hover:shadow-cyan-400/50 text-lg font-semibold rounded-lg text-white bg-cyan-600 hover:bg-cyan-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-black focus:ring-cyan-400 transition-all duration-300 transform hover:scale-105">
                         Send Message
                     </button>
                 </div>
             </form>
-            <div class="mt-12 text-center">
+            <div class="mt-16 text-center scroll-reveal-element" data-delay="400">
                 <p class="text-gray-300">Or connect with me on social media:</p>
-                <div class="flex justify-center space-x-6 mt-4">
-                    <a href="#" class="text-gray-400 hover:text-cyan-400 transition-colors">
+                <div class="flex justify-center space-x-6 mt-5">
+                    <a href="#" class="text-gray-400 hover:text-cyan-400 transition-colors transform hover:scale-110 duration-300">
                         <span class="sr-only">Vimeo</span>
                         <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M23.032 5.086C22.718 3.305 21.35 1.982 19.516 1.717 16.912 1.375 12 1.375 12 1.375s-4.912 0-7.516.342C2.649 1.982 1.282 3.305.968 5.086.625 7.69.625 12 .625 12s0 4.31.343 6.914c.314 1.781 1.68 3.104 3.516 3.369C7.088 22.625 12 22.625 12 22.625s4.912 0 7.516-.342c1.836-.265 3.203-1.588 3.517-3.369.343-2.604.343-6.914.343-6.914s0-4.31-.344-6.914zM9.75 16.167V7.833l6.5 4.167-6.5 4.167z"/></svg>
                     </a>
-                    <a href="#" class="text-gray-400 hover:text-cyan-400 transition-colors">
+                    <a href="#" class="text-gray-400 hover:text-cyan-400 transition-colors transform hover:scale-110 duration-300">
                         <span class="sr-only">LinkedIn</span>
                         <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
                     </a>
-                    <a href="#" class="text-gray-400 hover:text-cyan-400 transition-colors">
+                    <a href="#" class="text-gray-400 hover:text-cyan-400 transition-colors transform hover:scale-110 duration-300">
                         <span class="sr-only">Instagram</span>
                         <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.069-4.85.069s-3.585-.012-4.849-.069c-3.225-.148-4.771-1.664-4.919-4.919-.058-1.265-.069-1.645-.069-4.849 0-3.204.013-3.583.069-4.849.149-3.227 1.664-4.771 4.919-4.919.058-1.265.069-1.645.069-4.849zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.359 2.618 6.78 6.98 6.98 1.281.059 1.689.073 4.948.073s3.667-.014 4.947-.072c4.359-.2 6.78-2.618 6.98-6.98.059-1.281.073-1.689.073-4.948s-.014-3.667-.072-4.947c-.2-4.359-2.618-6.78-6.98-6.98-1.281-.059-1.689-.073-4.948-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
                     </a>
@@ -367,16 +382,16 @@
         </div>
     </section>
 
-    <footer class="bg-black border-t border-gray-800/50">
+    <footer class="bg-black border-t border-gray-800/30">
         <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8 text-center">
             <p class="text-gray-400">© <span id="currentYear"></span> Leonardo Sennis. All rights reserved.</p>
             <p class="text-xs text-gray-500 mt-1">Designed with Tailwind CSS & Love</p>
         </div>
     </footer>
 
-    <div id="videoModal" class="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-[100] hidden p-4 transition-opacity duration-300 backdrop-blur-sm">
-        <div class="bg-gray-900/80 backdrop-blur-md p-2 sm:p-4 rounded-xl shadow-2xl w-full max-w-3xl relative border border-gray-700/50">
-            <button id="closeModal" class="absolute -top-3 -right-3 bg-cyan-600 text-white rounded-full p-0 w-8 h-8 flex items-center justify-center text-2xl leading-none hover:bg-cyan-500 z-10 shadow-lg">&times;</button>
+    <div id="videoModal" class="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-[100] hidden p-4 transition-opacity duration-300 backdrop-blur-md">
+        <div class="bg-gray-900/70 backdrop-blur-lg p-2 sm:p-3 rounded-xl shadow-2xl w-full max-w-3xl relative border border-gray-700/40">
+            <button id="closeModal" class="absolute -top-3.5 -right-3.5 bg-cyan-500 text-white rounded-full p-0 w-9 h-9 flex items-center justify-center text-2xl leading-none hover:bg-cyan-400 z-10 shadow-lg transform hover:scale-110 transition-transform">×</button>
             
             <div id="iframePlayerContainer" class="aspect-video bg-black rounded-lg overflow-hidden">
                 <iframe id="videoPlayer" width="100%" height="100%" src="" title="Video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen class="rounded-lg"></iframe>
@@ -413,26 +428,31 @@
 
         // Starry background generation
         const starField = document.getElementById('star-field');
-        const numStars = 60; // Ancora meno stelle per un effetto più pulito
+        const numStars = 50; // Ridotto ulteriormente per performance e minimalismo
         for (let i = 0; i < numStars; i++) {
             let star = document.createElement('div');
             star.className = 'star';
             star.style.left = Math.random() * 100 + '%';
             star.style.top = Math.random() * 100 + '%';
-            let size = Math.random() * 1.2 + 0.2; // Stelle ancora più piccole
+            let size = Math.random() * 1.0 + 0.1; // Stelle molto piccole
             star.style.width = size + 'px';
             star.style.height = size + 'px';
-            star.style.animationDelay = Math.random() * 6 + 's'; 
-            star.style.animationDuration = (Math.random() * 4 + 4) + 's'; 
-            star.style.opacity = Math.random() * 0.3 + 0.1; 
+            star.style.animationDelay = Math.random() * 8 + 's'; 
+            star.style.animationDuration = (Math.random() * 5 + 5) + 's'; 
+            star.style.opacity = Math.random() * 0.25 + 0.05; 
             starField.appendChild(star);
         }
 
         const globalLight = document.getElementById('global-mouse-light');
+        let rafScheduled = false;
         document.addEventListener('mousemove', (e) => {
-            requestAnimationFrame(() => { // Ottimizzazione per il movimento
-                globalLight.style.transform = `translate(${e.clientX - globalLight.offsetWidth / 2}px, ${e.clientY - globalLight.offsetHeight / 2}px)`;
-            });
+            if (!rafScheduled) {
+                rafScheduled = true;
+                requestAnimationFrame(() => { 
+                    globalLight.style.transform = `translate(${e.clientX - globalLight.offsetWidth / 2}px, ${e.clientY - globalLight.offsetHeight / 2}px)`;
+                    rafScheduled = false;
+                });
+            }
         });
 
 
@@ -448,36 +468,38 @@
             const thumbnailLink = card.querySelector('.video-thumbnail-trigger');
             if (!thumbnailLink) return;
 
-            // Randomize animation delay for idle floating
-            card.style.animationDelay = `${Math.random() * -8}s`; // Ritardo negativo per iniziare in punti diversi del ciclo
+            card.style.animationDelay = `${Math.random() * -10}s`; // Randomizza l'inizio dell'animazione floatBubble
 
+            let cardRafScheduled = false;
             card.addEventListener('mousemove', (e) => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
-                
-                const deltaX = (x - centerX) / centerX; 
-                const deltaY = (y - centerY) / centerY; 
+                if(!cardRafScheduled) {
+                    cardRafScheduled = true;
+                    requestAnimationFrame(() => {
+                        const rect = card.getBoundingClientRect();
+                        const x = e.clientX - rect.left;
+                        const y = e.clientY - rect.top;
+                        const centerX = rect.width / 2;
+                        const centerY = rect.height / 2;
+                        
+                        const deltaX = (x - centerX) / centerX; 
+                        const deltaY = (y - centerY) / centerY; 
 
-                const rotateY = deltaX * 6; 
-                const rotateX = -deltaY * 6;
+                        const rotateY = deltaX * 7; // Leggermente più reattivo
+                        const rotateX = -deltaY * 7;
 
-                requestAnimationFrame(() => {
-                    card.style.setProperty('--mouse-x-card', `${(x / rect.width) * 100}%`);
-                    card.style.setProperty('--mouse-y-card', `${(y / rect.height) * 100}%`);
-                    card.style.setProperty('--glare-opacity', '1'); // Glare più visibile su hover
-                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`; // Scala leggermente aumentata
-                });
+                        card.style.setProperty('--mouse-x-card', `${(x / rect.width) * 100}%`);
+                        card.style.setProperty('--mouse-y-card', `${(y / rect.height) * 100}%`);
+                        card.style.setProperty('--glare-opacity', '0.8'); 
+                        card.style.transform = `perspective(1200px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.06)`; 
+                        cardRafScheduled = false;
+                    });
+                }
             });
 
             card.addEventListener('mouseleave', () => {
                  requestAnimationFrame(() => {
                     card.style.setProperty('--glare-opacity', '0');
-                    // La trasformazione torna a quella dell'animazione idle, non a 'none'
-                    // L'animazione CSS floatBubble si occuperà del reset della posizione/rotazione
-                    card.style.transform = ''; // Rimuove la trasformazione inline per far riprendere l'animazione CSS
+                    card.style.transform = ''; 
                 });
             });
 
@@ -546,6 +568,7 @@
                     iframePlayerContainer.classList.add('hidden');
                     html5PlayerContainer.classList.remove('hidden');
                     html5VideoPlayer.src = embedUrl;
+                    html5VideoPlayer.play().catch(error => console.error("Errore durante la riproduzione del video HTML5:", error));
                 } else {
                     html5PlayerContainer.classList.add('hidden');
                     iframePlayerContainer.classList.remove('hidden');
@@ -578,6 +601,52 @@
                 closeVideoModal();
             }
         });
+
+        // Scroll Reveal Logic
+        const scrollElements = document.querySelectorAll(".scroll-reveal-element");
+
+        const elementInView = (el, dividend = 1) => {
+            const elementTop = el.getBoundingClientRect().top;
+            return (
+                elementTop <= (window.innerHeight || document.documentElement.clientHeight) / dividend
+            );
+        };
+
+        const elementOutOfView = (el) => {
+            const elementTop = el.getBoundingClientRect().top;
+            return (
+                elementTop > (window.innerHeight || document.documentElement.clientHeight)
+            );
+        };
+
+        const displayScrollElement = (element) => {
+            element.classList.add("is-visible");
+        };
+
+        // const hideScrollElement = (element) => { // Opzionale: per nascondere di nuovo se si scorre indietro
+        //     element.classList.remove("is-visible");
+        // };
+
+        const handleScrollAnimation = () => {
+            scrollElements.forEach((el) => {
+                const delay = parseInt(el.dataset.delay) || 0;
+                if (elementInView(el, 1.25)) { // Elemento entra un po' prima di essere completamente visibile
+                    setTimeout(() => {
+                       displayScrollElement(el);
+                    }, delay);
+                } 
+                // else if (elementOutOfView(el)) { // Opzionale
+                //     hideScrollElement(el)
+                // }
+            })
+        }
+        
+        // Esegui una volta al caricamento per gli elementi già visibili
+        handleScrollAnimation();
+        window.addEventListener("scroll", () => {
+            handleScrollAnimation();
+        });
+
     </script>
 </body>
 </html>
