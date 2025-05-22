@@ -11,7 +11,6 @@
     <style>
         html {
             scroll-behavior: smooth;
-            height: 100%; 
         }
         body {
             font-family: 'Inter', sans-serif;
@@ -29,11 +28,10 @@
                 #3b3b3b 80%, 
                 #1f1f1f 90%, 
                 #000000 100%
-            ) no-repeat;
-            background-attachment: scroll; 
+            ) no-repeat scroll; /* Assicura che il gradiente scorra e non si ripeta */
             color: #0a0a0a; 
             overflow-x: hidden; 
-            min-height: 100%; 
+            min-height: 100vh; /* Assicura che il body copra almeno l'altezza della viewport */
             cursor: none; 
         }
 
@@ -96,14 +94,6 @@
         ::-webkit-scrollbar-track { background: rgba(0,0,0,0.05); }
         ::-webkit-scrollbar-thumb { background: #6b7280; border-radius: 10px; } 
         ::-webkit-scrollbar-thumb:hover { background: #4b5563; } 
-
-        .hero-bg-image { /* Usato solo per la sezione hero-landing */
-            background-image: url('https://placehold.co/1920x1080/ffffff/111827?text=SFONDO+PRINCIPALE');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            mix-blend-mode: multiply; 
-        }
         
         #hero-landing {
             display: flex;
@@ -114,9 +104,6 @@
             min-height: 100vh; 
             text-align: center;
             position: relative; 
-            background-image: url('https://placehold.co/1920x1080/ffffff/111827?text=LANDING+PAGE'); /* Sfondo specifico per landing */
-            background-size: cover;
-            background-position: center;
          }
          .director-name-landing {
             font-family: 'Unbounded', cursive;
@@ -351,9 +338,6 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-20">
                 <div class="flex items-center space-x-3">
-                     <a href="#hero-landing" id="nav-home-link" class="home-icon dynamic-text-color interactive-hover-target">
-                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path></svg>
-                    </a>
                     <a href="#hero-landing" id="nav-logo-link" class="font-display text-2xl font-bold dynamic-text-color tracking-wide interactive-hover-target">LEONARDO SENNIS</a>
                 </div>
                 <div class="hidden md:block">
@@ -758,7 +742,7 @@
                 if(document.getElementById('contact')) document.getElementById('contact').classList.remove('hidden');
 
                 if(landingPage) {
-                    landingPage.style.display = 'flex';
+                    landingPage.style.display = 'flex'; // Usa flex per centrare
                     landingPage.style.opacity = '0';
                     requestAnimationFrame(() => { 
                         landingPage.style.transition = 'opacity 0.5s ease-in, transform 0.5s ease-in';
@@ -769,32 +753,31 @@
                 }
                 document.body.dataset.section = 'hero-landing';
             } else {
-                if (landingPage && landingPage.style.display !== 'none') { // Se siamo sulla landing
-                    if(landingPage) {
-                        landingPage.style.transition = 'opacity 0.5s ease-out, transform 0.5s ease-out';
-                        landingPage.style.opacity = '0';
-                        landingPage.style.transform = 'scale(0.98)';
-                    }
-                     setTimeout(() => {
-                        if(landingPage) landingPage.style.display = 'none';
-                        if(mainContentWrapper) mainContentWrapper.style.display = 'block';
-                        if(mainNav) mainNav.style.display = 'flex';
-                        
-                        if (ascendSection && !ascendSection.classList.contains('hidden') && targetId !== 'ascend-section') {
-                            showMainPageSections();
-                        }
-                        const targetSection = document.getElementById(targetId);
-                        if(targetSection) targetSection.scrollIntoView({ behavior: 'smooth' });
-                        document.body.dataset.section = targetId;
-                        handleDynamicTextColor();
-                    }, 500);
-                } else { // Siamo già nel main content
-                    if (ascendSection && !ascendSection.classList.contains('hidden') && targetId !== 'ascend-section') {
-                         showMainPageSections();
-                    }
-                    const targetSection = document.getElementById(targetId);
-                    if(targetSection) targetSection.scrollIntoView({ behavior: 'smooth' });
-                    document.body.dataset.section = targetId;
+                 // Assicurati che il contenuto principale sia visibile prima di scrollare
+                if (mainContentWrapper && mainContentWrapper.style.display === 'none') {
+                    if(landingPage) landingPage.style.display = 'none';
+                    if(mainContentWrapper) mainContentWrapper.style.display = 'block';
+                    if(mainNav) mainNav.style.display = 'flex';
+                     // Forza un reflow per applicare lo stato iniziale prima della transizione
+                    void mainContentWrapper.offsetWidth; 
+                    mainContentWrapper.style.opacity = '0';
+                    mainContentWrapper.style.transform = 'translateY(20px)';
+                     requestAnimationFrame(() => {
+                        mainContentWrapper.style.transition = 'opacity 0.7s ease-in, transform 0.7s ease-in';
+                        mainContentWrapper.style.opacity = '1';
+                        mainContentWrapper.style.transform = 'translateY(0px)';
+                    });
+                }
+
+                if (ascendSection && !ascendSection.classList.contains('hidden') && targetId !== 'ascend-section') {
+                    showMainPageSections(); // Mostra le sezioni principali se si esce da ascend
+                }
+                const targetSection = document.getElementById(targetId);
+                if(targetSection) {
+                    setTimeout(() => { // Leggero ritardo per permettere al display di aggiornarsi
+                         targetSection.scrollIntoView({ behavior: 'smooth' });
+                         document.body.dataset.section = targetId;
+                    }, 50);
                 }
             }
             handleDynamicTextColor();
@@ -896,7 +879,7 @@
                     
                     if (el.classList.contains('view-reel-text-link') || el.classList.contains('nav-link-main') || el.classList.contains('btn-3d') || el.classList.contains('home-icon')) {
                          el.style.textShadow = isOverDarkArea ? '0 0 8px rgba(255,255,255,0.5), 0 0 12px rgba(255,255,255,0.3)' : '0 0 8px rgba(0,0,0,0.5), 0 0 12px rgba(0,0,0,0.3)';
-                         if(el.classList.contains('home-icon')) el.querySelector('svg').style.filter = isOverDarkArea ? 'drop-shadow(0 0 5px rgba(255,255,255,0.5))' : 'drop-shadow(0 0 5px rgba(0,0,0,0.5))';
+                         if(el.classList.contains('home-icon') && el.querySelector('svg')) el.querySelector('svg').style.filter = isOverDarkArea ? 'drop-shadow(0 0 5px rgba(255,255,255,0.5))' : 'drop-shadow(0 0 5px rgba(0,0,0,0.5))';
                     } else { 
                         const glowColor = isOverDarkArea ? 'rgba(255,255,255,0.10)' : 'rgba(0,0,0,0.10)';
                         el.style.boxShadow = `0 0 18px 7px ${glowColor}, ${el.dataset.originalShadow}`;
@@ -906,7 +889,7 @@
                     document.body.classList.remove('hide-cursor-effects');
                     if (el.classList.contains('view-reel-text-link') || el.classList.contains('nav-link-main') || el.classList.contains('btn-3d') || el.classList.contains('home-icon')) {
                         el.style.textShadow = '';
-                        if(el.classList.contains('home-icon')) el.querySelector('svg').style.filter = '';
+                        if(el.classList.contains('home-icon') && el.querySelector('svg')) el.querySelector('svg').style.filter = '';
                     } else {
                          el.style.boxShadow = el.dataset.originalShadow;
                     }
@@ -1083,7 +1066,7 @@
 
         const scrollElements = document.querySelectorAll(".scroll-reveal-element");
         const dynamicTextElements = document.querySelectorAll('.dynamic-text-color'); 
-        const sections = Array.from(document.querySelectorAll('section[data-section-name], div#hero-landing')); // Includi hero-landing
+        const sections = Array.from(document.querySelectorAll('section[data-section-name], div#hero-landing')); 
         
         const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
 
@@ -1128,7 +1111,7 @@
                 let navIsOnDark = false;
                 const scrollYPercentage = (window.scrollY / (document.documentElement.scrollHeight - viewportHeight)) * 100;
 
-                if (scrollYPercentage > 55 || currentSectionId === 'contact' || currentSectionId === 'ascend') { 
+                if (scrollYPercentage > 55 || currentSectionId === 'contact' || currentSectionId === 'ascend-section') { 
                     navIsOnDark = true;
                 }
 
