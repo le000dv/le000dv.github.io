@@ -11,7 +11,7 @@
     <style>
         html {
             scroll-behavior: smooth;
-            height: 100%; 
+            height: 100%; /* Assicura che HTML copra l'intera altezza */
         }
         body {
             font-family: 'Inter', sans-serif;
@@ -29,10 +29,10 @@
                 #3b3b3b 80%, 
                 #1f1f1f 90%, 
                 #000000 100%
-            );
+            ) no-repeat scroll; /* Aggiunto no-repeat e scroll per sicurezza */
             color: #0a0a0a; 
             overflow-x: hidden; 
-            min-height: 100%; 
+            min-height: 100%; /* Body copre almeno l'altezza di HTML (quindi viewport) e si espande */
             display: flex; 
             flex-direction: column; 
             cursor: none; 
@@ -91,6 +91,14 @@
         ::-webkit-scrollbar-thumb { background: #6b7280; border-radius: 10px; } 
         ::-webkit-scrollbar-thumb:hover { background: #4b5563; } 
 
+        .hero-bg-image {
+            background-image: url('https://placehold.co/1920x1080/ffffff/111827?text=SFONDO+PRINCIPALE');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            mix-blend-mode: multiply; 
+        }
+        
         #hero-landing {
             display: flex;
             flex-direction: column;
@@ -731,27 +739,23 @@
                     const elementCenterY = elementRect.top + elementRect.height / 2;
                     const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
                     
-                    // Decide glow color based on element's position on gradient
-                    let glowColor = 'rgba(0,0,0,0.5)'; // Default to dark glow for light backgrounds
+                    let glowColor = 'rgba(0,0,0,0.5)'; 
                     if (elementCenterY > viewportHeight * 0.55) { 
                          glowColor = 'rgba(255,255,255,0.5)';
                     }
                     
-                    if (el.classList.contains('view-reel-text-link') || el.closest('.nav-link-main') || el.closest('.btn-3d')) {
+                    if (el.classList.contains('view-reel-text-link') || el.classList.contains('nav-link-main') || el.classList.contains('btn-3d')) {
                          el.style.textShadow = `0 0 10px ${glowColor}, 0 0 15px ${glowColor}`;
-                    } else {
-                        el.style.boxShadow = `0 0 15px 5px ${glowColor}, ${getComputedStyle(el).boxShadow}`;
+                    } else { // Per le project card, applichiamo un box-shadow per il glow
+                        el.style.boxShadow = `0 0 20px 8px ${glowColor}, ${getComputedStyle(el).boxShadow}`;
                     }
                 });
                 el.addEventListener('mouseleave', () => {
                     document.body.classList.remove('hide-cursor-burst');
-                    if (el.classList.contains('view-reel-text-link') || el.closest('.nav-link-main') || el.closest('.btn-3d')) {
+                    if (el.classList.contains('view-reel-text-link') || el.classList.contains('nav-link-main') || el.classList.contains('btn-3d')) {
                         el.style.textShadow = '';
                     } else {
-                         // Reset to original box-shadow (might need to store it if complex)
-                         // For now, just removing the added glow part.
-                         // This is a simplification; a robust solution would store and restore the original shadow.
-                         const originalShadow = el.dataset.originalShadow || ''; // Store original if needed
+                         const originalShadow = el.dataset.originalShadow || getComputedStyle(el).boxShadow.split(',').slice(0, -2).join(','); // Tenta di ripristinare
                          el.style.boxShadow = originalShadow;
                     }
                 });
@@ -904,25 +908,34 @@
                 const elementRect = el.getBoundingClientRect();
                 const elementCenterY = elementRect.top + elementRect.height / 2;
                 
-                if (elementCenterY > viewportHeight * 0.55) { 
+                // Calcola la percentuale di scroll della viewport
+                // 0 = top of viewport, 1 = bottom of viewport
+                const elementPositionInViewport = elementCenterY / viewportHeight;
+
+
+                if (elementPositionInViewport > 0.55) { // Elemento nella parte più scura del gradiente
                     el.classList.remove('text-on-light');
                     el.classList.add('text-on-dark');
-                } else if (elementCenterY < viewportHeight * 0.4) { 
+                } else if (elementPositionInViewport < 0.45) { // Elemento nella parte più chiara
                     el.classList.remove('text-on-dark');
                     el.classList.add('text-on-light');
-                } else { 
+                } else { // Zona intermedia, grigio
                      el.classList.remove('text-on-dark');
-                     el.classList.add('text-on-light'); 
+                     el.classList.add('text-on-light'); // Default a testo scuro per grigi medi
                 }
             });
             
             if (mainNav) {
-                const navTop = mainNav.getBoundingClientRect().top;
+                const navRect = mainNav.getBoundingClientRect();
+                 // Determina il colore di sfondo sotto la nav
                 let navIsOnDark = false;
-
-                if (window.scrollY > viewportHeight * 0.4 || currentSectionId === 'contact' || (currentSectionId === 'reel' && document.getElementById('reel')?.getBoundingClientRect().top < viewportHeight * 0.3)) {
+                const scrollY = window.scrollY;
+                const bodyHeight = document.body.scrollHeight;
+                // Considera la nav su sfondo scuro se siamo scrollati oltre il 60% della pagina
+                if (scrollY / (bodyHeight - viewportHeight) > 0.6 || currentSectionId === 'contact') {
                     navIsOnDark = true;
                 }
+
 
                 if (navIsOnDark) {
                     mainNav.style.backgroundColor = 'rgba(10,10,10,0.15)'; 
