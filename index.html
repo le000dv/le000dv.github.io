@@ -11,7 +11,7 @@
     <style>
         html {
             scroll-behavior: smooth;
-            height: 100%; /* Assicura che HTML copra l'intera altezza */
+            /* height: 100%; Rimosso per permettere al body di definire l'altezza del gradiente */
         }
         body {
             font-family: 'Inter', sans-serif;
@@ -29,12 +29,12 @@
                 #3b3b3b 80%, 
                 #1f1f1f 90%, 
                 #000000 100%
-            ) no-repeat scroll; /* Aggiunto no-repeat e scroll per sicurezza */
+            ) no-repeat; /* scroll è default, no-repeat è importante */
+            background-attachment: scroll; /* Assicura che il gradiente scorra con il contenuto */
             color: #0a0a0a; 
             overflow-x: hidden; 
-            min-height: 100%; /* Body copre almeno l'altezza di HTML (quindi viewport) e si espande */
-            display: flex; 
-            flex-direction: column; 
+            min-height: 100vh; /* Body copre almeno l'altezza della viewport e si espande con il contenuto */
+            /* display: flex; flex-direction: column; Rimosso */
             cursor: none; 
         }
 
@@ -539,7 +539,7 @@
             </div>
         </section>
 
-        <section id="contact" data-section-name="contact" class="py-24 sm:py-32 scroll-reveal-element bg-black/5"> 
+        <section id="contact" data-section-name="contact" class="py-24 sm:py-32 scroll-reveal-element"> 
             <div class="max-w-xl mx-auto px-6 lg:px-8 text-center">
                 <div class="mb-16 sm:mb-20">
                     <h2 class="font-display text-4xl sm:text-5xl font-bold text-on-dark scroll-reveal-element" data-delay="100">GET IN TOUCH</h2>
@@ -739,14 +739,12 @@
                     const elementCenterY = elementRect.top + elementRect.height / 2;
                     const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
                     
-                    let glowColor = 'rgba(0,0,0,0.5)'; 
-                    if (elementCenterY > viewportHeight * 0.55) { 
-                         glowColor = 'rgba(255,255,255,0.5)';
-                    }
+                    let isOverDarkArea = elementCenterY > viewportHeight * 0.55;
                     
                     if (el.classList.contains('view-reel-text-link') || el.classList.contains('nav-link-main') || el.classList.contains('btn-3d')) {
-                         el.style.textShadow = `0 0 10px ${glowColor}, 0 0 15px ${glowColor}`;
-                    } else { // Per le project card, applichiamo un box-shadow per il glow
+                         el.style.textShadow = isOverDarkArea ? '0 0 10px rgba(255,255,255,0.6), 0 0 15px rgba(255,255,255,0.4)' : '0 0 10px rgba(0,0,0,0.6), 0 0 15px rgba(0,0,0,0.4)';
+                    } else { 
+                        const glowColor = isOverDarkArea ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.15)';
                         el.style.boxShadow = `0 0 20px 8px ${glowColor}, ${getComputedStyle(el).boxShadow}`;
                     }
                 });
@@ -755,7 +753,7 @@
                     if (el.classList.contains('view-reel-text-link') || el.classList.contains('nav-link-main') || el.classList.contains('btn-3d')) {
                         el.style.textShadow = '';
                     } else {
-                         const originalShadow = el.dataset.originalShadow || getComputedStyle(el).boxShadow.split(',').slice(0, -2).join(','); // Tenta di ripristinare
+                         const originalShadow = el.dataset.originalShadow || getComputedStyle(el).boxShadow.split(',').slice(0, -2).join(','); 
                          el.style.boxShadow = originalShadow;
                     }
                 });
@@ -907,35 +905,29 @@
             dynamicTextElements.forEach(el => {
                 const elementRect = el.getBoundingClientRect();
                 const elementCenterY = elementRect.top + elementRect.height / 2;
-                
-                // Calcola la percentuale di scroll della viewport
-                // 0 = top of viewport, 1 = bottom of viewport
                 const elementPositionInViewport = elementCenterY / viewportHeight;
 
-
-                if (elementPositionInViewport > 0.55) { // Elemento nella parte più scura del gradiente
+                if (elementPositionInViewport > 0.55) { 
                     el.classList.remove('text-on-light');
                     el.classList.add('text-on-dark');
-                } else if (elementPositionInViewport < 0.45) { // Elemento nella parte più chiara
+                } else if (elementPositionInViewport < 0.45) { 
                     el.classList.remove('text-on-dark');
                     el.classList.add('text-on-light');
-                } else { // Zona intermedia, grigio
+                } else { 
                      el.classList.remove('text-on-dark');
-                     el.classList.add('text-on-light'); // Default a testo scuro per grigi medi
+                     el.classList.add('text-on-light'); 
                 }
             });
             
             if (mainNav) {
-                const navRect = mainNav.getBoundingClientRect();
-                 // Determina il colore di sfondo sotto la nav
+                const navTop = mainNav.getBoundingClientRect().top;
                 let navIsOnDark = false;
+
                 const scrollY = window.scrollY;
                 const bodyHeight = document.body.scrollHeight;
-                // Considera la nav su sfondo scuro se siamo scrollati oltre il 60% della pagina
                 if (scrollY / (bodyHeight - viewportHeight) > 0.6 || currentSectionId === 'contact') {
                     navIsOnDark = true;
                 }
-
 
                 if (navIsOnDark) {
                     mainNav.style.backgroundColor = 'rgba(10,10,10,0.15)'; 
