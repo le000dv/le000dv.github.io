@@ -97,6 +97,14 @@
         ::-webkit-scrollbar-thumb { background: #6b7280; border-radius: 10px; } 
         ::-webkit-scrollbar-thumb:hover { background: #4b5563; } 
 
+        .hero-bg-image { /* Usato solo per la sezione hero-landing */
+            background-image: url('https://placehold.co/1920x1080/ffffff/111827?text=SFONDO+PRINCIPALE');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            mix-blend-mode: multiply; 
+        }
+        
         #hero-landing {
             display: flex;
             flex-direction: column;
@@ -106,6 +114,9 @@
             min-height: 100vh; 
             text-align: center;
             position: relative; 
+            background-image: url('https://placehold.co/1920x1080/ffffff/111827?text=LANDING+PAGE'); /* Sfondo specifico per landing */
+            background-size: cover;
+            background-position: center;
          }
          .director-name-landing {
             font-family: 'Unbounded', cursive;
@@ -668,7 +679,7 @@
         const cursorDot = document.getElementById('cursor-dot');
         const cursorTrails = []; 
         const NUM_TRAILS = 5; 
-        const TRAIL_FADE_DURATION = 180; // Durata scia leggermente ridotta
+        const TRAIL_FADE_DURATION = 180; 
 
         if (cursorDot) { 
             for (let i = 0; i < NUM_TRAILS; i++) {
@@ -732,7 +743,67 @@
 
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
+        const navHomeLink = document.getElementById('nav-home-link');
+        const navLogoLink = document.getElementById('nav-logo-link');
         
+        function navigateToSection(targetId, event) {
+            if(event) event.preventDefault();
+
+            if (targetId === 'hero-landing') {
+                if(mainContentWrapper) mainContentWrapper.style.display = 'none';
+                if(mainNav) mainNav.style.display = 'none';
+                if(ascendSection) ascendSection.classList.add('hidden'); 
+                if(reelSection) reelSection.classList.remove('hidden'); 
+                if(document.getElementById('about')) document.getElementById('about').classList.remove('hidden');
+                if(document.getElementById('contact')) document.getElementById('contact').classList.remove('hidden');
+
+                if(landingPage) {
+                    landingPage.style.display = 'flex';
+                    landingPage.style.opacity = '0';
+                    requestAnimationFrame(() => { 
+                        landingPage.style.transition = 'opacity 0.5s ease-in, transform 0.5s ease-in';
+                        landingPage.style.opacity = '1';
+                        landingPage.style.transform = 'scale(1)';
+                    });
+                    landingPage.scrollIntoView({behavior: 'smooth'});
+                }
+                document.body.dataset.section = 'hero-landing';
+            } else {
+                if (landingPage && landingPage.style.display !== 'none') { // Se siamo sulla landing
+                    if(landingPage) {
+                        landingPage.style.transition = 'opacity 0.5s ease-out, transform 0.5s ease-out';
+                        landingPage.style.opacity = '0';
+                        landingPage.style.transform = 'scale(0.98)';
+                    }
+                     setTimeout(() => {
+                        if(landingPage) landingPage.style.display = 'none';
+                        if(mainContentWrapper) mainContentWrapper.style.display = 'block';
+                        if(mainNav) mainNav.style.display = 'flex';
+                        
+                        if (ascendSection && !ascendSection.classList.contains('hidden') && targetId !== 'ascend-section') {
+                            showMainPageSections();
+                        }
+                        const targetSection = document.getElementById(targetId);
+                        if(targetSection) targetSection.scrollIntoView({ behavior: 'smooth' });
+                        document.body.dataset.section = targetId;
+                        handleDynamicTextColor();
+                    }, 500);
+                } else { // Siamo già nel main content
+                    if (ascendSection && !ascendSection.classList.contains('hidden') && targetId !== 'ascend-section') {
+                         showMainPageSections();
+                    }
+                    const targetSection = document.getElementById(targetId);
+                    if(targetSection) targetSection.scrollIntoView({ behavior: 'smooth' });
+                    document.body.dataset.section = targetId;
+                }
+            }
+            handleDynamicTextColor();
+        }
+
+        if(navHomeLink) navHomeLink.addEventListener('click', (e) => navigateToSection('hero-landing', e));
+        if(navLogoLink) navLogoLink.addEventListener('click', (e) => navigateToSection('hero-landing', e));
+
+
         if (mobileMenuButton && mobileMenu) {
             const menuIcons = mobileMenuButton.querySelectorAll('svg');
              if (menuIcons.length === 2) {
@@ -749,51 +820,20 @@
                             menuIcons[1].classList.add('hidden'); 
                         }
                         const targetId = link.getAttribute('href').substring(1);
-                        
-                        if (targetId === 'ascend-section' && link.dataset.targetSection === 'ascend-section') {
-                             e.preventDefault(); 
-                             showAscendSection();
-                             return;
-                        }
-
-                        const targetSection = document.getElementById(targetId);
-                        if(targetSection) {
-                            if (targetId === 'hero-landing') { 
-                                e.preventDefault(); 
-                                if(mainContentWrapper) mainContentWrapper.style.display = 'none';
-                                if(mainNav) mainNav.style.display = 'none';
-                                if(ascendSection) ascendSection.classList.add('hidden'); // Nasconde ascend se si torna alla home
-                                if(reelSection) reelSection.classList.remove('hidden'); // Mostra reel principale se si torna alla home
-                                if(document.getElementById('about')) document.getElementById('about').classList.remove('hidden');
-                                if(document.getElementById('contact')) document.getElementById('contact').classList.remove('hidden');
-
-
-                                if(landingPage) {
-                                    landingPage.style.display = 'flex';
-                                    landingPage.style.opacity = '0';
-                                    requestAnimationFrame(() => { 
-                                        landingPage.style.transition = 'opacity 0.5s ease-in, transform 0.5s ease-in';
-                                        landingPage.style.opacity = '1';
-                                        landingPage.style.transform = 'scale(1)';
-                                    });
-                                    landingPage.scrollIntoView({behavior: 'smooth'});
-                                }
-                                document.body.dataset.section = 'hero-landing';
-                            } else if (mainContentWrapper && mainContentWrapper.style.display !== 'none') {
-                                e.preventDefault();
-                                if (ascendSection && !ascendSection.classList.contains('hidden') && targetId !== 'ascend-section') {
-                                    showMainPageSections(); // Torna alla vista principale se si clicca un link diverso da ascend
-                                }
-                                setTimeout(() => { // Leggero ritardo per permettere il cambio di display se necessario
-                                     targetSection.scrollIntoView({ behavior: 'smooth' });
-                                     document.body.dataset.section = targetId;
-                                },50);
-                            }
-                        }
-                        handleDynamicTextColor();
+                        navigateToSection(targetId, e);
                     });
                 });
             }
+        }
+        
+        // Event listeners per i link della navigazione desktop
+        if (mainNav) {
+            mainNav.querySelectorAll('a:not(#nav-home-link):not(#nav-logo-link)').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    const targetId = link.getAttribute('href').substring(1);
+                    navigateToSection(targetId, e);
+                });
+            });
         }
         
         const currentYearEl = document.getElementById('currentYear');
@@ -1043,13 +1083,13 @@
 
         const scrollElements = document.querySelectorAll(".scroll-reveal-element");
         const dynamicTextElements = document.querySelectorAll('.dynamic-text-color'); 
-        const sections = Array.from(document.querySelectorAll('section[data-section-name], div#hero-landing[data-section-name="hero-landing"]'));
+        const sections = Array.from(document.querySelectorAll('section[data-section-name], div#hero-landing')); // Includi hero-landing
         
         const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
 
         const handleDynamicTextColor = () => {
             let currentSectionId = 'hero-landing'; 
-            if (landingPage && landingPage.style.display === 'none') { // Se la landing è nascosta, cerca la sezione attiva
+            if (landingPage && landingPage.style.display === 'none') { 
                 let mostVisibleSectionArea = 0;
                 sections.forEach(section => {
                     if (!section || section.id === 'hero-landing') return; 
@@ -1064,6 +1104,7 @@
                     }
                 });
             }
+            document.body.dataset.activeSection = currentSectionId;
 
 
             dynamicTextElements.forEach(el => {
