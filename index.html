@@ -11,6 +11,7 @@
     <style>
         html {
             scroll-behavior: smooth;
+            height: 100%; /* Assicura che html copra tutta l'altezza */
         }
         body {
             font-family: 'Inter', sans-serif;
@@ -31,7 +32,9 @@
             );
             color: #0a0a0a; 
             overflow-x: hidden; 
-            min-height: 100vh;
+            min-height: 100%; /* Cambiato da 100vh a 100% per seguire l'altezza di html */
+            display: flex; /* Aggiunto per body per gestire meglio l'altezza se il contenuto è poco */
+            flex-direction: column; /* Contenuto si espande verticalmente */
             cursor: none; 
         }
 
@@ -47,19 +50,18 @@
             mix-blend-mode: difference; 
             transition: transform 0.08s linear, opacity 0.1s ease-out, filter 0.1s ease-out;
             opacity: 0;
-            filter: blur(5px); /* Blur per effetto energia/sfuocato ai bordi */
+            filter: blur(5px); 
         }
-        body.cursor-active #cursor-burst { /* Classe aggiunta quando il cursore è attivo sulla pagina */
+        body.cursor-active #cursor-burst { 
             transform: translate(-50%, -50%) scale(1);
             opacity: 1; 
         }
-        /* Nasconde il burst e applica glow all'elemento target */
+        
         .interactive-hover-target ~ #cursor-burst {
             opacity: 0 !important;
             transform: translate(-50%, -50%) scale(0.7) !important;
         }
         .element-glow-effect {
-             /* Il glow sarà applicato con text-shadow o box-shadow a seconda dell'elemento */
             transition: text-shadow 0.2s ease-out, box-shadow 0.2s ease-out;
         }
 
@@ -122,11 +124,11 @@
             cursor: none; 
             text-decoration: none;
             display: inline-block; 
-            color: #000000; /* Colore iniziale del testo */
+            color: #000000; 
             overflow: hidden; 
             transition: color 0.6s cubic-bezier(0.7, 0, 0.3, 1), text-shadow 0.3s ease-out;
         }
-        .view-reel-text-link .text-content { /* Span per il testo effettivo */
+        .view-reel-text-link .text-content { 
             display: block;
             position: relative;
             z-index: 1;
@@ -151,7 +153,7 @@
             transform: translateY(0%);
         }
          .view-reel-text-link:hover {
-            color: #ffffff; /* Testo diventa bianco quando il fill nero è completo */
+            color: #ffffff; 
         }
         
         .btn-3d {
@@ -467,6 +469,46 @@
                             </div>
                         </a>
                     </div>
+                     <div class="project-card-interactive scroll-reveal-element" data-delay="550"> 
+                        <a href="#" class="video-thumbnail-trigger" data-video-url="YOUR_VIDEO_URL_8_HERE">
+                            <img src="https://placehold.co/300x300/1a1a1a/3a3a3a?text=PROJECT+8&font=unbounded" alt="PROJECT EIGHT">
+                            <div class="text-and-play-overlay">
+                                <div class="play-icon">▶</div>
+                                <h3 class="text-white mb-1">PROJECT EIGHT</h3>
+                                <p class="text-slate-200 px-2">NEW VIDEO DESCRIPTION</p>
+                            </div>
+                        </a>
+                    </div>
+                     <div class="project-card-interactive scroll-reveal-element" data-delay="600"> 
+                        <a href="#" class="video-thumbnail-trigger" data-video-url="YOUR_VIDEO_URL_9_HERE">
+                            <img src="https://placehold.co/300x300/111111/444444?text=PROJECT+9&font=unbounded" alt="PROJECT NINE">
+                            <div class="text-and-play-overlay">
+                                <div class="play-icon">▶</div>
+                                <h3 class="text-white mb-1">PROJECT NINE</h3>
+                                <p class="text-slate-200 px-2">ANOTHER COOL VIDEO</p>
+                            </div>
+                        </a>
+                    </div>
+                     <div class="project-card-interactive scroll-reveal-element" data-delay="650"> 
+                        <a href="#" class="video-thumbnail-trigger" data-video-url="YOUR_VIDEO_URL_10_HERE">
+                            <img src="https://placehold.co/300x300/0f0f0f/3f3f3f?text=PROJECT+10&font=unbounded" alt="PROJECT TEN">
+                            <div class="text-and-play-overlay">
+                                <div class="play-icon">▶</div>
+                                <h3 class="text-white mb-1">PROJECT TEN</h3>
+                                <p class="text-slate-200 px-2">THE LATEST WORK</p>
+                            </div>
+                        </a>
+                    </div>
+                     <div class="project-card-interactive scroll-reveal-element" data-delay="700"> 
+                        <a href="#" class="video-thumbnail-trigger" data-video-url="YOUR_VIDEO_URL_11_HERE">
+                            <img src="https://placehold.co/300x300/080808/484848?text=PROJECT+11&font=unbounded" alt="PROJECT ELEVEN">
+                            <div class="text-and-play-overlay">
+                                <div class="play-icon">▶</div>
+                                <h3 class="text-white mb-1">PROJECT ELEVEN</h3>
+                                <p class="text-slate-200 px-2">COMING SOON</p>
+                            </div>
+                        </a>
+                    </div>
 
                 </div>
             </div>
@@ -659,40 +701,32 @@
                 }
             });
              document.body.addEventListener('mouseenter', () => {
-                cursorBurst.style.transform = 'translate(-50%, -50%) scale(1)';
-                cursorBurst.style.opacity = '1';
+                document.body.classList.add('cursor-active');
             });
             document.body.addEventListener('mouseleave', () => {
-                cursorBurst.style.transform = 'translate(-50%, -50%) scale(0)';
-                cursorBurst.style.opacity = '0';
+                 document.body.classList.remove('cursor-active');
             });
 
             interactiveElements.forEach(el => {
                 el.addEventListener('mouseenter', () => {
                     document.body.classList.add('hide-cursor-burst');
                     
-                    // Determina il colore del glow in base allo sfondo dell'elemento
                     const elementRect = el.getBoundingClientRect();
                     const elementCenterY = elementRect.top + elementRect.height / 2;
                     const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
                     
-                    if (elementCenterY > viewportHeight * 0.55) { // Elemento su sfondo più scuro
+                    if (elementCenterY > viewportHeight * 0.55) { 
                          el.classList.add('element-glow-light');
-                    } else { // Elemento su sfondo più chiaro
+                         el.style.textShadow = '0 0 8px rgba(255,255,255,0.6), 0 0 12px rgba(255,255,255,0.4)';
+                    } else { 
                          el.classList.add('element-glow-dark');
+                         el.style.textShadow = '0 0 8px rgba(0,0,0,0.6), 0 0 12px rgba(0,0,0,0.4)';
                     }
-                     // Speciale per view-reel-text-link per text-shadow
-                    if (el.classList.contains('view-reel-text-link')) {
-                        el.style.textShadow = '0 0 10px rgba(255,255,255,0.7), 0 0 18px rgba(255,255,255,0.5)';
-                    }
-
                 });
                 el.addEventListener('mouseleave', () => {
                     document.body.classList.remove('hide-cursor-burst');
                     el.classList.remove('element-glow-light', 'element-glow-dark');
-                     if (el.classList.contains('view-reel-text-link')) {
-                        el.style.textShadow = 'none';
-                    }
+                    el.style.textShadow = '';
                 });
             });
         }
@@ -843,7 +877,7 @@
                 const elementRect = el.getBoundingClientRect();
                 const elementCenterY = elementRect.top + elementRect.height / 2;
                 
-                if (elementCenterY > viewportHeight * 0.6) { 
+                if (elementCenterY > viewportHeight * 0.55) { 
                     el.classList.remove('text-on-light');
                     el.classList.add('text-on-dark');
                 } else if (elementCenterY < viewportHeight * 0.4) { 
@@ -856,8 +890,7 @@
             });
             
             if (mainNav) {
-                const navRect = mainNav.getBoundingClientRect();
-                const navTop = navRect.top; 
+                const navTop = mainNav.getBoundingClientRect().top;
                 let navIsOnDark = false;
 
                 if (window.scrollY > viewportHeight * 0.4 || currentSectionId === 'contact' || (currentSectionId === 'reel' && document.getElementById('reel')?.getBoundingClientRect().top < viewportHeight * 0.3)) {
